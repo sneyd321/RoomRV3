@@ -1,0 +1,199 @@
+{
+  "project_info": {
+    "project_number": "959426188245",
+    "firebase_url": "https://roomr-222721.firebaseio.com",
+    "project_id": "roomr-222721",
+    "storage_bucket": "roomr-222721.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959426188245:android:20ed12f7f44e0b7450a35c",
+        "android_client_info": {
+          "package_name": "com.example.camera_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZNz6yrGRa698IjwKwtOIEk9Bb4F7fC_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "959426188245-bmqokpns709m0j2ltuf696gq005v66ss.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.notifications"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959426188245:android:32150f37668273de50a35c",
+        "android_client_info": {
+          "package_name": "com.example.notification_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZNz6yrGRa698IjwKwtOIEk9Bb4F7fC_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "959426188245-bmqokpns709m0j2ltuf696gq005v66ss.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.notifications"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959426188245:android:24e0a2f4c1b8215b",
+        "android_client_info": {
+          "package_name": "com.example.ryan.roomrep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959426188245-fhl4i2dm48k1k1r95btrhto88dlq4l22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ryan.roomrep",
+            "certificate_hash": "69c38436a0f55d1d09ba4cae38dafdb82fbf2a4e"
+          }
+        },
+        {
+          "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZNz6yrGRa698IjwKwtOIEk9Bb4F7fC_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "959426188245-bmqokpns709m0j2ltuf696gq005v66ss.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.notifications"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959426188245:android:c1e5f2852b4710cc50a35c",
+        "android_client_info": {
+          "package_name": "com.sneydr.roomr_tenant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZNz6yrGRa698IjwKwtOIEk9Bb4F7fC_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "959426188245-bmqokpns709m0j2ltuf696gq005v66ss.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.notifications"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959426188245:android:2ce7381515f56bca50a35c",
+        "android_client_info": {
+          "package_name": "com.sneydr.roomrv2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZNz6yrGRa698IjwKwtOIEk9Bb4F7fC_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959426188245-klupin6i30gs1hkfikr0c2qujp3qieqj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "959426188245-bmqokpns709m0j2ltuf696gq005v66ss.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.notifications"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
