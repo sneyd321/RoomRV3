@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/Card/house_card.dart';
+import 'package:notification_app/widgets/Cards/HouseCard.dart';
 import 'package:notification_app/business_logic/address.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord_info.dart';
@@ -66,8 +66,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/":(context) => const HousesPage(),
-        "/HouseMenu":(context) => HouseMenuPage(),
+        "/":(context) => const HousesPage(houses: []),
         "/AddLeaseViewPager": (context) => const AddLeaseViewPager()
       },
     );

@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/address.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
-import 'package:notification_app/widgets/Forms/Form/RentalAddressForm.dart';
+import 'package:notification_app/widgets/Forms/Form/LandlordAddressForm.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 
-class AddRentalAddressPage extends StatefulWidget {
+class AddLandlordAddressPage extends StatefulWidget {
   final Lease lease;
   final Function(BuildContext context) onNext;
   final Function(BuildContext context) onBack;
-  const AddRentalAddressPage(
+  const AddLandlordAddressPage(
       {Key? key,
       required this.onNext,
       required this.onBack,
       required this.lease})
       : super(key: key);
 
+  
+
   @override
-  State<AddRentalAddressPage> createState() => _AddRentalAddressPageState();
+  State<AddLandlordAddressPage> createState() => _AddLandlordAddressPageState();
 }
 
-class _AddRentalAddressPageState extends State<AddRentalAddressPage> {
+class _AddLandlordAddressPageState extends State<AddLandlordAddressPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final ScrollController scrollController = ScrollController();
 
@@ -30,9 +31,9 @@ class _AddRentalAddressPageState extends State<AddRentalAddressPage> {
       formKey.currentState!.save();
       widget.onNext(context);
     }
-     else {
+    else {
        scrollController.animateTo(
-                        (scrollController.position.maxScrollExtent / 6) * 4 ,
+                        scrollController.position.maxScrollExtent,
                         duration: const Duration(seconds: 2),
                         curve: Curves.fastOutSlowIn,
                       );
@@ -50,12 +51,12 @@ class _AddRentalAddressPageState extends State<AddRentalAddressPage> {
         Expanded(
             child: ListView(
               controller: scrollController,
-          physics: const BouncingScrollPhysics(),
-          children: [RentalAddressForm(
-            rentalAddress: widget.lease.rentalAddress,
+              physics: const BouncingScrollPhysics(), children: [
+          LandlordAddressForm(
+            landlordAddress: widget.lease.landlordAddress,
             formKey: formKey,
           ),
-      ])),
+        ])),
         TwoColumnRow(
             left: SecondaryButton(Icons.chevron_left, "Back", onBack),
             right: PrimaryButton(Icons.chevron_right, "Next", onNext))

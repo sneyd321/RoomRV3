@@ -44,7 +44,8 @@ class MenuItem {
 }
 
 class HouseMenuPage extends StatelessWidget {
-  HouseMenuPage({Key? key}) : super(key: key);
+  final int houseId;
+  HouseMenuPage({Key? key, required this.houseId}) : super(key: key);
 
   final List<MenuItem> menuItems = [
     MenuItem(Icons.group_add_outlined, "Add Tenants"),

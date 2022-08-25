@@ -1,16 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/address.dart';
 import 'package:notification_app/business_logic/lease.dart';
+import 'package:notification_app/business_logic/list_items/deposit.dart';
+import 'package:notification_app/business_logic/rent.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
-import 'package:notification_app/widgets/Forms/Form/RentalAddressForm.dart';
+import 'package:notification_app/widgets/Forms/Form/RentForm.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 
-class AddRentalAddressPage extends StatefulWidget {
+class AddRentPage extends StatefulWidget {
   final Lease lease;
   final Function(BuildContext context) onNext;
   final Function(BuildContext context) onBack;
-  const AddRentalAddressPage(
+  const AddRentPage(
       {Key? key,
       required this.onNext,
       required this.onBack,
@@ -18,24 +20,17 @@ class AddRentalAddressPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<AddRentalAddressPage> createState() => _AddRentalAddressPageState();
+  State<AddRentPage> createState() => _AddRentPageState();
 }
 
-class _AddRentalAddressPageState extends State<AddRentalAddressPage> {
+class _AddRentPageState extends State<AddRentPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final ScrollController scrollController = ScrollController();
 
   void onNext(BuildContext context) {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
+      widget.lease.rentDeposits.insert(0, RentDeposit(widget.lease.rent.baseRent));
       widget.onNext(context);
-    }
-     else {
-       scrollController.animateTo(
-                        (scrollController.position.maxScrollExtent / 6) * 4 ,
-                        duration: const Duration(seconds: 2),
-                        curve: Curves.fastOutSlowIn,
-                      );
     }
   }
 
@@ -48,14 +43,13 @@ class _AddRentalAddressPageState extends State<AddRentalAddressPage> {
     return Column(
       children: [
         Expanded(
-            child: ListView(
-              controller: scrollController,
+            child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          children: [RentalAddressForm(
-            rentalAddress: widget.lease.rentalAddress,
+          child: RentForm(
+            rent: widget.lease.rent,
             formKey: formKey,
           ),
-      ])),
+        )),
         TwoColumnRow(
             left: SecondaryButton(Icons.chevron_left, "Back", onBack),
             right: PrimaryButton(Icons.chevron_right, "Next", onNext))

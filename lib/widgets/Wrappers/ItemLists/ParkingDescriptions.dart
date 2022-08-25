@@ -5,7 +5,7 @@ import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameForm.dart'
 import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.dart';
 
 class ParkingDescriptionsList extends StatefulWidget {
-  final List<ParkingDescription> parkingDescriptions;
+  final List<String> parkingDescriptions;
   const ParkingDescriptionsList({Key? key, required this.parkingDescriptions}) : super(key: key);
 
   @override
@@ -17,16 +17,18 @@ class _ParkingDescriptionsListState extends State<ParkingDescriptionsList> {
   Widget build(BuildContext context) {
     return SliverAddItemGeneratorWrapper(
       shirnkWrap: true,
+      addButtonTitle: "Add Parking",
+      noItemsText: "No Parking Descriptions",
       items: widget.parkingDescriptions, generator: (index) {
-      ParkingDescription parkingDescription = widget.parkingDescriptions[index];
-      return DetailCard(detail: parkingDescription.description, onItemRemoved: (context, parkingDescription) {
+      String parkingDescription = widget.parkingDescriptions[index];
+      return DetailCard(detail: parkingDescription, onItemRemoved: (context, parkingDescription) {
         setState(() {
-          widget.parkingDescriptions.remove(ParkingDescription(parkingDescription));
+          widget.parkingDescriptions.remove(parkingDescription);
         });
       });
     }, form: AddNameForm(names: [], onSave: (context, name) {
       setState(() {
-        widget.parkingDescriptions.add(ParkingDescription(name));
+        widget.parkingDescriptions.add(name);
       });
     },));
   }

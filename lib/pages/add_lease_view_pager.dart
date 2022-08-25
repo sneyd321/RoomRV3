@@ -59,13 +59,13 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
     if (currentPage < MAX_PAGE) {
       currentPage += 1;
     }
+
     animateToPage(currentPage);
   }
 
   void onBack(BuildContext context) {
-    if (currentPage <= 0) {
-      Navigator.of(context).pop();
-    }
+    if (currentPage <= 0) {}
+
     currentPage -= 1;
     animateToPage(currentPage);
   }
@@ -91,7 +91,12 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
                   physics: const NeverScrollableScrollPhysics(),
                   controller: controller,
                   children: [
-                    
+                    AddTenantNamesPage(
+                        onNext: (context) {
+                          Navigator.popUntil(context, ModalRoute.withName('/'));
+                        },
+                        onBack: onBack,
+                        lease: lease),
                     AddLandlordInfoPage(
                       lease: lease,
                       onNext: onNext,
@@ -107,7 +112,6 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
                       onNext: onNext,
                       onBack: onBack,
                     ),
-                    
                     AddRentPage(
                       lease: lease,
                       onNext: onNext,
@@ -128,8 +132,6 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
                         onNext: onNext, onBack: onBack, lease: lease),
                     AddAdditionalTermsPage(
                         onNext: onNext, onBack: onBack, lease: lease),
-                    AddTenantNamesPage(
-                        onNext: onNext, onBack: onBack, lease: lease)
                   ],
                 ),
               ),

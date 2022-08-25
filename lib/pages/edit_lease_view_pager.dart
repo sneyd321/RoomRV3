@@ -1,23 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lease_generation/business_logic/address.dart';
-import 'package:lease_generation/business_logic/fields/field.dart';
-import 'package:lease_generation/business_logic/lease.dart';
-import 'package:lease_generation/business_logic/list_items/additional_term.dart';
-import 'package:lease_generation/business_logic/list_items/rent_discount.dart';
-import 'package:lease_generation/business_logic/list_items/service.dart';
-import 'package:lease_generation/business_logic/list_items/tenant_name.dart';
-import 'package:lease_generation/business_logic/list_items/utility.dart';
-import 'package:lease_generation/business_logic/tenancy_terms.dart';
-import 'package:lease_generation/services/network.dart';
-import 'package:lease_generation/widgets/Buttons/PrimaryButton.dart';
-import 'package:lease_generation/widgets/Buttons/SecondaryButton.dart';
-import 'package:lease_generation/widgets/Forms/BottomSheetForm/AddNameAmountForm.dart';
-import 'package:lease_generation/widgets/Forms/BottomSheetForm/AddNameForm.dart';
-import 'package:lease_generation/widgets/Forms/PageForm/LandlordAddressForm.dart';
-import 'package:lease_generation/widgets/Forms/PageForm/RentForm.dart';
-import 'package:lease_generation/widgets/Forms/PageForm/RentalAddressForm.dart';
-import 'package:lease_generation/widgets/Forms/PageForm/TenancyTermsForm.dart';
-import 'package:lease_generation/widgets/Wrappers/SliverAddItemStateWrapper.dart';
+import 'package:notification_app/business_logic/lease.dart';
 import 'package:provider/provider.dart';
 
 import '../business_logic/rent.dart';

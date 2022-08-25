@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
-import 'package:notification_app/business_logic/lease.dart';
-import 'package:notification_app/services/mutation_factory.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
+import 'package:notification_app/widgets/Queries/houses_query.dart';
 import 'package:notification_app/widgets/mutations/add_house_mutation.dart';
 
 class GraphQLPage extends StatefulWidget {
@@ -25,8 +23,6 @@ class _GraphQLPageState extends State<GraphQLPage> {
     ),
   );
 
-  
-
   String id = "";
 
   @override
@@ -38,15 +34,6 @@ class _GraphQLPageState extends State<GraphQLPage> {
                 appBar: AppBar(
                   title: const Text("Documents"),
                 ),
-                body: Column(
-                  children: [
-                    Expanded(child: Text(id)),
-                    AddHouseMutation(onComplete: ((context, houseId) {
-                      setState(() {
-                        id = houseId.toString();
-                      });
-                    }), house: house)
-                  ],
-                ))));
+                body: HousesQuery())));
   }
 }

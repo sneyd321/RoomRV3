@@ -32,7 +32,7 @@ class _AddRentalAddressPageState extends State<AddRentalAddressPage> {
     }
      else {
        scrollController.animateTo(
-                        (scrollController.position.maxScrollExtent / 6) * 4 ,
+                        scrollController.position.maxScrollExtent,
                         duration: const Duration(seconds: 2),
                         curve: Curves.fastOutSlowIn,
                       );
