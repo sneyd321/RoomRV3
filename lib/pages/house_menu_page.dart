@@ -1,11 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notification_app/business_logic/house.dart';
+import 'package:notification_app/pages/add_tenant_page.dart';
+import 'package:notification_app/pages/edit_lease_view_pager.dart';
 
 class MenuItemCard extends StatelessWidget {
   final IconData icon;
   final String label;
+  final House house;
 
-  const MenuItemCard({Key? key, required this.icon, required this.label})
+  const MenuItemCard({Key? key, required this.icon, required this.label, required this.house})
       : super(key: key);
 
   @override
@@ -28,9 +31,14 @@ class MenuItemCard extends StatelessWidget {
         ]),
       ),
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(label),
-        ));
+        switch (label) {
+          case "Add Tenants":
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddTenantPage(house: house)));
+            break;
+          case "Edit Lease":
+            Navigator.push(context, MaterialPageRoute(builder: (context) => EditLeaseStatePager(house: house)));
+            break;
+        }
       },
     );
   }
@@ -39,18 +47,29 @@ class MenuItemCard extends StatelessWidget {
 class MenuItem {
   final IconData iconData;
   final String label;
+  final House house;
 
-  MenuItem(this.iconData, this.label);
+  MenuItem(this.iconData, this.label, this.house);
 }
 
-class HouseMenuPage extends StatelessWidget {
-  final int houseId;
-  HouseMenuPage({Key? key, required this.houseId}) : super(key: key);
+class HouseMenuPage extends StatefulWidget {
+  final House house;
+  const HouseMenuPage({Key? key, required this.house}) : super(key: key);
 
-  final List<MenuItem> menuItems = [
-    MenuItem(Icons.group_add_outlined, "Add Tenants"),
-    MenuItem(Icons.assignment, "Create Lease")
-  ];
+  @override
+  State<HouseMenuPage> createState() => _HouseMenuPageState();
+}
+
+class _HouseMenuPageState extends State<HouseMenuPage> {
+  final List<MenuItem> menuItems = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    menuItems.add(MenuItem(Icons.group_add_outlined, "Add Tenants", widget.house));
+    menuItems.add(MenuItem(Icons.assignment, "Edit Lease", widget.house));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +81,9 @@ class HouseMenuPage extends StatelessWidget {
               itemCount: menuItems.length,
               itemBuilder: (context, index) {
                 MenuItem menuItem = menuItems[index];
+
                 return MenuItemCard(
-                    icon: menuItem.iconData, label: menuItem.label);
+                    icon: menuItem.iconData, label: menuItem.label, house: menuItem.house,);
               },
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2),

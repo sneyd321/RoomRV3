@@ -5,6 +5,10 @@ class EmailInfo extends ChangeNotifier {
 
   EmailInfo(this.email);
 
+  EmailInfo.fromJson(Map<String, dynamic> json) {
+    email = json["email"];
+  }
+
   void setEmail(String email) {
     this.email = email;
     notifyListeners();

@@ -28,31 +28,32 @@ class _AddEmailFormState extends State<AddEmailForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(bottom: 8),
-              child: SuggestedFormField(
-                textEditingController: TextEditingController(),
-                label: "Email",
-                icon: Icons.label,
-                onSaved: (String? value) {
-                  email = value!;
-                },
-                onValidate: (String? value) {
-                  return Email(value!).validate();
-                },
-                suggestedNames: widget.names
+        key: formKey,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                child: SuggestedFormField(
+                  textEditingController: TextEditingController(),
+                  label: "Email",
+                  icon: Icons.label,
+                  onSaved: (String? value) {
+                    email = value!;
+                  },
+                  onValidate: (String? value) {
+                    return Email(value!).validate();
+                  },
+                  suggestedNames: widget.names
+                ),
               ),
-            ),
-            FormAddButtonRow(formKey: formKey, onAdd: (BuildContext context) {
-              widget.onSave(context, email);
-            })
-            
-          ]),
+              FormAddButtonRow(formKey: formKey, onAdd: (BuildContext context) {
+                widget.onSave(context, email);
+              })
+              
+            ]),
+ 
     );
   }
 }

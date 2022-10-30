@@ -5,6 +5,11 @@ class Contact extends ChangeNotifier {
 
   Contact(this.contact);
 
+  Contact.fromJson(Map<String, dynamic> json) {
+    print(json);
+    contact = json["contact"];
+  }
+
   void setContact(String contact) {
     this.contact = contact;
     notifyListeners();

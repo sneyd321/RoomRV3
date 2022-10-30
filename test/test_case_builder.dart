@@ -45,7 +45,7 @@ class TestCaseBuilder {
   }
 
   Future<TestCaseBuilder> tapCloseIcon() async {
-    await tester.tap(find.byIcon(Icons.close));
+    await tester.tap(find.byIcon(Icons.close).first);
     await tester.pumpAndSettle();
     return this;
   }

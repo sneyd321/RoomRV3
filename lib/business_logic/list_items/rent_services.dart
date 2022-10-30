@@ -33,5 +33,8 @@ class CustomRentService extends RentService {
     this.amount = amount;
   }
 
-   CustomRentService.fromJson(Map<String, dynamic> json) : super();
+   CustomRentService.fromJson(Map<String, dynamic> json) {
+    name = json["name"];
+    amount = json["amount"];
+   }
 }

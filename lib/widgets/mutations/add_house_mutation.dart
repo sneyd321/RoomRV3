@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/lease.dart';
+import 'package:notification_app/services/FirebaseConfig.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 
 class AddHouseMutation extends StatefulWidget {
@@ -17,14 +19,22 @@ class AddHouseMutation extends StatefulWidget {
 }
 
 class _AddHouseMutationState extends State<AddHouseMutation> {
-  House house = House();
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    house.firebaseId = "abc123";
+  }
+
+  Future<House> setFirebaseId() async {
+    FirebaseConfiguration firebaseConfiguration = FirebaseConfiguration();
+    CollectionReference collection = firebaseConfiguration.getDB().collection("House");
+    DocumentReference reference = await collection.add({"notifications": []});
+    House house = House();
+    house.firebaseId = reference.id;
     house.lease = widget.lease;
+    return house;
   }
 
   AlertDialog alert = AlertDialog(
@@ -68,8 +78,9 @@ class _AddHouseMutationState extends State<AddHouseMutation> {
         return PrimaryButton(
           Icons.upload,
           "Upload",
-          (context) {
-            runMutation({'id': 3, 'houseInput': house.toJson()});
+          (context) async {
+            House house = await setFirebaseId();
+            runMutation({'id': 4, 'houseInput': house.toJson()});
             showDialog(
               barrierDismissible: false,
               context: context,

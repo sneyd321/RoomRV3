@@ -6,6 +6,10 @@ class TenantName extends ChangeNotifier {
 
   TenantName(this.name);
 
+  TenantName.fromJson(Map<String, dynamic> json) {
+    name = json["name"];
+  }
+
   Map<String, dynamic> toJson() {
     return {
        "name": name

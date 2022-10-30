@@ -1,221 +1,111 @@
-import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/lease.dart';
-import 'package:provider/provider.dart';
 
-import '../business_logic/rent.dart';
+import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/business_logic/house.dart';
+import 'package:notification_app/business_logic/lease.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_additional_terms_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_landlord_address_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_landlord_info_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_rent_deposit_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_rent_discount_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_rent_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_rental_address_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_services_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_tenancy_terms_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_tenant_names_page.dart';
+import 'package:notification_app/pages/edit_lease_pages/update_utilities_page.dart';
+import 'package:notification_app/services/graphql_client.dart';
+import 'package:notification_app/services/notification/lease_connection_notification.dart';
+import 'package:notification_app/widgets/mutations/generate_lease_mutation.dart';
+
 
 class EditLeaseStatePager extends StatefulWidget {
-  final Lease lease;
-  const EditLeaseStatePager({Key? key, required this.lease}) : super(key: key);
+  final House house;
+  const EditLeaseStatePager({Key? key, required this.house}) : super(key: key);
 
   @override
   State<EditLeaseStatePager> createState() => _EditLeaseStatePagerState();
 }
 
 class _EditLeaseStatePagerState extends State<EditLeaseStatePager> {
-  final GlobalKey<FormState> landlordAddressFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> rentalAddressFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> rentFormKey = GlobalKey();
-  final GlobalKey<FormState> tenancyTermsFormKey = GlobalKey();
-  final Network network = Network();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+  onUpdate(BuildContext context) {}
+
+  
+
+
+ 
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 9,
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.location_on)),
-              Tab(icon: Icon(Icons.home)),
-              Tab(icon: Icon(Icons.monetization_on)),
-              Tab(icon: Icon(Icons.date_range)),
-              Tab(icon: Icon(Icons.home_repair_service)),
-              Tab(icon: Icon(Icons.electrical_services)),
-              Tab(icon: Icon(Icons.discount)),
-              Tab(icon: Icon(Icons.assignment)),
-              Tab(icon: Icon(Icons.account_circle)),
-            ],
-          ),
-          title: const Text("Edit Lease"),
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: TabBarView(
-                children: [
-                  LandlordAddressForm(
-                    formKey: landlordAddressFormKey,
-                    landlordAddress: widget.lease.landlordAddress,
-                  ),
-                  RentalAddressForm(
-                    formKey: rentalAddressFormKey,
-                    rentalAddress: widget.lease.rentalAddress,
-                  ),
-                  RentForm(
-                    formKey: rentFormKey,
-                    rent: widget.lease.rent,
-                  ),
-                  TenancyTermsForm(
-                    formKey: tenancyTermsFormKey,
-                    tenancyTerms: widget.lease.tenancyTerms,
-                  ),
-                  SliverAddItemStateWrapper(
-                    items: widget.lease.services,
-                    card: 'Service',
-                    form: AddNameForm(
-                      names: const [],
-                      onSave: (context, Field name) {
-                        setState(() {
-                          widget.lease.services
-                              .add(CustomPayPerUseService(name));
-                        });
-                      },
-                    ),
-                    addButtonTitle: "Add Service",
-                  ),
-                  SliverAddItemStateWrapper(
-                    card: "Utility",
-                    items: widget.lease.utilities,
-                    form: AddNameForm(
-                      names: [],
-                      onSave: (context, Field name) {
-                        setState(() {
-                          widget.lease.utilities.add(CustomUtility(name));
-                        });
-                      },
-                    ),
-                    addButtonTitle: "Add Utility",
-                  ),
-                  SliverAddItemStateWrapper(
-                    card: "RentDiscount",
-                    items: widget.lease.rentDiscounts,
-                    form: AddNameAmountForm(
-                      names: [],
-                      onSave: (context, name, amount) {
-                        setState(() {
-                          widget.lease.rentDiscounts
-                              .add(CustomRentDiscount(name, amount));
-                        });
-                      },
+    return GraphQLProvider(
+      client: GQLClient().getClient(),
+      child: DefaultTabController(
+          length: 11,
+          child: Scaffold(
+              appBar: AppBar(
+                bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(20.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: const TabBar(
+                        isScrollable: true,
+                        tabs: [
+                          Tab(icon: Icon(Icons.account_circle)),
+                          Tab(icon: Icon(Icons.location_on)),
+                          Tab(icon: Icon(Icons.home)),
+                          Tab(icon: Icon(Icons.monetization_on)),
+                          Tab(icon: Icon(Icons.date_range)),
+                          Tab(icon: Icon(Icons.home_repair_service)),
+                          Tab(icon: Icon(Icons.electrical_services)),
+                          Tab(icon: Icon(Icons.discount)),
+                          Tab(
+                            icon: Icon(Icons.money),
+                          ),
+                          Tab(icon: Icon(Icons.assignment)),
+                          Tab(icon: Icon(Icons.group)),
+                        ],
+                      ),
                     ),
                   ),
-                  SliverAddItemStateWrapper(
-                    items: widget.lease.additionalTerms,
-                    card: "AdditionalTerm",
-                    addButtonTitle: "Add Term",
-                    form: AddNameForm(
-                      onSave: (context, Field name) {
-                        setState(() {
-                          widget.lease.additionalTerms.add(CustomTerm(name));
-                        });
-                      },
-                      names: const [],
-                    ),
-                  ),
-                  SliverAddItemStateWrapper(
-                    items: widget.lease.tenantNames,
-                    card: "TenantName",
-                    addButtonTitle: "Add Tenant",
-                    form: AddNameForm(
-                      onSave: (context, Field name) {
-                        setState(() {
-                          widget.lease.tenantNames.add(TenantName(name));
-                        });
-                      },
-                      names: const [],
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-            SecondaryButton(Icons.update, "Update", (context) async {
-              switch (DefaultTabController.of(context)!.index) {
-                case 0:
-                  if (landlordAddressFormKey.currentState!.validate()) {
-                    landlordAddressFormKey.currentState!.save();
-                    LandlordAddress landlordAddress =
-                        await network.updateLandlordAddress(
-                            widget.lease.leaseId, widget.lease.landlordAddress);
-                    widget.lease.setLandlordAddress(landlordAddress);
-                    setState(() {});
-                  }
-
-                  break;
-                case 1:
-                  if (rentalAddressFormKey.currentState!.validate()) {
-                    rentalAddressFormKey.currentState!.save();
-                    RentalAddress rentalAddress =
-                        await network.updateRentalAddress(
-                            widget.lease.leaseId, widget.lease.rentalAddress);
-                    widget.lease.setRentalAddress(rentalAddress);
-                    setState(() {});
-                  }
-                  break;
-                case 2:
-                  if (rentFormKey.currentState!.validate()) {
-                    rentFormKey.currentState!.save();
-                    Rent rent = await network.updateRent(
-                        widget.lease.leaseId, widget.lease.rent);
-                    widget.lease.setRent(rent);
-                    setState(() {});
-                  }
-                  break;
-                case 3:
-                  if (tenancyTermsFormKey.currentState!.validate()) {
-                    tenancyTermsFormKey.currentState!.save();
-                    TenancyTerms tenancyTerms =
-                        await network.updateTenancyTerms(
-                            widget.lease.leaseId, widget.lease.tenancyTerms);
-                    widget.lease.setTenancyTerms(tenancyTerms);
-                    setState(() {});
-                  }
-                  break;
-                case 4:
-                  List<Service> services = await network.updateServices(
-                      widget.lease.leaseId, widget.lease.services);
-                  widget.lease.setServices(services);
-                  setState(() {});
-                  break;
-                case 5:
-                  List<Utility> utilities = await network.updateUtilities(
-                      widget.lease.leaseId, widget.lease.utilities);
-                  widget.lease.setUtilities(utilities);
-                  setState(() {});
-                  break;
-                case 6:
-                  List<RentDiscount> rentDiscounts = await network.updateRentDiscounts(
-                      widget.lease.leaseId, widget.lease.rentDiscounts);
-                  widget.lease.setRentDiscounts(rentDiscounts);
-                  setState(() {});
-                  break;
-                case 7:
-                  List<AdditionalTerm> additionalTerms = await network.updateAdditionalTerms(
-                      widget.lease.leaseId, widget.lease.additionalTerms);
-                  widget.lease.setAdditionalTerms(additionalTerms);
-                  setState(() {});
-                  break;
-                case 8:
-                  List<TenantName> tenantNames = await network.updateTenantNames(
-                      widget.lease.leaseId, widget.lease.tenantNames);
-                  widget.lease.setTenantNames(tenantNames);
-                  setState(() {});
-                  break;
-              }
-            }),
-            PrimaryButton(Icons.check, "Finalize", (context) {
-              print(widget.lease.leaseId);
-            })
-          ],
-        ),
-      ),
+              body: Column(children: [
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      UpdateLandlordInfoPage(
+                          onUpdate: onUpdate, lease: widget.house.lease),
+                      UpdateLandlordAddressPage(
+                        onUpdate: onUpdate,
+                        lease: widget.house.lease,
+                      ),
+                      UpdateRentalAddressPage(
+                          onUpdate: onUpdate, lease: widget.house.lease),
+                      UpdateRentPage(onUpdate: onUpdate, lease: widget.house.lease),
+                      UpdateTenancyTermsPage(
+                          onUpdate: onUpdate, lease: widget.house.lease),
+                      UpdateServicesPage(onUpdate: onUpdate, lease: widget.house.lease),
+                      UpdateUtilityPage(onUpdate: onUpdate, lease: widget.house.lease),
+                      UpdateRentDiscountPage(
+                          onUpdate: onUpdate, lease: widget.house.lease),
+                      UpdateRentDepositPage(
+                          onUpdate: onUpdate, lease: widget.house.lease),
+                      UpdateAdditionalTermsPage(
+                          onUpdate: onUpdate, lease: widget.house.lease),
+                      UpdateTenantNamesPage(
+                          onUpdate: onUpdate, lease: widget.house.lease)
+                    ],
+                  ),
+                ),
+                 GenerateLeaseMutation(houseId: widget.house.houseId, lease: widget.house.lease, firebaseId: widget.house.firebaseId, onComplete: (BuildContext context, int houseId) async { 
+                  //LeaseConnectionNotification leaseConnectionNotification = LeaseConnectionNotification();
+                  //leaseConnectionNotification.showNotification();
+                 },)
+                
+              ]))),
     );
   }
 }

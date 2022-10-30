@@ -9,6 +9,12 @@ abstract class Utility extends ChangeNotifier {
   String responsibility = "Tenant";
   List<Detail> details = [];
 
+  Utility.fromJson(Map<String, dynamic> json) {
+    name = json["name"];
+    responsibility = json["responsibility"];
+    details = json["details"].map<Detail>((json) => Detail.fromJson(json)).toList();
+  }
+
   Utility() {
     details.add(Detail("Tenant sets up account with $name provider and pays the utiltiy provider"));
     details.add(Detail("Tenant pays a portion of the $name costs"));
@@ -72,6 +78,12 @@ class InternetUtility extends Utility {
 class CustomUtility extends Utility {
   CustomUtility(String name) : super() {
     this.name = name;
+  }
+  
+  CustomUtility.fromJson(Map<String, dynamic> json) {
+    name = json["name"];
+    responsibility = json["responsibility"];
+    details = json["details"].map<Detail>((json) => Detail.fromJson(json)).toList();
   }
 
 }

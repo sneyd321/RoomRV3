@@ -15,9 +15,7 @@ class CardSliverGridView extends StatefulWidget {
 class _CardSliverGridViewState extends State<CardSliverGridView> {
   @override
   Widget build(BuildContext context) {
-    final double itemHeight =
-        (MediaQuery.of(context).size.height - kToolbarHeight - 24) / widget.heightRatio;
-    final double itemWidth = MediaQuery.of(context).size.width / widget.widthRatio;
+
     return CustomScrollView(
           slivers: [
             SliverGrid(
@@ -25,10 +23,10 @@ class _CardSliverGridViewState extends State<CardSliverGridView> {
                 childCount: widget.items.length,
                 ),
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200.0,
+                  maxCrossAxisExtent: (MediaQuery.of(context).size.width) / 2,
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 10.0,
-                  childAspectRatio: (itemWidth / itemHeight)
+                  childAspectRatio: 0.5
                 ))
           ],
         );

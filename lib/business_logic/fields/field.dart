@@ -145,7 +145,7 @@ class RentMadePayableTo extends Field {
   @override
   String? validate() {
     if (value.isEmpty) {
-      return "Please enter who rent is made payable to";
+      return "Please enter who rent is made payable to.";
     }
     return null;
   }
@@ -161,4 +161,96 @@ class Email extends Field {
     }
     return null;
   }
+}
+
+class FirstName extends Field {
+  FirstName(String value) : super(value);
+
+  @override
+  String? validate() {
+    if (value.isEmpty) {
+      return "Please enter a first name.";
+    }
+    return null;
+  }
+
+}
+
+class LastName extends Field {
+  LastName(String value) : super(value);
+
+  @override
+  String? validate() {
+    if (value.isEmpty) {
+      return "Please enter a last name.";
+    }
+    return null;
+  }
+
+}
+
+
+class Password extends Field {
+  Password(String value) : super(value);
+
+  @override
+  String? validate() {
+    if (value.isEmpty) {
+      return "Please enter a password";
+    }
+    return null;
+  }
+}
+
+class ReTypePassword extends Field {
+  ReTypePassword(String value) : super(value);
+
+  @override
+  String? validate() {
+    if (value.isEmpty) {
+      return "Please enter your password again";
+    }
+    return null;
+  }
+
+  @override
+  String? validatePassword(String password) {
+    if (value.isEmpty) {
+      return "Please enter your password again";
+    }
+    if (value != password) {
+      return "Please enter the same password";
+    }
+    return null;
+  }
+  
+
+
+}
+
+class HouseKey extends Field {
+  HouseKey(String value) : super(value);
+
+  @override
+  String? validate() {
+    if (value.isEmpty) {
+      return "Please enter a house key.";
+    }
+    return null;
+  }
+
+
+}
+
+class CommentField extends Field {
+  CommentField(String value) : super(value);
+
+  @override
+  String? validate() {
+    if (value.isEmpty) {
+      return "Please enter a comment";
+    }
+    return null;
+  }
+
 }

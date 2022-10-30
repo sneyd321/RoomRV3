@@ -49,8 +49,8 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
 
   void onSuggestedAddress(
       BuildContext context, SuggestedAddress suggestedAddress) async {
-    RentalAddress address =
-        await Network().getRentalAddress(suggestedAddress.placesId);
+    PredictedAddress address =
+        await Network().getPredictedAddress(suggestedAddress.placesId);
 
     setState(() {
       streetNumberTextEditingController.text = address.streetNumber;

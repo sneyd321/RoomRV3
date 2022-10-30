@@ -11,6 +11,14 @@ class LandlordInfo extends ChangeNotifier {
 
   LandlordInfo();
 
+  LandlordInfo.fromJson(Map<String, dynamic> json) {
+    fullName = json["fullName"];
+    receiveDocumentsByEmail = json["receiveDocumentsByEmail"];
+    emails = json["emails"].map<EmailInfo>((json)=> EmailInfo.fromJson(json)).toList();
+    contactInfo = json["contactInfo"];
+    contacts = json["contacts"].map<Contact>((json) => Contact.fromJson(json)).toList();
+  }
+
 
   Map<String, dynamic> toJson() {
     return {

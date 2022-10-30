@@ -5,7 +5,6 @@ import 'package:notification_app/business_logic/fields/number_field.dart';
 import 'package:notification_app/business_logic/rent.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/PaymentOptionsList.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/RentServicesList.dart';
-import 'package:provider/provider.dart';
 
 import '../../FormFields/SimpleFormField.dart';
 import '../../Helper/TextHelper.dart';
@@ -45,7 +44,7 @@ class _RentFormState extends State<RentForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Rent>(builder: (BuildContext context, Rent rent, child) {
+    
       return Form(
         key: widget.formKey,
         child: Column(children: [
@@ -71,7 +70,11 @@ class _RentFormState extends State<RentForm> {
                   
                 },
                 onChanged: (value) {
-                  rent.setBaseRent(value);
+                  setState(() {
+                    widget.rent.setBaseRent(value);
+                    widget.rent.getTotalLawfulRent();
+                  });
+                  
                 },
                 validator: (String? value) {
                   return BaseRent(value).validate();
@@ -92,14 +95,21 @@ class _RentFormState extends State<RentForm> {
               return RentMadePayableTo(value!).validate();
             },
           ),
-          TextHelper(text: "Total Lawful rent: \$${rent.getTotalLawfulRent()}"),
-          RentServicesList(rent: rent),
+          TextHelper(text: "Total Lawful Rent: \$${widget.rent.getTotalLawfulRent()}"),
+          RentServicesList(rent: widget.rent, onAddRentService: ((context, rentService) {
+            setState(() {
+              widget.rent.getTotalLawfulRent();
+            });
+          }), onRemoveRentService: (context, rentService) {  
+            setState(() {
+              widget.rent.getTotalLawfulRent();
+            });
+          },),
           const TextHelper(
               text: "Rent will be paid using the following methods:"),
-          PaymentOptionsList(paymentOptions: rent.paymentOptions),
+          PaymentOptionsList(paymentOptions: widget.rent.paymentOptions),
           
         ]),
       );
-    });
   }
 }

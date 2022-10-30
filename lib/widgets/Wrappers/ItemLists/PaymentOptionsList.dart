@@ -18,6 +18,8 @@ class _PaymentOptionsListState extends State<PaymentOptionsList> {
   Widget build(BuildContext context) {
     return SliverAddItemGeneratorWrapper(
       shirnkWrap: true,
+      addButtonTitle: "Add Payment",
+      noItemsText: "No Payment Options",
       items: widget.paymentOptions, generator: (index) {
       PaymentOption paymentOption = widget.paymentOptions[index];
       return PaymentOptionCard(paymentOption: paymentOption, onItemRemoved: (context, paymentOption) {

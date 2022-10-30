@@ -1,3 +1,5 @@
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/business_logic/suggested_address.dart';
@@ -44,10 +46,10 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
 
   void onSuggestedAddress(
       BuildContext context, SuggestedAddress suggestedAddress) async {
-    LandlordAddress address =
-        await Network().getLandlordAddress(suggestedAddress.placesId);
-
+    PredictedAddress address =
+        await Network().getPredictedAddress(suggestedAddress.placesId);
     setState(() {
+     
       streetNumberTextEditingController.text = address.streetNumber;
       streetNameTextEditingController.text = address.streetName;
       cityTextEditingController.text = address.city;
@@ -61,7 +63,7 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
   @override
   void initState() {
     super.initState();
-    streetNumberTextEditingController.text = widget.landlordAddress.streetName;
+    streetNumberTextEditingController.text = widget.landlordAddress.streetNumber;
     streetNameTextEditingController.text = widget.landlordAddress.streetName;
     cityTextEditingController.text = widget.landlordAddress.city;
     provinceTextEditingController.text = widget.landlordAddress.province;

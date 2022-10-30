@@ -11,6 +11,12 @@ abstract class Deposit extends ChangeNotifier {
 
   Deposit();
 
+  Deposit.fromJson(Map<String, dynamic> json) {
+    name = json["name"];
+    amount = json["amount"];
+    details = json["details"].map<Detail>((json) => Detail.fromJson(json)).toList();
+  }
+
   Map<String, dynamic> toJson() {
       return {
         "name": name,
@@ -102,5 +108,11 @@ class CustomDeposit extends Deposit {
     this.name = name;
     this.amount = amount;
   }
+    CustomDeposit.fromJson(Map<String, dynamic> json): super() {
+       name = json["name"];
+      amount = json["amount"];
+      details = json["details"].map<Detail>((json) => Detail.fromJson(json)).toList();
+    }
+
 
 }

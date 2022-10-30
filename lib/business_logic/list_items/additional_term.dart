@@ -5,9 +5,13 @@ import 'package:notification_app/business_logic/list_items/detail.dart';
 abstract class AdditionalTerm extends ChangeNotifier {
   String name = "";
   List<Detail> details = [];
-  bool isRequired = false;
 
   AdditionalTerm();
+
+  AdditionalTerm.fromJson(Map<String, dynamic> json) {
+    name = json["name"];
+    details = json["details"].map<Detail>((json) => Detail.fromJson(json)).toList();
+  }
 
   Map<String, dynamic> toJson() =>
       {"name": name, "details": details.map((Detail detail) => detail.toJson()).toList()};
@@ -27,6 +31,11 @@ class CustomTerm extends AdditionalTerm {
   CustomTerm(String name) : super() {
     this.name = name;
   }
+  CustomTerm.fromJson(Map<String, dynamic> json): super() {
+     name = json["name"];
+    details = json["details"].map<Detail>((json) => Detail.fromJson(json)).toList();
+  }
+
 }
 
 class PostDatedChequesTerm extends AdditionalTerm {

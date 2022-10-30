@@ -10,14 +10,6 @@ abstract class Address extends ChangeNotifier {
 
   Address();
 
-  Address.fromJson(Map<String, dynamic> json) {
-    streetNumber = json["streetNumber"];
-    streetName = json["streetName"];
-    city = json["city"];
-    province = json["province"];
-    postalCode = json["postalCode"];
-  }
-
   Map<String, dynamic> toJson();
 
   String getPrimaryAddress() {
@@ -53,6 +45,28 @@ abstract class Address extends ChangeNotifier {
   }
 }
 
+class PredictedAddress extends Address {
+  PredictedAddress.fromJson(Map<String, dynamic> json) {
+    streetNumber = json["streetNumber"];
+    streetName = json["streetName"];
+    city = json["city"];
+    province = json["province"];
+    postalCode = json["postalCode"];
+  }
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "streetNumber": streetNumber,
+      "streetName": streetName,
+      "city": city,
+      "province": province,
+      "postalCode": postalCode
+    };
+  }
+
+
+}
+
 class LandlordAddress extends Address {
   String unitNumber = "";
   String poBox = "";
@@ -65,9 +79,11 @@ class LandlordAddress extends Address {
     city = json["city"];
     province = json["province"];
     postalCode = json["postalCode"];
+    unitNumber = json["unitNumber"];
+    poBox = json["poBox"];
   }
 
-
+  @override
   Map<String, dynamic> toJson() {
     return {
       "streetNumber": streetNumber,
@@ -104,8 +120,12 @@ class RentalAddress extends Address {
     city = json["city"];
     province = json["province"];
     postalCode = json["postalCode"];
+    isCondo = json["isCondo"];
+    unitName = json["unitName"];
+    parkingDescriptions = json["parkingDescriptions"].map<ParkingDescription>((json) => ParkingDescription.fromJson(json)).toList();
   }
 
+  @override
   Map<String, dynamic> toJson() => {
         "streetNumber": streetNumber,
         "streetName": streetName,

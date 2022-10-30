@@ -1,0 +1,123 @@
+class Queries {
+  String getQuery(String name) {
+    switch (name) {
+      case "getHouses":
+        return getHouses();
+    }
+    return "";
+  }
+
+  String getHouses() {
+    return r"""query getHouses($id: Int!) {
+        getHouses(id: $id) {
+          houseKey,
+          id, 
+          firebaseId,
+          lease {
+            id,
+            documentName,
+            documentURL
+            landlordInfo {
+            fullName,
+            receiveDocumentsByEmail,
+            emails {
+              email
+            },
+            contactInfo,
+            contacts {
+                contact
+              }
+            },
+          landlordAddress{
+            streetNumber,
+            streetName,
+            city,
+            province,
+            postalCode,
+            unitNumber,
+            poBox
+          },
+          rentalAddress {
+              streetNumber,
+              streetName,
+              city,
+              province,
+              postalCode,
+              unitName,
+              isCondo,
+              parkingDescriptions {
+                description
+              }
+          },
+          rent {
+            baseRent,
+            rentMadePayableTo,
+            rentServices {
+                name,
+                amount
+            },
+            paymentOptions {
+              name
+            }
+          },
+          tenancyTerms {
+            rentalPeriod {
+                rentalPeriod,
+                endDate
+            },
+            startDate,
+            rentDueDate,
+            paymentPeriod,
+            partialPeriod {
+                amount,
+                dueDate,
+                startDate,
+                endDate,
+                isEnabled
+            }
+          },
+          services {
+            name,
+            isIncludedInRent,
+            isPayPerUse,
+              details {
+                detail
+              }
+          }
+          utilities {
+            name,
+            responsibility,
+            details {
+              detail
+            }
+          }
+          rentDiscounts {
+            name,
+            amount,
+            details {
+              detail
+            }   
+          }
+          rentDeposits {
+            name,
+            amount,
+            details {
+              detail
+            }
+          }
+          additionalTerms {
+            name,
+            details {
+              detail
+            }
+          },
+          tenantNames {
+            name
+          }
+    
+          }
+        }
+      }
+      """;
+  }
+}

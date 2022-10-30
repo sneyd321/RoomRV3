@@ -9,6 +9,8 @@ abstract class PaymentOption extends ChangeNotifier {
     name = json["name"];
   }
 
+  
+
   void setName(String name) {
     this.name = name;
     notifyListeners();
@@ -27,7 +29,9 @@ class CustomPaymentOption extends PaymentOption {
     this.name = name;
   }
 
-  CustomPaymentOption.fromJson(Map<String, dynamic> json) : super();
+  CustomPaymentOption.fromJson(Map<String, dynamic> json){
+    name = json["name"];
+  }
 }
 
 class CashPaymentOption extends PaymentOption {

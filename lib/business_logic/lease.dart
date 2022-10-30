@@ -15,7 +15,6 @@ class Lease {
   String documentName = "2229E Residential Tenancy Agreement";
   String? documentURL;
   int leaseId = 0;
-  int houseId = 0;
   LandlordInfo landlordInfo = LandlordInfo();
   LandlordAddress landlordAddress = LandlordAddress();
   RentalAddress rentalAddress = RentalAddress();
@@ -63,6 +62,23 @@ class Lease {
   List<TenantName> tenantNames = [];
 
   Lease();
+
+  Lease.fromJson(Map<String, dynamic> json) {
+    leaseId = json["id"];
+    documentName = json["documentName"];
+    documentURL = json["documentURL"];
+    landlordInfo = LandlordInfo.fromJson(json["landlordInfo"]);
+    landlordAddress = LandlordAddress.fromJson(json["landlordAddress"]);
+    rentalAddress = RentalAddress.fromJson(json["rentalAddress"]);
+    rent = Rent.fromJson(json["rent"]);
+    tenancyTerms = TenancyTerms.fromJson(json["tenancyTerms"]);
+    services = json["services"].map<PayPerUseService>((serviceJson) => CustomService.fromJson(serviceJson)).toList();
+    utilities = json["utilities"].map<Utility>((utilityJson) => CustomUtility.fromJson(utilityJson)).toList();
+    rentDiscounts = json["rentDiscounts"].map<RentDiscount>((rentDiscountJson) => CustomRentDiscount.fromJson(rentDiscountJson)).toList();
+    rentDeposits = json["rentDeposits"].map<Deposit>((rentDepositJson) => CustomDeposit.fromJson(rentDepositJson)).toList();
+    additionalTerms = json["additionalTerms"].map<AdditionalTerm>((additionalTermJson) => CustomTerm.fromJson(additionalTermJson)).toList();
+    tenantNames = json["tenantNames"].map<TenantName>((tenantNameJson) => TenantName.fromJson(tenantNameJson)).toList();
+  }
   
   Map<String, dynamic> toJson() {
     return {

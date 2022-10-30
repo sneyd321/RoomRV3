@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/pages/add_lease_pages/add_landlord_info_page.dart';
+import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'add_lease_pages/add_additional_terms_page.dart';
@@ -26,7 +27,7 @@ class AddLeaseViewPager extends StatefulWidget {
 class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
   final PageController controller = PageController();
   int currentPage = 0;
-  static const int MAX_PAGE = 10;
+  static const int MAX_PAGE = 6;
   String title = "Landlord Info";
   Map titleMapping = {
     0: "Landlord Info",
@@ -34,16 +35,10 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
     2: "Rental Address",
     3: "Rent",
     4: "Tenancy Terms",
-    5: "Services",
-    6: "Utilities",
-    7: "Rent Discounts",
-    8: "Deposit",
-    9: "Additional Terms",
-    10: "Tenant Names"
+    5: "Sign Lease"
   };
 
   final Lease lease = Lease();
-
   void animateToPage(int currentPage) {
     controller.animateToPage(currentPage,
         duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
@@ -91,12 +86,6 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
                   physics: const NeverScrollableScrollPhysics(),
                   controller: controller,
                   children: [
-                    AddTenantNamesPage(
-                        onNext: (context) {
-                          Navigator.popUntil(context, ModalRoute.withName('/'));
-                        },
-                        onBack: onBack,
-                        lease: lease),
                     AddLandlordInfoPage(
                       lease: lease,
                       onNext: onNext,
@@ -122,16 +111,7 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
                       onNext: onNext,
                       onBack: onBack,
                     ),
-                    AddServicesPage(
-                        onNext: onNext, onBack: onBack, lease: lease),
-                    AddUtilityPage(
-                        onNext: onNext, onBack: onBack, lease: lease),
-                    AddRentDiscountPage(
-                        onNext: onNext, onBack: onBack, lease: lease),
-                    AddRentDepositPage(
-                        onNext: onNext, onBack: onBack, lease: lease),
-                    AddAdditionalTermsPage(
-                        onNext: onNext, onBack: onBack, lease: lease),
+                    AddLeaseSigniturePage()
                   ],
                 ),
               ),

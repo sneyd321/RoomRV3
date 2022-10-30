@@ -9,6 +9,7 @@ abstract class Service extends ChangeNotifier {
 
   Service();
 
+
   Map<String, dynamic> toJson() {
     return {
       "name": name,
@@ -44,7 +45,7 @@ abstract class PayPerUseService extends Service {
     name = json["name"];
     isIncludedInRent = json["isIncludedInRent"];
     isPayPerUse = json["isPayPerUse"];
-    details = json["details"].map<String>((detail) => detail).toList();
+    details = json["details"].map<Detail>((json) => Detail.fromJson(json)).toList();
   }
 
   @override
@@ -107,10 +108,11 @@ class GuestParking extends PayPerUseService {
   }
 }
 
-class CustomService extends Service {
+class CustomService extends PayPerUseService{
 
   CustomService(String name) : super() {
     this.name = name;
   }
+  CustomService.fromJson(Map<String, dynamic> json) : super.fromJson(json);
 
 }

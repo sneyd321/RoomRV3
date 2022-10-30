@@ -11,6 +11,14 @@ class House extends ChangeNotifier {
 
   House();
 
+  House.fromJson(Map<String, dynamic> json) {
+    houseId = json["id"];
+    houseKey = json["houseKey"];
+    firebaseId = json["firebaseId"];
+    lease = Lease.fromJson(json["lease"]);
+
+  }
+
   void setFirebaseId(String firebaseId) {
     this.firebaseId = firebaseId;
     notifyListeners();
