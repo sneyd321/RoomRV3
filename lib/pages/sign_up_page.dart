@@ -9,7 +9,6 @@ import 'package:notification_app/widgets/Dialogs/loading_dialog.dart';
 import 'package:notification_app/widgets/FormFields/EmailFormField.dart';
 import 'package:notification_app/widgets/FormFields/PasswordFormField.dart';
 import 'package:notification_app/widgets/FormFields/SimpleFormField.dart';
-import 'package:notification_app/widgets/mutations/mutation_button.dart';
 
 import '../widgets/Forms/FormRow/TwoColumnRow.dart';
 
@@ -83,6 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     onValidate: (value) {
                       return ReTypePassword(value!).validatePassword(password);
                     }),
+                /*
                 MutationButton(
                   mutationName: 'createLandlord',
                   onComplete: (Map<String, dynamic>? result) {
@@ -108,6 +108,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     });
                   },
                 )
+                */
               ],
             ),
           ),

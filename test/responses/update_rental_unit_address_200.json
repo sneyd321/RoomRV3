@@ -1,0 +1,18 @@
+{
+    "data": {
+        "updateRentalAddress": {
+            "streetNumber": "3327",
+            "streetName": "Raspberry Bush Trail",
+            "city": "Oakville",
+            "province": "Ontario",
+            "postalCode": "L6L 6V2",
+            "unitName": "Basement",
+            "isCondo": false,
+            "parkingDescriptions": [
+                {
+                    "description": "Garage"
+                }
+            ]
+        }
+    }
+}

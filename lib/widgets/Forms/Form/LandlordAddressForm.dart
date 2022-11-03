@@ -1,4 +1,3 @@
-import 'dart:js_util';
 
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/fields/field.dart';

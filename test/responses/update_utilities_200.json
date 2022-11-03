@@ -1,0 +1,15 @@
+{
+    "data": {
+        "updateUtilities": [
+            {
+                "name": "Electricity",
+                "responsibility": "Tenant",
+                "details": [
+                    {
+                        "detail": "Tenant sets up account with  provider and pays the utiltiy provider"
+                    }
+                ]
+            }
+        ]
+    }
+}

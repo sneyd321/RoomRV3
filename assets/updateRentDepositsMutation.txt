@@ -1,0 +1,9 @@
+mutation updateRentDeposits($leaseId: Int!, $rentDeposits: [RentDepositInput!]!){
+   updateRentDeposits(leaseId: $leaseId, rentDeposits: $rentDeposits) {
+        name,
+        amount,
+        details {
+            detail
+        }   
+    }
+}

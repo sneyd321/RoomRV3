@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/service.dart';
+import 'package:notification_app/graphql/mutation_helper.dart';
+import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/ServicesList.dart';
-import 'package:notification_app/widgets/mutations/services_mutation.dart';
 
 class UpdateServicesPage extends StatefulWidget {
   final Lease lease;
 
-  final Function(BuildContext context) onUpdate;
   const UpdateServicesPage(
       {Key? key,
-      required this.onUpdate,
+    
       required this.lease})
       : super(key: key);
 
@@ -66,17 +66,32 @@ class _UpdateServicesPageState extends State<UpdateServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(child: ServicesList(services: widget.lease.services)),
-        Container(
-          margin: const EdgeInsets.only(left: 8, bottom: 8),
-          alignment: Alignment.centerLeft,
-          child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
-         UpdateServicesMutation(onComplete: (context, services) {
-           
-         }, lease: widget.lease, validate: validate,)
-      ],
+    return MutationHelper(
+      mutationName: "updateServices",
+      onComplete: ((json) {
+        
+      }),
+      builder: (runMutation) {
+        return Column(
+          children: [
+            Expanded(child: ServicesList(services: widget.lease.services)),
+            Container(
+              margin: const EdgeInsets.only(left: 8, bottom: 8),
+              alignment: Alignment.centerLeft,
+              child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
+              SecondaryButton(Icons.update, "Update Services", (context) {
+                if (validate()) {
+                  runMutation({
+                    "leaseId": widget.lease.leaseId,
+                    "services": widget.lease.services
+                        .map((service) => service.toJson())
+                        .toList()
+                  });
+                }
+              })
+          ],
+        );
+      }
     );
   }
 }

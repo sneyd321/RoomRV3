@@ -1,0 +1,21 @@
+query getMaintenanceTicket($houseKey: String!, $maintenanceTicketId: Int!){
+    getMaintenanceTicket(houseKey: $houseKey, maintenanceTicketId: $maintenanceTicketId) {
+        id,
+        houseId,
+        name,
+        imageURL,
+        datePosted,
+        firebaseId,
+        description {
+            descriptionText
+        },
+        urgency {
+          name
+        },
+        sender {
+          firstName,
+          lastName,
+          email
+        }
+    }
+}

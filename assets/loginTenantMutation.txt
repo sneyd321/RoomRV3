@@ -1,0 +1,11 @@
+mutation loginTenant(login: LoginTenantInput!){
+	loginTenant(login: $login) {
+        firstName,
+        lastName,
+        email,
+        tenantState,
+        houseId,
+        tenantPosition,
+        deviceId
+    }
+}

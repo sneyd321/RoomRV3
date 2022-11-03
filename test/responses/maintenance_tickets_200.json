@@ -1,0 +1,177 @@
+{
+    "data": {
+        "getMaintenanceTickets": [
+            {
+                "id": 7,
+                "houseId": 1,
+                "name": "MaintenanceTicket",
+                "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_7.jpg",
+                "datePosted": "2022/10/18",
+                "firebaseId": "kZXOF5CIcaxuzG9GquBo",
+                "description": {
+                    "descriptionText": "fdagfdasfsdfasdfa"
+                },
+                "urgency": {
+                    "name": "Low"
+                },
+                "sender": {
+                    "firstName": "Ryan",
+                    "lastName": "Sneyd",
+                    "email": "a@s.com"
+                }
+            },
+            {
+                "id": 9,
+                "houseId": 1,
+                "name": "MaintenanceTicket",
+                "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_9.jpg",
+                "datePosted": "2022/10/18",
+                "firebaseId": "R2lw9pBD6cJQg3EBHTb8",
+                "description": {
+                    "descriptionText": "fdagfdasfsdfasdfa"
+                },
+                "urgency": {
+                    "name": "Low"
+                },
+                "sender": {
+                    "firstName": "Ryan",
+                    "lastName": "Sneyd",
+                    "email": "a@s.com"
+                }
+            },
+            {
+                "id": 11,
+                "houseId": 1,
+                "name": "MaintenanceTicket",
+                "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_11.jpg",
+                "datePosted": "2022/10/18",
+                "firebaseId": "HWNxUbbUFvkOuZj2spZ9",
+                "description": {
+                    "descriptionText": "fdagfdasfsdfasdfa"
+                },
+                "urgency": {
+                    "name": "Low"
+                },
+                "sender": {
+                    "firstName": "Ryan",
+                    "lastName": "Sneyd",
+                    "email": "a@s.com"
+                }
+            },
+            {
+                "id": 13,
+                "houseId": 1,
+                "name": "MaintenanceTicket",
+                "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_13.jpg",
+                "datePosted": "2022/10/18",
+                "firebaseId": "Ph86PQqSRoHr4132ay5z",
+                "description": {
+                    "descriptionText": "fdagfdasfsdfasdfa"
+                },
+                "urgency": {
+                    "name": "Low"
+                },
+                "sender": {
+                    "firstName": "Ryan",
+                    "lastName": "Sneyd",
+                    "email": "a@s.com"
+                }
+            },
+            {
+                "id": 16,
+                "houseId": 1,
+                "name": "MaintenanceTicket",
+                "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_16.jpg",
+                "datePosted": "2022/10/18",
+                "firebaseId": "sCF6uHlvSAvIlBOq9cct",
+                "description": {
+                    "descriptionText": "fdagfdasfsdfasdfa"
+                },
+                "urgency": {
+                    "name": "Low"
+                },
+                "sender": {
+                    "firstName": "Ryan",
+                    "lastName": "Sneyd",
+                    "email": "a@s.com"
+                }
+            },
+            {
+                "id": 19,
+                "houseId": 1,
+                "name": "MaintenanceTicket",
+                "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_19.jpg",
+                "datePosted": "2022/10/18",
+                "firebaseId": "jAlrecQe8jvhcJEWctSF",
+                "description": {
+                    "descriptionText": "fdagfdasfsdfasdfa"
+                },
+                "urgency": {
+                    "name": "Low"
+                },
+                "sender": {
+                    "firstName": "Ryan",
+                    "lastName": "Sneyd",
+                    "email": "a@s.com"
+                }
+            },
+            {
+                "id": 21,
+                "houseId": 1,
+                "name": "MaintenanceTicket",
+                "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_21.jpg",
+                "datePosted": "2022/10/28",
+                "firebaseId": "BSDAizpU5XgAXb1S78MG",
+                "description": {
+                    "descriptionText": "fdagfdasfsdfasdfa"
+                },
+                "urgency": {
+                    "name": "Low"
+                },
+                "sender": {
+                    "firstName": "Ryan",
+                    "lastName": "Sneyd",
+                    "email": "a@s.com"
+                }
+            },
+            {
+                "id": 22,
+                "houseId": 1,
+                "name": "MaintenanceTicket",
+                "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_22.jpg",
+                "datePosted": "2022/10/28",
+                "firebaseId": "jwX2axJC8hUoV3QqNsyp",
+                "description": {
+                    "descriptionText": "fdagfdasfsdfasdfa"
+                },
+                "urgency": {
+                    "name": "Low"
+                },
+                "sender": {
+                    "firstName": "Ryan",
+                    "lastName": "Sneyd",
+                    "email": "a@s.com"
+                }
+            },
+            {
+                "id": 23,
+                "houseId": 1,
+                "name": "MaintenanceTicket",
+                "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_23.jpg",
+                "datePosted": "2022/10/28",
+                "firebaseId": "q2cRMNLRchA7IAQxBcAJ",
+                "description": {
+                    "descriptionText": "fdagfdasfsdfasdfa"
+                },
+                "urgency": {
+                    "name": "Low"
+                },
+                "sender": {
+                    "firstName": "Ryan",
+                    "lastName": "Sneyd",
+                    "email": "a@s.com"
+                }
+            }
+        ]
+    }
+}

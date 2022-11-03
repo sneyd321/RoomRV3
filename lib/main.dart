@@ -10,6 +10,7 @@ import 'package:notification_app/pages/house_page.dart';
 import 'package:notification_app/pages/landlord_view_pager.dart';
 import 'package:notification_app/pages/login_page.dart';
 import 'package:notification_app/pages/sign_up_page.dart';
+import 'package:notification_app/pages/test_page.dart';
 import 'package:notification_app/services/FirebaseConfig.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -54,7 +55,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/":(context) => CommentsPage(maintenanceTicketId: 40, houseKey: "Z14M4C", landlord: Landlord(),),
+        "/":(context) =>  LandlordViewPager(landlord: Landlord()),
       },
     );
   }

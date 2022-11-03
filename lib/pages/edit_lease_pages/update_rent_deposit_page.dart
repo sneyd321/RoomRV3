@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/deposit.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/DepositsList.dart';
-import 'package:notification_app/widgets/mutations/rent_deposits_mutation.dart';
-import 'package:notification_app/widgets/mutations/rent_discount_mutation.dart';
+
+import '../../graphql/mutation_helper.dart';
 
 class UpdateRentDepositPage extends StatefulWidget {
   final Lease lease;
 
-  final Function(BuildContext context) onUpdate;
   const UpdateRentDepositPage(
       {Key? key,
-      required this.onUpdate,
       required this.lease})
       : super(key: key);
 
@@ -27,12 +24,11 @@ class _UpdateRentDepositPageState extends State<UpdateRentDepositPage> {
     errorText = "";
     List<String> serviceNames = widget.lease.rentDeposits.map<String>((Deposit rentDeposit) => rentDeposit.name).toList();
     List<String> differences = {"Rent Deposit", "Key Deposit", "Pet Damage Deposit", "Maintenance Ticket Deductable"}.difference(serviceNames.toSet()).toList();
-    print(differences);
     if (differences.isEmpty) {
       setState(() {
         errorText = "";
       });
-      widget.onUpdate(context);
+      
       return true;
     }
     for (String element in differences) {
@@ -63,17 +59,33 @@ class _UpdateRentDepositPageState extends State<UpdateRentDepositPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(child: DepositsList(deposits: widget.lease.rentDeposits)),
-        Container(
-          margin: const EdgeInsets.only(left: 8, bottom: 8),
-          alignment: Alignment.centerLeft,
-          child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
-         UpdateDepositMutation(lease: widget.lease, onComplete: ((context, discounts) {
-           
-         }), validate: validate)
-      ],
+    return MutationHelper(
+      mutationName: "updateRentDeposits",
+      onComplete: ((json) {
+        
+      }),
+      builder: (runMutation) {
+        return Column(
+          children: [
+            Expanded(child: DepositsList(deposits: widget.lease.rentDeposits)),
+            Container(
+              margin: const EdgeInsets.only(left: 8, bottom: 8),
+              alignment: Alignment.centerLeft,
+              child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
+              SecondaryButton(Icons.update, "Update Rent Deposit", (context) {
+                
+                if (validate()) {
+                  runMutation({
+                    "leaseId": widget.lease.leaseId,
+                    "rentDeposits": widget.lease.rentDeposits
+                        .map((rentDeposit) => rentDeposit.toJson())
+                        .toList()
+                  });
+                }
+              })
+          ],
+        );
+      }
     );
   }
 }

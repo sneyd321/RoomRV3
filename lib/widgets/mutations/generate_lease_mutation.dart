@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/lease.dart';
-import 'package:notification_app/services/FirebaseConfig.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 
 class GenerateLeaseMutation extends StatefulWidget {

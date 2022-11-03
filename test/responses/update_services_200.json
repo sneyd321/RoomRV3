@@ -1,0 +1,12 @@
+{
+    "data": {
+        "updateServices": [
+            {
+                "name": "Gas",
+                "isIncludedInRent": false,
+                "isPayPerUse": null,
+                "details": []
+            }
+        ]
+    }
+}

@@ -1,0 +1,18 @@
+mutation updateTenancyTerms($leaseId: Int!, $tenancyTerms: TenancyTermsInput!) {
+    updateTenancyTerms(leaseId: $leaseId, tenancyTerms: $tenancyTerms) {
+        rentalPeriod {
+            rentalPeriod,
+            endDate
+        },
+        startDate,
+        rentDueDate,
+        paymentPeriod,
+        partialPeriod {
+            amount,
+            dueDate,
+            startDate,
+            endDate,
+            isEnabled
+        }       
+    }
+}

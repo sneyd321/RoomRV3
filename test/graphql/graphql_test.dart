@@ -6,7 +6,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/testing.dart';
 import 'package:http/http.dart' as http;
 import 'package:notification_app/business_logic/house.dart';
-import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/widgets/mutations/add_house_mutation.dart';
 
 import '../test_case_builder.dart';
@@ -45,9 +44,7 @@ void main() {
     );
   }
 
-  Widget getAddHouseMutation(
-      Function(BuildContext context, int houseId) onComplete,
-      ValueNotifier<GraphQLClient> client) {
+  Widget getAddHouseMutation(Function(BuildContext context, int houseId) onComplete, ValueNotifier<GraphQLClient> client) {
     return GraphQLProvider(
       client: client,
       child: AddHouseMutation(onComplete: onComplete, house: House()),

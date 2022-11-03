@@ -6,7 +6,7 @@ import 'package:notification_app/pages/house_page.dart';
 import '../business_logic/house.dart';
 import '../business_logic/landlord.dart';
 import '../services/graphql_client.dart';
-import '../widgets/Queries/query_helper.dart';
+import '../graphql/query_helper.dart';
 import 'notification_page.dart';
 
 
@@ -21,13 +21,7 @@ class LandlordViewPager extends StatefulWidget {
 class _LandlordViewPagerState extends State<LandlordViewPager> {
   final PageController controller = PageController();
   int index = 1;
-  late Widget body;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +31,11 @@ class _LandlordViewPagerState extends State<LandlordViewPager> {
         child: Scaffold(
           appBar: AppBar(),
           body:  QueryHelper(
-              onComplete: (result, {fetchMore, refetch}) {
-                if (result.hasException) {
-                  return Text(result.exception.toString());
-                }
-                if (result.isLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                List<House> houses = result.data!["getHouses"].map<House>((json) => House.fromJson(json)).toList();
-                switch (index) {
+               queryName: 'getHouses', 
+               variables: const {"id": 4},
+               onCompleteList: (json) {
+                 List<House> houses = json.map<House>((json) => House.fromJson(json)).toList();
+                 switch (index) {
                   case 0:
                     return NotificationPage(house: houses[0], landlord: widget.landlord,);
                   case 1:
@@ -55,7 +43,8 @@ class _LandlordViewPagerState extends State<LandlordViewPager> {
                   default:
                     return HousesPage(houses: houses,);
                 }
-              }, queryName: 'getHouses', variables: {"id": 4},),
+               },
+               ),
           bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(

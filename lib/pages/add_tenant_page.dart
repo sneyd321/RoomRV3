@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/list_items/tenant_name.dart';
 import 'package:notification_app/business_logic/tenant.dart';
-import 'package:notification_app/services/graphql_client.dart';
-import 'package:notification_app/widgets/Cards/AddTenantCard.dart';
-import 'package:notification_app/widgets/Listviews/CardSliverListView.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/TenantList.dart';
 
 class AddTenantPage extends StatelessWidget {
@@ -32,9 +28,9 @@ class AddTenantPage extends StatelessWidget {
             ),
             body: TenantList(
                 house: house,
-                tenants: house.lease.tenantNames
-                    .map((TenantName tenantName) =>
-                        Tenant.fromTenantName(tenantName))
-                    .toList())));
+                tenants: [])));//house.lease.tenantNames
+                    //.map((TenantName tenantName) =>
+                     //   Tenant.fromTenantName(tenantName))
+                    //.toList())));
   }
 }

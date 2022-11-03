@@ -1,0 +1,11 @@
+{
+    "data": {
+        "updateRentDeposits": [
+            {
+                "name": "Rent Deposit",
+                "amount": "2000.00",
+                "details": []
+            }
+        ]
+    }
+}

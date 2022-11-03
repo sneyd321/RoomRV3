@@ -1,0 +1,9 @@
+mutation updateRentDiscounts($leaseId: Int!, $rentDiscounts: [RentDiscountInput!]!){
+   updateRentDiscounts(leaseId: $leaseId, rentDiscounts: $rentDiscounts) {
+        name,
+        amount,
+        details {
+            detail
+        }   
+  }
+}

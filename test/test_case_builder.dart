@@ -21,6 +21,12 @@ class TestCaseBuilder {
     return this;
   }
 
+  Future<TestCaseBuilder> loadPageWithDuration(Widget widget, Duration duration) async {
+    await tester.pumpWidget(
+        MaterialApp(home: Scaffold(appBar: AppBar(), body: (widget))), duration);
+    return this;
+  }
+
   Future<TestCaseBuilder> scrollToPosition(String text) async {
     await tester.scrollUntilVisible(find.text(text), 500.0,
         scrollable: find.byType(Scrollable).first);

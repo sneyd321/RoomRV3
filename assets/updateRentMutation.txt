@@ -1,0 +1,13 @@
+mutation updateRent($leaseId: Int!, $rent: RentInput!) {
+    updateRent(leaseId: $leaseId, rent: $rent) { 
+        baseRent,
+        rentMadePayableTo,
+        rentServices {
+            name,
+            amount
+        },
+        paymentOptions {
+            name
+        }         
+    }
+}

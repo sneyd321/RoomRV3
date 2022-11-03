@@ -1,0 +1,8 @@
+mutation updateAdditionalTerms($leaseId: Int!, $additionalTerms: [AdditionalTermInput!]!) {
+   updateAdditionalTerms(leaseId: $leaseId, additionalTerms: $additionalTerms) {
+        name,
+        details {
+            detail
+        }   
+  }
+}

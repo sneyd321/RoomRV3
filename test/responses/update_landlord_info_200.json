@@ -1,0 +1,22 @@
+{
+    "data": {
+        "updateLandlordInfo": {
+            "fullName": "Ryan Sneyd",
+            "receiveDocumentsByEmail": true,
+            "emails": [
+                {
+                    "email": "rts1234567@hotmail.com"
+                }
+            ],
+            "contactInfo": true,
+            "contacts": [
+                {
+                    "contact": "rts1234567@hotmail.com"
+                },
+                {
+                    "contact": "416 818 6015"
+                }
+            ]
+        }
+    }
+}

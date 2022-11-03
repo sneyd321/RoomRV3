@@ -1,0 +1,14 @@
+{
+    "data": {
+        "updateAdditionalTerms": [
+            {
+                "name": "Post Dated Cheques",
+                "details": [
+                    {
+                        "detail": "Tenant voluntarily agrees to provide 10 post-dated cheques to the Landlord on or before the commencement date of lease."
+                    }
+                ]
+            }
+        ]
+    }
+}

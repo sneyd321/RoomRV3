@@ -59,7 +59,6 @@ class Lease {
     EndOfLeaseTerm(),
     PropertyShowingTerm()
   ];
-  List<TenantName> tenantNames = [];
 
   Lease();
 
@@ -77,7 +76,6 @@ class Lease {
     rentDiscounts = json["rentDiscounts"].map<RentDiscount>((rentDiscountJson) => CustomRentDiscount.fromJson(rentDiscountJson)).toList();
     rentDeposits = json["rentDeposits"].map<Deposit>((rentDepositJson) => CustomDeposit.fromJson(rentDepositJson)).toList();
     additionalTerms = json["additionalTerms"].map<AdditionalTerm>((additionalTermJson) => CustomTerm.fromJson(additionalTermJson)).toList();
-    tenantNames = json["tenantNames"].map<TenantName>((tenantNameJson) => TenantName.fromJson(tenantNameJson)).toList();
   }
   
   Map<String, dynamic> toJson() {
@@ -92,7 +90,6 @@ class Lease {
       "rentDiscounts": rentDiscounts.map((rentDiscount) => rentDiscount.toJson()).toList(),
       "rentDeposits": rentDeposits.map((rentDeposit) => rentDeposit.toJson()).toList(),
       "additionalTerms": additionalTerms.map((additionalTerm) => additionalTerm.toJson()).toList(),
-      "tenantNames": tenantNames.map((tenantName) => tenantName.toJson()).toList(),
     };
   }
 

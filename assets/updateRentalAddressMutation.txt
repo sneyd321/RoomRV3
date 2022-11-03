@@ -1,0 +1,15 @@
+mutation updateRentalAddress($leaseId: Int!, $rentalAddress: RentalAddressInput!){
+    updateRentalAddress(leaseId: $leaseId, rentalAddress: $rentalAddress)
+    {  
+        streetNumber,
+        streetName,
+        city,
+        province,
+        postalCode,
+        unitName,
+        isCondo,
+        parkingDescriptions {
+            description
+        }       
+    }
+}

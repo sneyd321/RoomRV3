@@ -21,11 +21,10 @@ class PartialRentForm extends StatefulWidget {
 
 class _PartialRentFormState extends State<PartialRentForm> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final PartialPeriod partialPeriod = PartialPeriod();
   @override
   Widget build(BuildContext context) {
-    return Consumer<PartialPeriod>(
-        builder: (context, PartialPeriod partialPeriod, child) {
-      return Form(
+    return  Form(
         key: formKey,
         child: Column(
           children: <Widget>[
@@ -99,6 +98,6 @@ class _PartialRentFormState extends State<PartialRentForm> {
           ],
         ),
       );
-    });
+  
   }
 }

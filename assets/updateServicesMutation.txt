@@ -1,0 +1,10 @@
+mutation updateServices($leaseId: Int!, $services: [ServiceInput!]!) {
+   updateServices(leaseId: $leaseId, services: $services) {
+        name,
+        isIncludedInRent,
+        isPayPerUse,
+        details {
+            detail
+        }         
+  }
+}

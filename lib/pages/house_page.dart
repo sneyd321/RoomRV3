@@ -33,7 +33,7 @@ class _HousesPageState extends State<HousesPage> {
               margin: const EdgeInsets.only(bottom: 16),
                 child: FloatingActionButton.extended(
                   icon: const Icon(Icons.add),
-                  label: const Text("Create Document"),
+                  label: const Text("Create House"),
                   onPressed: () async {
                     final value = await Navigator.push(
                       context,

@@ -1,0 +1,22 @@
+mutation createMaintenanceTicket($houseKey: String!, $maintenanceTicket: MaintenanceTicketInput!, $image: String!){
+	createMaintenanceTicket(houseKey: $houseKey, maintenanceTicket: $maintenanceTicket, image: $image) {
+        houseId
+        id
+        name
+        urgency {
+            name
+        },
+        description {
+            descriptionText
+        },
+        sender {
+            firstName
+            lastName
+            email
+        },
+        imageURL
+        datePosted
+        firebaseId
+    }
+
+}

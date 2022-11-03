@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
-import 'package:notification_app/business_logic/list_items/parking_description.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/services/stream_socket.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/FormFields/SuggestedFormField.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 import 'package:notification_app/widgets/Helper/TextHelper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/ParkingDescriptions.dart';
-import 'package:provider/provider.dart';
 
 import '../../../business_logic/address.dart';
 import '../../../business_logic/suggested_address.dart';
@@ -186,7 +182,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
             child: const TextHelper(
                 text: "Number of vehicle parking spaces and description")),
         ParkingDescriptionsList(
-          parkingDescriptions: widget.rentalAddress.parkingDescriptions.map<String>((ParkingDescription parkingDescription) => parkingDescription.toString()).toList(),
+          rentalAddress: widget.rentalAddress,
         ),
       ]),
     );

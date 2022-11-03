@@ -1,0 +1,14 @@
+mutation updateLandlordInfo($leaseId: Int!, $landlordInfo: LandlordInfoInput!){
+   updateLandlordInfo(leaseId: $leaseId, landlordInfo: $landlordInfo)
+    {
+        fullName,
+        receiveDocumentsByEmail,
+        emails {
+            email
+        },
+        contactInfo,
+        contacts {
+            contact
+        }     
+    }
+}

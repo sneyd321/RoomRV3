@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/additional_term.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
+import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/AdditionalTermsList.dart';
-import 'package:notification_app/widgets/mutations/additional_term_mutation.dart';
-
 
 class UpdateAdditionalTermsPage extends StatefulWidget {
   final Lease lease;
 
-  final Function(BuildContext context) onUpdate;
   const UpdateAdditionalTermsPage(
-      {Key? key,
-      required this.onUpdate,
-      required this.lease})
+      {Key? key, required this.lease})
       : super(key: key);
 
   @override
-  State<UpdateAdditionalTermsPage> createState() => _UpdateAdditionalTermsPageState();
+  State<UpdateAdditionalTermsPage> createState() =>
+      _UpdateAdditionalTermsPageState();
 }
 
 class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
@@ -35,7 +32,6 @@ class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
     }.difference(additionalTermsNames.toSet()).toList();
     if (differences.isEmpty) {
       setState(() {});
-      widget.onUpdate(context);
       return true;
     }
     for (String element in differences) {
@@ -55,26 +51,38 @@ class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
     return false;
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-            child: AdditonalTermsList(
-          additionalTerms: widget.lease.additionalTerms,
-        )),
-        Container(
-            margin: const EdgeInsets.only(left: 8, bottom: 8),
-            alignment: Alignment.centerLeft,
-            child: Text(
-              errorText,
-              style: const TextStyle(color: Colors.red, fontSize: 18),
-            )),
-        UpdateAdditionalTermsMutation(lease: widget.lease, onComplete: ((context, additionalTerm) {
-          
-        }), validate: validate)
-      ],
-    );
+    return MutationHelper(
+        mutationName: "updateAdditionalTerms",
+        onComplete: (json) {},
+        builder: (runMutation) {
+          return Column(
+            children: [
+              Expanded(
+                  child: AdditonalTermsList(
+                additionalTerms: widget.lease.additionalTerms,
+              )),
+              Container(
+                  margin: const EdgeInsets.only(left: 8, bottom: 8),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    errorText,
+                    style: const TextStyle(color: Colors.red, fontSize: 18),
+                  )),
+              SecondaryButton(Icons.update, "Update Additional Terms",
+                  (context) {
+                if (validate()) {
+                  runMutation({
+                    "leaseId": widget.lease.leaseId,
+                    "additionalTerms": widget.lease.additionalTerms
+                        .map((additionalTerm) => additionalTerm.toJson())
+                        .toList()
+                  });
+                }
+              })
+            ],
+          );
+        });
   }
 }

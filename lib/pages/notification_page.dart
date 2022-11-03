@@ -18,9 +18,6 @@ class NotificationPage extends StatelessWidget {
             floatingActionButton: Container(
               height: 60,
               margin: const EdgeInsets.only(bottom: 16),
-              
-                
-            
             ),
             body: NotificationStreamBuilder(house: house, landlord: landlord,)));
   }

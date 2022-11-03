@@ -4,10 +4,10 @@ class LoadingDialog {
   late AlertDialog alert;
 
   LoadingDialog() {
-    alert = AlertDialog(content: build()!);
+    alert = AlertDialog(content: build());
   }
 
-  Widget? build() {
+  Widget build() {
     return Row(
       children: [
         const CircularProgressIndicator(),
@@ -20,7 +20,7 @@ class LoadingDialog {
 
   void show(BuildContext context) {
     showDialog(
-      barrierDismissible: false,
+      barrierDismissible: true,
       context: context,
       builder: (BuildContext context) {
         return alert;

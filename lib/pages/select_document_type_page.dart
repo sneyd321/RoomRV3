@@ -29,7 +29,7 @@ class _SelectDocumentTypePageState extends State<SelectDocumentTypePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text("Select Document")),
+        appBar: AppBar(title: const Text("Select Lease")),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,7 +65,7 @@ class _SelectDocumentTypePageState extends State<SelectDocumentTypePage> {
             Container(
               margin: const EdgeInsets.all(8),
               child: const Text(
-                "Document:",
+                "Lease Type:",
                 style: TextStyle(fontSize: 24),
               ),
             ),
@@ -92,7 +92,7 @@ class _SelectDocumentTypePageState extends State<SelectDocumentTypePage> {
                 }).toList(),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             TwoColumnRow(
                 left: SecondaryButton(Icons.chevron_left, "Back", ((context) {
                   Navigator.pop(context);

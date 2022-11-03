@@ -1,0 +1,11 @@
+mutation addTenant(houseKey: houseKey, tenant: AddTenantEmailInput!){
+	addTenant(houseKey: $houseKey, tenant: $tenant) {
+        firstName,
+        lastName,
+        email,
+        tenantState,
+        houseId,
+        tenantPosition,
+        deviceId
+    }
+}

@@ -1,0 +1,123 @@
+{
+    "data": {
+        "createHouse": {
+            "id": 32,
+            "landlordId": 1,
+            "houseKey": "8ZUTA9",
+            "firebaseId": "s2i1SboWPwM6jPglRIvl",
+            "lease": {
+                "id": 17,
+                "houseId": 32,
+                "documentName": "2229E Residential Tenancy Agreement",
+                "documentURL": "https://storage.googleapis.com/roomr-222721.appspot.com/OntarioLease/Lease_32.pdf",
+                "landlordInfo": {
+                    "fullName": "Ryan Sneyd",
+                    "receiveDocumentsByEmail": true,
+                    "emails": [
+                        {
+                            "email": "rts1234567@hotmail.com"
+                        }
+                    ],
+                    "contactInfo": true,
+                    "contacts": [
+                        {
+                            "contact": "rts1234567@hotmail.com"
+                        },
+                        {
+                            "contact": "416 818 6015"
+                        }
+                    ]
+                },
+                "landlordAddress": {
+                    "streetNumber": "11",
+                    "streetName": "Bronte Rd.",
+                    "city": "Oakville",
+                    "province": "Ontario",
+                    "postalCode": "L6L 0E1",
+                    "unitNumber": "207",
+                    "poBox": "207"
+                },
+                "rentalAddress": {
+                    "streetNumber": "3327",
+                    "streetName": "Raspberry Bush Trail",
+                    "city": "Oakville",
+                    "province": "Ontario",
+                    "postalCode": "L6L 6V2",
+                    "unitName": "Basement",
+                    "isCondo": false,
+                    "parkingDescriptions": [
+                        {
+                            "description": "Garage"
+                        }
+                    ]
+                },
+                "rent": {
+                    "baseRent": "2000.00",
+                    "rentMadePayableTo": "Ryan Sneyd",
+                    "rentServices": [
+                        {
+                            "name": "Parking",
+                            "amount": "200.00"
+                        }
+                    ],
+                    "paymentOptions": [
+                        {
+                            "name": "E Transfer"
+                        }
+                    ]
+                },
+                "tenancyTerms": {
+                    "rentalPeriod": {
+                        "rentalPeriod": "Month to Month",
+                        "endDate": ""
+                    },
+                    "startDate": "8/16/2022",
+                    "rentDueDate": "First",
+                    "paymentPeriod": "Month",
+                    "partialPeriod": {
+                        "amount": "20.00",
+                        "dueDate": "8/31/2022",
+                        "startDate": "8/16/2022",
+                        "endDate": "8/31/2022",
+                        "isEnabled": false
+                    }
+                },
+                "services": [
+                    {
+                        "name": "Gas",
+                        "isIncludedInRent": false,
+                        "isPayPerUse": null,
+                        "details": []
+                    }
+                ],
+                "utilities": [
+                    {
+                        "name": "Electricity",
+                        "responsibility": "Tenant",
+                        "details": []
+                    }
+                ],
+                "rentDiscounts": [
+                    {
+                        "name": "Snow Removal",
+                        "amount": "20.00",
+                        "details": []
+                    }
+                ],
+                "rentDeposits": [
+                    {
+                        "name": "Rent Deposit",
+                        "amount": "2000.00",
+                        "details": []
+                    }
+                ],
+                "additionalTerms": [
+                    {
+                        "name": "Property Showing",
+                        "details": []
+                    }
+                ]
+            }
+        }
+    }
+}

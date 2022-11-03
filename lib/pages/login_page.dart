@@ -6,7 +6,6 @@ import 'package:notification_app/pages/sign_up_page.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Dialogs/loading_dialog.dart';
-import 'package:notification_app/widgets/mutations/mutation_button.dart';
 
 import '../business_logic/fields/field.dart';
 import '../services/FirebaseConfig.dart';
@@ -93,7 +92,9 @@ class _LoginPageState extends State<LoginPage> {
                             builder: (context) => const SignUpPage()),
                       );
                     }),
-                    right: MutationButton(
+                    right: Text("0")
+                    /*
+                    MutationButton(
                       builder: (runMutation, result) {
                         return PrimaryButton(Icons.login, "Login", (context) {
                           if (formKey.currentState!.validate()) {
@@ -119,6 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                     ),
+                    */
                   )
                 ],
               )),

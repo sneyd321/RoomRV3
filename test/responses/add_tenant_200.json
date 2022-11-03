@@ -1,0 +1,13 @@
+{
+    "data": {
+      "addTenant": {
+        "firstName": "str",
+        "lastName": "str",
+        "email": "str",
+        "tenantState": "str",
+        "houseId": 0,
+        "tenantPosition": 0,
+        "deviceId": ""
+      }
+    }
+  }

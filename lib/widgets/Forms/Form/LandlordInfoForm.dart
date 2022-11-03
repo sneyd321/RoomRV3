@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/landlord_info.dart';
-import 'package:notification_app/business_logic/list_items/contact.dart';
 import 'package:notification_app/widgets/FormFields/SimpleFormField.dart';
 import 'package:notification_app/widgets/Helper/TextHelper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/ContactsList.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/EmailsList.dart';
 
 import '../../../business_logic/fields/field.dart';
-import '../../../business_logic/list_items/email.dart';
 
 class LandlordInfoForm extends StatefulWidget {
   final LandlordInfo landlordInfo;
@@ -56,7 +53,6 @@ class _LandlordInfoFormState extends State<LandlordInfoForm> {
           },
           textEditingController: fullNameTextEditingController,
         ),
-        
         Container(
           margin: const EdgeInsets.only(left: 8, right: 8),
           child: const TextHelper(
@@ -75,9 +71,8 @@ class _LandlordInfoFormState extends State<LandlordInfoForm> {
         Visibility(
             visible: widget.landlordInfo.receiveDocumentsByEmail,
             child: EmailsList(
-              emails: widget.landlordInfo.emails.map<String>((EmailInfo email) => email.email).toList(),
+              landlordInfo: widget.landlordInfo,
             )),
-        
         Container(
           margin: const EdgeInsets.only(left: 8, right: 8),
           child: const TextHelper(
@@ -96,7 +91,7 @@ class _LandlordInfoFormState extends State<LandlordInfoForm> {
         Visibility(
             visible: widget.landlordInfo.contactInfo,
             child: ContactsList(
-              contacts: widget.landlordInfo.contacts.map<String>((Contact contact) => contact.contact).toList(),
+              landlordInfo: widget.landlordInfo,
             )),
       ]),
     );

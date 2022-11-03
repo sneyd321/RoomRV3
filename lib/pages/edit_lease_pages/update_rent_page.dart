@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/deposit.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
+import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/RentForm.dart';
-import 'package:notification_app/widgets/mutations/rent_mutation.dart';
 
 class UpdateRentPage extends StatefulWidget {
   final Lease lease;
-  final Function(BuildContext context) onUpdate;
-  const UpdateRentPage(
-      {Key? key,
-      required this.onUpdate,
-      required this.lease})
-      : super(key: key);
+  const UpdateRentPage({Key? key, required this.lease}) : super(key: key);
 
   @override
   State<UpdateRentPage> createState() => _UpdateRentPageState();
@@ -22,30 +16,33 @@ class UpdateRentPage extends StatefulWidget {
 class _UpdateRentPageState extends State<UpdateRentPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  void onUpdate(BuildContext context) {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-      widget.lease.rentDeposits.insert(0, RentDeposit(widget.lease.rent.baseRent));
-      widget.onUpdate(context);
-    }
-  }
-
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-            child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: RentForm(
-            rent: widget.lease.rent,
-            formKey: formKey,
-          ),
-        )),
-               UpdateRentMutation(formKey: formKey, lease: widget.lease)
-
-      ],
-    );
+    return MutationHelper(
+        mutationName: "updateRent",
+        onComplete: ((json) {}),
+        builder: (runMutation) {
+          return Column(
+            children: [
+              Expanded(
+                  child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: RentForm(
+                  rent: widget.lease.rent,
+                  formKey: formKey,
+                ),
+              )),
+              SecondaryButton(Icons.update, "Update Rent", (context) {
+                if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
+                  runMutation({
+                    "leaseId": widget.lease.leaseId,
+                    "rent": widget.lease.rent.toJson()
+                  });
+                }
+              })
+            ],
+          );
+        });
   }
 }

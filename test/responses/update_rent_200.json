@@ -1,0 +1,25 @@
+{
+    "data": {
+        "updateRent": {
+            "baseRent": "2000.00",
+            "rentMadePayableTo": "Ryan Sneyd",
+            "rentServices": [
+                {
+                    "name": "Parking",
+                    "amount": "200.00"
+                }
+            ],
+            "paymentOptions": [
+                {
+                    "name": "E Transfer"
+                },
+                {
+                    "name": "Post Dated Cheques"
+                },
+                {
+                    "name": "Cash"
+                }
+            ]
+        }
+    }
+}

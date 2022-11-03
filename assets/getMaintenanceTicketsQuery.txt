@@ -1,0 +1,21 @@
+query getMaintenanceTickets($houseId: Int!) {
+    getMaintenanceTickets(houseId: $houseId) {
+        id,
+        houseId,
+        name,
+        imageURL,
+        datePosted,
+        firebaseId,
+        description {
+            descriptionText
+        },
+        urgency {
+            name
+        },
+        sender {
+            firstName,
+            lastName,
+            email
+        }
+    }
+}

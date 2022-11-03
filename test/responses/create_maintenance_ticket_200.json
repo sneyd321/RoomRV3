@@ -1,0 +1,23 @@
+{
+    "data": {
+      "createMaintenanceTicket": {
+        "houseId": 3,
+        "id": 25,
+        "name": "MaintenanceTicket",
+        "urgency": {
+          "name": "Low"
+        },
+        "description": {
+          "descriptionText": "fdagfdasfsdfasdfa"
+        },
+        "sender": {
+          "firstName": "Ryan",
+          "lastName": "Sneyd",
+          "email": "a@s.com"
+        },
+        "imageURL": "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_25.jpg",
+        "datePosted": "2022/11/01",
+        "firebaseId": "03qDCsPBgR8lpwVJLPCL"
+      }
+    }
+  }

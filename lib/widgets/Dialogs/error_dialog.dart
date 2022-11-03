@@ -9,7 +9,7 @@ class ErrorDialog {
   }
 
   Widget? build() {
-    return Row(
+    return Wrap(
       children: [
         const CircleAvatar(child: Icon(Icons.error),),
         Container(

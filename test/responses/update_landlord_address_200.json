@@ -1,0 +1,13 @@
+{
+    "data": {
+        "updateLandlordAddress": {
+            "streetNumber": "11",
+            "streetName": "Bronte Rd.",
+            "city": "Oakville",
+            "province": "Ontario",
+            "postalCode": "L6L 0E1",
+            "unitNumber": "207",
+            "poBox": "207"
+        }
+    }
+}

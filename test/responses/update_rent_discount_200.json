@@ -1,0 +1,11 @@
+{
+    "data": {
+        "updateRentDiscounts": [
+            {
+                "name": "Snow Removal",
+                "amount": "20.00",
+                "details": []
+            }
+        ]
+    }
+}

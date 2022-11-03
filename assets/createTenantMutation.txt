@@ -1,0 +1,11 @@
+mutation createTenant(houseKey: String!, tenant: TenantInput!, signature: String!, documentURL: String!){
+	createTenant(houseKey: $houseKey, tenant: $tenant, signature: $signature, documentURL: $documentURL) {
+        firstName,
+        lastName,
+        email,
+        tenantState,
+        houseId,
+        tenantPosition,
+        deviceId
+    }
+}

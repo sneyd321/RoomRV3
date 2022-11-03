@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/utility.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
+import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/UtilitiesList.dart';
-import 'package:notification_app/widgets/mutations/utilities_mutation.dart';
 
 class UpdateUtilityPage extends StatefulWidget {
   final Lease lease;
 
-  final Function(BuildContext context) onUpdate;
   const UpdateUtilityPage(
       {Key? key,
-      required this.onUpdate,
       required this.lease})
       : super(key: key);
 
@@ -32,7 +29,6 @@ class _UpdateUtilityPageState extends State<UpdateUtilityPage> {
       setState(() {
        
       });
-      widget.onUpdate(context);
       return true;
     }
     for (String element in differences) {
@@ -62,17 +58,32 @@ class _UpdateUtilityPageState extends State<UpdateUtilityPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(child: UtilitiesList(utilities: widget.lease.utilities,)),
-        Container(
-          margin: const EdgeInsets.only(left: 8, bottom: 8),
-          alignment: Alignment.centerLeft,
-          child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
-        UpdateUtilitiesMutation(lease: widget.lease, onComplete: (context, utilities) {
-          
-        }, validate: validate)
-      ],
+    return MutationHelper(
+      mutationName: "updateUtilities",
+      onComplete: (json) {
+        
+      },
+      builder: (runMutation) {
+        return Column(
+          children: [
+            Expanded(child: UtilitiesList(utilities: widget.lease.utilities,)),
+            Container(
+              margin: const EdgeInsets.only(left: 8, bottom: 8),
+              alignment: Alignment.centerLeft,
+              child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
+            SecondaryButton(Icons.update, "Update Utilities", (context) {
+              if (validate()) {
+                  runMutation({
+                    "leaseId": widget.lease.leaseId,
+                    "utilities": widget.lease.utilities
+                        .map((utility) => utility.toJson())
+                        .toList()
+                  });
+              }
+            })
+          ],
+        );
+      }
     );
   }
 }

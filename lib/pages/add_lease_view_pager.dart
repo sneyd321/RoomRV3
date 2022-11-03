@@ -1,21 +1,13 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/pages/add_lease_pages/add_landlord_info_page.dart';
 import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'add_lease_pages/add_additional_terms_page.dart';
 import 'add_lease_pages/add_landlord_address_page.dart';
-import 'add_lease_pages/add_rent_deposit_page.dart';
-import 'add_lease_pages/add_rent_discount_page.dart';
 import 'add_lease_pages/add_rent_page.dart';
 import 'add_lease_pages/add_rental_address_page.dart';
-import 'add_lease_pages/add_services_page.dart';
 import 'add_lease_pages/add_tenancy_terms_page.dart';
-import 'add_lease_pages/add_tenant_names_page.dart';
-import 'add_lease_pages/add_utilities_page.dart';
 
 class AddLeaseViewPager extends StatefulWidget {
   const AddLeaseViewPager({Key? key}) : super(key: key);
@@ -27,7 +19,7 @@ class AddLeaseViewPager extends StatefulWidget {
 class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
   final PageController controller = PageController();
   int currentPage = 0;
-  static const int MAX_PAGE = 6;
+  static const int MAX_PAGE = 5;
   String title = "Landlord Info";
   Map titleMapping = {
     0: "Landlord Info",
@@ -111,7 +103,10 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
                       onNext: onNext,
                       onBack: onBack,
                     ),
-                    AddLeaseSigniturePage()
+                    AddLeaseSigniturePage(
+                      lease: lease,
+                      onBack: onBack,
+                    ),
                   ],
                 ),
               ),
