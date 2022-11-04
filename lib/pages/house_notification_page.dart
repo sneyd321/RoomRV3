@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_app/services/notification/lease_complete_notification.dart';
 import 'package:notification_app/widgets/Cards/LeaseCompleteCard.dart';
 import 'package:notification_app/widgets/Cards/LeaseUploadingCard.dart';
 import 'package:notification_app/widgets/Listviews/CardSliverListView.dart';

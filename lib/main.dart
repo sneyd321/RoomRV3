@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/business_logic/comment.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
 import 'package:notification_app/pages/comments_page.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/":(context) =>  LandlordViewPager(landlord: Landlord()),
+        "/":(context) =>  CommentsPage(maintenanceTicketId: 25, houseKey: "6VGHPS", landlord: Landlord()),
       },
     );
   }

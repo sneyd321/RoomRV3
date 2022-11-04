@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/comment.dart';
 import 'package:notification_app/business_logic/landlord.dart';
+import 'package:notification_app/graphql/query_helper.dart';
 
 import '../business_logic/maintenance_ticket.dart';
 import '../services/FirebaseConfig.dart';
@@ -16,7 +17,10 @@ class CommentsPage extends StatefulWidget {
   final String houseKey;
   final Landlord landlord;
   const CommentsPage(
-      {Key? key, required this.maintenanceTicketId, required this.houseKey, required this.landlord})
+      {Key? key,
+      required this.maintenanceTicketId,
+      required this.houseKey,
+      required this.landlord})
       : super(key: key);
 
   @override
@@ -25,15 +29,6 @@ class CommentsPage extends StatefulWidget {
 
 class _CommentsPageState extends State<CommentsPage> {
   final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    widget.landlord.setFirstName("Ryan");
-    widget.landlord.setLastName("Sneyd");
-    widget.landlord.setEmail("a@s.com");
-  }
 
   void animateScroll() {
     if (_scrollController.hasClients) {
@@ -57,85 +52,75 @@ class _CommentsPageState extends State<CommentsPage> {
   Widget build(BuildContext context) {
     return GraphQLProvider(
         client: GQLClient().getClient(),
-        child: SafeArea(
-            child: Scaffold(
-                appBar: AppBar(),
-                body: MaintenanceTicketQuery(
-                    houseKey: widget.houseKey,
-                    maintenanceTicketId: widget.maintenanceTicketId,
-                    onComplete: (result, {fetchMore, refetch}) {
-                      if (result.hasException) {
-                        return Text(result.exception.toString());
-                      }
-                      if (result.isLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      MaintenanceTicket maintenanceTicket =
-                          MaintenanceTicket.fromJson(
-                              result.data!["getMaintenanceTicket"]);
-                      return NestedScrollView(
-                          headerSliverBuilder:
-                              (BuildContext context, bool innerBoxIsScrolled) {
-                            return [
-                              SliverList(
-                                  delegate: SliverChildListDelegate([
-                                GestureDetector(
-                                    onTap: () {
-                                      FocusScopeNode currentFocus =
-                                          FocusScope.of(context);
-                                      if (!currentFocus.hasPrimaryFocus) {
-                                        currentFocus.unfocus();
-                                      }
-                                    },
-                                    child: Column(children: [
-                                      
-                                      Container(
+        child: QueryHelper(
+          queryName: "getMaintenanceTicket",
+          variables: {
+            "houseKey": widget.houseKey,
+            "maintenanceTicketId": 25
+          },
+          onComplete: (json) {
+            MaintenanceTicket maintenanceTicket =
+                MaintenanceTicket.fromJson(json);
+            return SafeArea(
+                child: Scaffold(
+                    appBar: AppBar(),
+                    body: NestedScrollView(
+                        
+                        headerSliverBuilder:
+                            (BuildContext context, bool innerBoxIsScrolled) {
+                          return [
+                            SliverList(
+                              
+                                delegate: SliverChildListDelegate([
+                              GestureDetector(
+                                  onTap: () {
+                                    closeKeyboard(context);
+                                  },
+                                  child: Column(children: [
+                                    Container(
                                         height: 300,
-                                          margin: const EdgeInsets.only(
-                                              top: 8, bottom: 8),
-                                          child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              child: Image.network(
-                                                  maintenanceTicket.picture
-                                                      .getUrl()!))),
-                                      TablePair(
-                                          name: "Date Created: ",
-                                          value: maintenanceTicket.datePosted),
-                                      TablePair(
-                                          name: "Urgency: ",
-                                          value:
-                                              maintenanceTicket.urgency.name),
-                                      TablePair(
-                                          name: "Description: ",
-                                          value: maintenanceTicket
-                                              .description.description),
-                                    ]))
-                              ]))
-                            ];
-                          },
-                          body: Column(children: [
-                            Expanded(
-                                child: CommentStreamBuilder(
-                                  landlord: widget.landlord,
-                              firebaseId: maintenanceTicket.firebaseId,
-                              scrollController: _scrollController,
-                            )),
-                            CommentForm(
-                              landlord: widget.landlord,
-                              houseKey: widget.houseKey,
-                              maintenanceTicket: maintenanceTicket,
-                              onSend: (BuildContext context,
-                                  TextComment comment) async {
-                                await FirebaseConfiguration().setComment(
-                                    maintenanceTicket.firebaseId, comment);
-                                animateScroll();
-                                closeKeyboard(context);
-                              },
-                            )
-                          ]));
-                    }))));
+                                        margin: const EdgeInsets.only(
+                                            top: 8, bottom: 8),
+                                        child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: Image.network(
+                                                maintenanceTicket.picture
+                                                    .getUrl()!))),
+                                    TablePair(
+                                        name: "Date Created: ",
+                                        value: maintenanceTicket.datePosted),
+                                    TablePair(
+                                        name: "Urgency: ",
+                                        value: maintenanceTicket.urgency.name),
+                                    TablePair(
+                                        name: "Description: ",
+                                        value: maintenanceTicket
+                                            .description.description),
+                                  ]))
+                            ]))
+                          ];
+                        },
+                        body: Column(children: [
+                          CommentStreamBuilder(
+                            landlord: widget.landlord,
+                            firebaseId: maintenanceTicket.firebaseId,
+                            scrollController: _scrollController,
+                          ),
+                          CommentForm(
+                            landlord: widget.landlord,
+                            houseKey: widget.houseKey,
+                            maintenanceTicket: maintenanceTicket,
+                            onSend: (BuildContext context,
+                                TextComment comment) async {
+                              await FirebaseConfiguration().setComment(
+                                  maintenanceTicket.firebaseId, comment);
+                              animateScroll();
+                              closeKeyboard(context);
+                            },
+                          )
+                        ]))));
+          },
+        ));
   }
 }
