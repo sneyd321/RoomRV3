@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 
-class ParkingDescription extends ChangeNotifier {
+class ParkingDescription {
   String description = "";
 
   ParkingDescription(this.description);
@@ -11,7 +10,6 @@ class ParkingDescription extends ChangeNotifier {
 
   void setDescription(String description) {
     this.description = description;
-    notifyListeners();
   }
 
   Map<String, dynamic> toJson() {

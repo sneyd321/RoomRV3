@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:notification_app/business_logic/house.dart';
-import 'package:notification_app/business_logic/list_items/tenant_name.dart';
 import 'package:notification_app/widgets/Cards/AddTenantCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameForm.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemStateWrapper.dart';
@@ -26,7 +25,7 @@ class _TenantListState extends State<TenantList> {
       return AddTenantCard(tenant: tenant, houseKey: widget.house.houseKey,);
     }, form: AddNameForm(onSave: (context, name) {
       setState(() {
-        widget.tenants.add(Tenant.fromTenantName(TenantName(name)));
+        //widget.tenants.add(Tenant.fromTenantName(TenantName(name)));
       });
     }, names: const []), scrollController: ScrollController());
   }

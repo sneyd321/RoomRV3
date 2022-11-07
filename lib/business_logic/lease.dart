@@ -6,7 +6,6 @@ import 'package:notification_app/business_logic/list_items/additional_term.dart'
 import 'package:notification_app/business_logic/list_items/deposit.dart';
 import 'package:notification_app/business_logic/list_items/rent_discount.dart';
 import 'package:notification_app/business_logic/list_items/service.dart';
-import 'package:notification_app/business_logic/list_items/tenant_name.dart';
 import 'package:notification_app/business_logic/list_items/utility.dart';
 import 'package:notification_app/business_logic/rent.dart';
 import 'package:notification_app/business_logic/tenancy_terms.dart';

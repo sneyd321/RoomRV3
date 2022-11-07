@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BottomSheetHelper {
+class BottomSheetHelper<T> {
 
   final Widget form;
 
@@ -8,8 +8,8 @@ class BottomSheetHelper {
 
 
 
-  void show(BuildContext context) {
-    showModalBottomSheet<void>(
+  Future<T?> show(BuildContext context) {
+    return showModalBottomSheet<T>(
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {

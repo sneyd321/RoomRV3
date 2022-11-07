@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notification_app/business_logic/list_items/contact.dart';
 import 'package:notification_app/business_logic/list_items/email.dart';
 
-class LandlordInfo extends ChangeNotifier {
+class LandlordInfo   {
   String fullName = "";
   bool receiveDocumentsByEmail = true;
   List<EmailInfo> emails = [];
@@ -33,27 +32,22 @@ class LandlordInfo extends ChangeNotifier {
 
   void setFullName(String fullName) {
     this.fullName = fullName;
-    notifyListeners();
   }
 
   void setReceiveDocumentsByEmail(bool receiveDocumentsByEmail) {
     this.receiveDocumentsByEmail = receiveDocumentsByEmail;
-    notifyListeners();
   }
 
   void addEmail(String email) {
     emails.add(EmailInfo(email));
-    notifyListeners();
   }
 
   void setContactInfo(bool contactInfo) {
     this.contactInfo = contactInfo;
-    notifyListeners();
   }
 
   void addContactInfo(String contactInfo) {
     contacts.add(Contact(contactInfo));
-    notifyListeners();
   }
 
 

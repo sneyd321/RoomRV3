@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 
-class EmailInfo extends ChangeNotifier {
+class EmailInfo {
   String email = "";
 
   EmailInfo(this.email);
@@ -11,7 +10,6 @@ class EmailInfo extends ChangeNotifier {
 
   void setEmail(String email) {
     this.email = email;
-    notifyListeners();
   }
 
   Map<String, dynamic> toJson() {

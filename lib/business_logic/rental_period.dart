@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 
-class RentalPeriod extends ChangeNotifier {
+class RentalPeriod   {
   String rentalPeriod = "";
   String endDate = '';
 
@@ -15,13 +14,11 @@ class RentalPeriod extends ChangeNotifier {
 
   void setRentalPeriod(String rentalPeriod) {
     this.rentalPeriod = rentalPeriod;
-    notifyListeners();
     
   }
 
   void setEndDate(String endDate) {
     this.endDate = endDate;
-    notifyListeners();
   }
 
 }

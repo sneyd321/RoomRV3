@@ -46,8 +46,7 @@ class _HousesPageState extends State<HousesPage> {
                 ),
               ),
               body: CardSliverGridView(
-                heightRatio: .5,
-                widthRatio: 4,
+                childAspectRatio: .5,
                 builder: (context, index) {
                   House house = widget.houses[index];
                   return HouseCard(house: house);

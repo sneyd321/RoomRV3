@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notification_app/business_logic/list_items/parking_description.dart';
 
-abstract class Address extends ChangeNotifier {
+abstract class Address  {
   String streetNumber = "";
   String streetName = "";
   String city = "";
@@ -22,7 +21,6 @@ abstract class Address extends ChangeNotifier {
 
   void setStreetNumber(String streetNumber) {
     this.streetNumber = streetNumber;
-    notifyListeners();
   }
 
   void setStreetName(String streetName) {
@@ -31,17 +29,14 @@ abstract class Address extends ChangeNotifier {
 
   void setCity(String city) {
     this.city = city;
-    notifyListeners();
   }
 
   void setProvince(String province) {
     this.province = province;
-    notifyListeners();
   }
 
   void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
-    notifyListeners();
   }
 }
 
@@ -98,12 +93,10 @@ class LandlordAddress extends Address {
 
   void setUnitNumber(String unitNumber) {
     this.unitNumber = unitNumber;
-    notifyListeners();
   }
 
   void setPOBox(String poBox) {
     this.poBox = poBox;
-    notifyListeners();
   }
 }
 
@@ -139,16 +132,13 @@ class RentalAddress extends Address {
 
   void setUnitName(String unitName) {
     this.unitName = unitName;
-    notifyListeners();
   }
 
   void setIsCondo(bool isCondo) {
     this.isCondo = isCondo;
-    notifyListeners();
   }
 
   void addParkingDescription(String parkingDescription) {
     parkingDescriptions.add(ParkingDescription(parkingDescription));
-    notifyListeners();
   }
 }

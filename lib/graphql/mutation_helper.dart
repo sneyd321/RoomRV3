@@ -25,54 +25,7 @@ class _MutationButtonState extends State<MutationHelper> {
   bool isVisible = true;
 
   Future<String> getMutation(String name) async {
-    switch (name) {
-      case "createMaintenanceTicket":
-        return await rootBundle
-            .loadString('assets/createMaintenanceTicketMutation.txt');
-      case "createHouse":
-        return await rootBundle.loadString('assets/createHouseMutation.txt');
-      case "updateLandlordInfo":
-        return await rootBundle
-            .loadString('assets/updateLandlordInfoMutation.txt');
-      case "updateLandlordAddress":
-        return await rootBundle
-            .loadString('assets/updateLandlordAddressMutation.txt');
-      case "updateRentalAddress":
-        return await rootBundle
-            .loadString('assets/updateRentalAddressMutation.txt');
-      case "updateRent":
-        return await rootBundle.loadString('assets/updateRentMutation.txt');
-      case "updateTenancyTerms":
-        return await rootBundle
-            .loadString('assets/updateTenancyTermsMutation.txt');
-      case "updateServices":
-        return await rootBundle.loadString('assets/updateServicesMutation.txt');
-      case "updateUtilities":
-        return await rootBundle
-            .loadString('assets/updateUtilitiesMutation.txt');
-      case "updateRentDiscounts":
-        return await rootBundle
-            .loadString('assets/updateRentDiscountsMutation.txt');
-      case "updateRentDeposits":
-        return await rootBundle
-            .loadString('assets/updateRentDepositsMutation.txt');
-      case "updateAdditionalTerms":
-        return await rootBundle
-            .loadString('assets/updateAdditionalTermsMutation.txt');
-      case "addTenantEmail":
-        return await rootBundle.loadString('assets/addTenantEmailMutation.txt');
-      case "createTenant":
-        return await rootBundle.loadString('assets/createTenantMutation.txt');
-      case "createLandlord":
-        return await rootBundle.loadString('assets/createLandlordMutation.txt');
-      case "loginTenant":
-        return await rootBundle.loadString('assets/loginTenantMutation.txt');
-      case "loginLandlord":
-        return await rootBundle.loadString('assets/loginLandlordMutation.txt');
-      case "scheduleLease":
-        return await rootBundle.loadString("assets/scheduleLeaseMutation.txt");
-    }
-    return "";
+    return await rootBundle.loadString('${name}Mutation.txt');
   }
 
   @override
@@ -81,9 +34,7 @@ class _MutationButtonState extends State<MutationHelper> {
       future: getMutation(widget.mutationName),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (!snapshot.hasData) {
-          return SafeArea(
-              child: Scaffold(
-                  body: AlertDialog(
+          return AlertDialog(
                       content: Row(
             children: [
               const CircularProgressIndicator(),
@@ -91,7 +42,7 @@ class _MutationButtonState extends State<MutationHelper> {
                   margin: const EdgeInsets.only(left: 7),
                   child: const Text("Loading...")),
             ],
-          ))));
+          ));
         }
 
         return Mutation(
@@ -101,7 +52,6 @@ class _MutationButtonState extends State<MutationHelper> {
                 if (resultData == null) {
                   return;
                 }
-              
 
                 widget.onComplete(resultData[widget.mutationName]);
               },

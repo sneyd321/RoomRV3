@@ -1,0 +1,10 @@
+query getTenants($houseId: Int!){
+	getTenants(houseId: $houseId){
+    firstName,
+    lastName,
+    email,
+    tenantState,
+    tenantPosition,
+    houseId
+  }
+}

@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notification_app/business_logic/lease.dart';
 
-class House extends ChangeNotifier {
+class House   {
 
   int houseId = 0;
   String houseKey = "";
@@ -21,12 +20,10 @@ class House extends ChangeNotifier {
 
   void setFirebaseId(String firebaseId) {
     this.firebaseId = firebaseId;
-    notifyListeners();
   }
 
   void setLease(Lease lease) {
     this.lease = lease;
-    notifyListeners();
   }
 
   Map<String, dynamic> toJson() {

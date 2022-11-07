@@ -9,7 +9,6 @@ import '../services/FirebaseConfig.dart';
 import '../services/graphql_client.dart';
 import '../widgets/Forms/Form/comment_form.dart';
 import '../widgets/Forms/FormRow/table_row.dart';
-import '../widgets/Queries/maintenance_ticket_query.dart';
 import '../widgets/builders/comment_stream_builder.dart';
 
 class CommentsPage extends StatefulWidget {

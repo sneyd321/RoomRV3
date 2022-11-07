@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:notification_app/business_logic/list_items/detail.dart';
 
-abstract class Deposit extends ChangeNotifier {
+abstract class Deposit {
   String name = "";
   String amount = "";
   List<Detail> details = [];
@@ -28,17 +27,14 @@ abstract class Deposit extends ChangeNotifier {
 
   void setName(String name) {
     this.name = name;
-    notifyListeners();
   }
 
   void setAmount(String amount) {
     this.amount = amount;
-    notifyListeners();
   }
 
   void addDetail(String detail) {
     details.add(Detail(detail));
-    notifyListeners();
   }
 
   String getAmount() {

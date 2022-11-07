@@ -1,26 +1,25 @@
-import 'package:notification_app/business_logic/list_items/tenant_name.dart';
 
 class Tenant {
   String firstName = "";
   String lastName = "";
   String email = "";
-  String password = "";
   String tenantState = "Not Approved";
+  int tenantPosition = 0;
+  int houseId = 0;
 
 
   Tenant();
 
-  Tenant.fromTenantName(TenantName tenantName) {
-    List<String> names = tenantName.name.split(" ");
-    firstName = names[0];
-    if (names.length > 1) {
-      for (int i = 1; i < names.length; i++) {
-        lastName += names[i];
-      }
-      
-    }
-  } 
+  Tenant.fromJson(Map<String, dynamic> json) {
+    firstName = json["firstName"];
+    lastName = json["lastName"];
+    email = json["email"];
+    tenantState = json["tenantState"];
+    tenantPosition = json["tenantPosition"];
+    houseId = json["houseId"];
+  }
 
+  
   String getFullName() {
     return "$firstName $lastName";
   }
@@ -29,8 +28,7 @@ class Tenant {
     return {
       "firstName": firstName,
       "lastName": lastName,
-      "email": email,
-      "tenantState": tenantState,
+      "email": email
     };
   }
 
@@ -46,14 +44,8 @@ class Tenant {
     email = value;
   }
 
-  void setPassword(String value) {
-    password = value;
-  } 
-
   void setState(String state) {
     tenantState = state;
   }
-
-
 
 }

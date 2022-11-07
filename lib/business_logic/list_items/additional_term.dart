@@ -1,8 +1,7 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:notification_app/business_logic/list_items/detail.dart';
 
-abstract class AdditionalTerm extends ChangeNotifier {
+abstract class AdditionalTerm {
   String name = "";
   List<Detail> details = [];
 
@@ -18,12 +17,10 @@ abstract class AdditionalTerm extends ChangeNotifier {
 
   void setName(String name) {
     this.name = name;
-    notifyListeners();
   }
 
   void addDetail(String detail) {
     details.add(Detail(detail));
-    notifyListeners();
   }
 }
 

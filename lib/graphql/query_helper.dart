@@ -24,17 +24,7 @@ class _QueryHelperState extends State<QueryHelper> {
   bool isVisible = false;
 
   Future<String> getQuery(String name) async {
-    switch (name) {
-      case "getMaintenanceTickets":
-        return await rootBundle.loadString('assets/getMaintenanceTicketsQuery.txt');
-      case "getMaintenanceTicket":
-        return await rootBundle.loadString('assets/getMaintenanceTicketQuery.txt');
-      case "getHouses":
-        return await rootBundle.loadString('assets/getHousesQuery.txt');
-      case "getHouse":
-        return await rootBundle.loadString('assets/getHouseQuery.txt');
-    }
-    return "";
+    return await rootBundle.loadString('${name}Query.txt');
   }
 
   @override
@@ -88,9 +78,8 @@ class _QueryHelperState extends State<QueryHelper> {
                           Flexible(
                             child: Text(
                               result.exception!.graphqlErrors.isNotEmpty
-                                      ? result
-                                          .exception!.graphqlErrors[0].message
-                                      : "Failed to connect, connection timed out",
+                                  ? result.exception!.graphqlErrors[0].message
+                                  : "Failed to connect, connection timed out",
                               softWrap: true,
                             ),
                           ),

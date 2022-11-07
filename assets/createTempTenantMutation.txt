@@ -1,0 +1,10 @@
+mutation createTempTenant($houseId: Int!, $tenant: TempTenantInput!){
+  createTempTenant(houseId: $houseId, tenant: $tenant) {
+    firstName,
+    lastName,
+    email,
+    tenantState,
+    tenantPosition,
+    houseId
+  }
+}

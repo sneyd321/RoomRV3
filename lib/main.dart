@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/comment.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
+import 'package:notification_app/pages/add_tenant_page.dart';
 import 'package:notification_app/pages/comments_page.dart';
 import 'package:notification_app/pages/house_page.dart';
 import 'package:notification_app/pages/landlord_view_pager.dart';
@@ -13,6 +14,8 @@ import 'package:notification_app/pages/login_page.dart';
 import 'package:notification_app/pages/sign_up_page.dart';
 import 'package:notification_app/pages/test_page.dart';
 import 'package:notification_app/services/FirebaseConfig.dart';
+
+import 'business_logic/house.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -56,7 +59,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/":(context) =>  CommentsPage(maintenanceTicketId: 25, houseKey: "6VGHPS", landlord: Landlord()),
+        "/":(context) =>  AddTenantPage(house: House(),)
       },
     );
   }

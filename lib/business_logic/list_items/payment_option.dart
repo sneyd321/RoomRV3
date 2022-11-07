@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 
-abstract class PaymentOption extends ChangeNotifier {
+abstract class PaymentOption {
   String name = "";
 
   PaymentOption() : super();
@@ -13,7 +12,6 @@ abstract class PaymentOption extends ChangeNotifier {
 
   void setName(String name) {
     this.name = name;
-    notifyListeners();
   }
 
   Map<String, dynamic> toJson() {

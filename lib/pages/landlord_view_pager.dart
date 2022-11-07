@@ -20,7 +20,7 @@ class LandlordViewPager extends StatefulWidget {
 
 class _LandlordViewPagerState extends State<LandlordViewPager> {
   final PageController controller = PageController();
-  int index = 1;
+  int index = 0;
 
 
   @override
@@ -37,7 +37,7 @@ class _LandlordViewPagerState extends State<LandlordViewPager> {
                  List<House> houses = json.map<House>((json) => House.fromJson(json)).toList();
                  switch (index) {
                   case 0:
-                    return NotificationPage(house: houses[0], landlord: widget.landlord,);
+                    return NotificationPage(houses: houses, landlord: widget.landlord,);
                   case 1:
                     return HousesPage(houses: houses,);
                   default:
@@ -52,8 +52,8 @@ class _LandlordViewPagerState extends State<LandlordViewPager> {
                 label: 'Notification Feed',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.assignment),
-                label: 'Documents',
+                icon: Icon(Icons.home),
+                label: 'Houses',
               ),
             ],
             currentIndex: index,

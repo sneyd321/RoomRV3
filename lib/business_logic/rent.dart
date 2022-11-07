@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:notification_app/business_logic/list_items/payment_option.dart';
 
 import 'list_items/rent_services.dart';
 
 
-class Rent extends ChangeNotifier {
+class Rent   {
   String baseRent = "";
   String rentMadePayableTo = "";
   List<RentService> rentServices = [];
@@ -29,12 +28,10 @@ class Rent extends ChangeNotifier {
 
   void setBaseRent(String baseRent) {
     this.baseRent = baseRent;
-    notifyListeners();
   }
 
   void setRentMadePayableTo(String rentMadePayableTo) {
     this.rentMadePayableTo = rentMadePayableTo;
-    notifyListeners();
   }
 
    String getTotalLawfulRent() {
@@ -48,12 +45,10 @@ class Rent extends ChangeNotifier {
 
   void addRentService(RentService rentService) {
     rentServices.add(rentService);
-    notifyListeners();
   }
 
   void removeRentService(RentService rentService) {
     rentServices.remove(rentService);
-    notifyListeners();
   }
 
  

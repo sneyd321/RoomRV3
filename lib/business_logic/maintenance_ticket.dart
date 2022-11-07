@@ -1,6 +1,5 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:notification_app/business_logic/sender.dart';
 
 import '_picture.dart';
@@ -8,7 +7,7 @@ import 'timestamp.dart';
 import 'description.dart';
 import 'urgency.dart';
 
-class MaintenanceTicket extends ChangeNotifier {
+class MaintenanceTicket   {
   String name = "MaintenanceTicket";
   Picture picture = Picture.fromFile("");
   Description description = Description("");
@@ -28,17 +27,14 @@ class MaintenanceTicket extends ChangeNotifier {
 
   void setFilePath(String filePath) {
     picture = Picture.fromFile(filePath);
-    notifyListeners();
   }
 
   void setURL(String url) {
     picture = Picture.fromUrl(url);
-    notifyListeners();
   }
 
   void setDescription(Description description) {
     this.description = description;
-    notifyListeners();
   }
 
   void setUrgency(String urgency) {
@@ -53,12 +49,10 @@ class MaintenanceTicket extends ChangeNotifier {
         this.urgency = HighUrgency();
         break;    
     }
-    notifyListeners();
   }
 
   void setFirebaseId(String firebaseId) {
     this.firebaseId = firebaseId;
-    notifyListeners();
   }
 
 

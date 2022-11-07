@@ -1,10 +1,9 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/timestamp.dart';
 
-class Comment extends ChangeNotifier {
+class Comment  {
 
   String comment = "";
   String name = "";
@@ -31,34 +30,28 @@ class Comment extends ChangeNotifier {
 
   void setComment(String comment) {
     this.comment = comment;
-    notifyListeners();
   }
 
   void setName(String name) {
     this.name = name;
-    notifyListeners();
   }
 
   void setEmail(String email) {
     this.email = email;
-    notifyListeners();
   }
 
   void setFirstName(String firstName) {
     this.firstName = firstName;
-    notifyListeners();
   }
 
   void setLastName(String lastName) {
     this.lastName = lastName;
-    notifyListeners();
   }
   
   
 
 
   String? validate() {
-    print("Inside validate");
      if (comment.length > 140) {
       return "Please enter a comment shorter than 140 characters";
     }

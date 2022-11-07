@@ -1,4 +1,4 @@
-mutation addTenant(houseKey: houseKey, tenant: AddTenantEmailInput!){
+mutation addTenant($houseKey: String!, $tenant: AddTenantEmailInput!){
 	addTenant(houseKey: $houseKey, tenant: $tenant) {
         firstName,
         lastName,

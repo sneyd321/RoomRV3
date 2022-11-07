@@ -48,6 +48,8 @@ dependencies:
   open_file: ^3.2.1
   signature: ^5.2.1
   image_picker: ^0.8.5+3
+  async: ^2.9.0
+  rxdart: ^0.27.5
 
 
 dev_dependencies:
@@ -100,6 +102,8 @@ flutter:
     - assets/getHousesQuery.txt
     - assets/getHouseQuery.txt
     - assets/scheduleLeaseMutation.txt
+    - assets/addTenantEmailMutation.txt
+    - assets/createTempTenantMutation.txt
 
   #   - images/a_dot_ham.jpeg
 

@@ -1,9 +1,8 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:notification_app/business_logic/list_items/detail.dart';
 
-abstract class Utility extends ChangeNotifier {
+abstract class Utility   {
   
   String name = "";
   String responsibility = "Tenant";
@@ -34,17 +33,14 @@ abstract class Utility extends ChangeNotifier {
 
   void addDetail(String detail) {
     details.add(Detail(detail));
-    notifyListeners();
   }
 
   void setName(String name) {
     this.name = name;
-    notifyListeners();
   }
 
   void setResponsibility(String responsibility) {
     this.responsibility = responsibility;
-    notifyListeners();
   }
 }
 

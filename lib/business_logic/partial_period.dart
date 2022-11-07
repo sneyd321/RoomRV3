@@ -1,8 +1,7 @@
 
 
-import 'package:flutter/cupertino.dart';
 
-class PartialPeriod extends ChangeNotifier {
+class PartialPeriod   {
   String amount = '';
   String dueDate = '';
   String startDate = '';
@@ -28,27 +27,22 @@ class PartialPeriod extends ChangeNotifier {
 
   void setEnabled(bool value) {
     isEnabled = value;
-    notifyListeners();
   }
 
   void setAmount(String amount) {
     this.amount = amount;
-    notifyListeners();
   }
 
   void setDueDate(String dueDate) {
     this.dueDate = dueDate;
-    notifyListeners();
   }
 
   void setStartDate(String startDate) {
     this.startDate = startDate;
-    notifyListeners();
   }
 
   void setEndDate(String endDate) {
     this.endDate = endDate;
-    notifyListeners();
   }
 
   

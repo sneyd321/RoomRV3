@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 
-class Detail extends ChangeNotifier {
+class Detail  {
   String detail = "";
 
   Detail(this.detail);
@@ -12,7 +11,6 @@ class Detail extends ChangeNotifier {
 
   void setDetail(String detail) {
     this.detail = detail;
-    notifyListeners();
   }
 
   Map<String, dynamic> toJson() {

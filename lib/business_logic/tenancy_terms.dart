@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/partial_period.dart';
 
 import 'package:notification_app/business_logic/rental_period.dart';
 
-class TenancyTerms extends ChangeNotifier {
+class TenancyTerms   {
   RentalPeriod rentalPeriod = RentalPeriod("Fixed Term");
   String startDate = '';
   String rentDueDate = "First";
@@ -40,12 +39,10 @@ class TenancyTerms extends ChangeNotifier {
 
   void setStartDate(String startDate) {
     this.startDate = startDate;
-    notifyListeners();
   }
 
   void setRentalPeriod(RentalPeriod rentalPeriod) {
     this.rentalPeriod = rentalPeriod;
-    notifyListeners();
   }
 
   void setPartialPeriod(PartialPeriod partialPeriod) {
@@ -54,11 +51,9 @@ class TenancyTerms extends ChangeNotifier {
 
   void setRentDueDate(String rentDueDate) {
     this.rentDueDate = rentDueDate;
-    notifyListeners();
   }
 
   void setPaymentPeriod(String paymentPeriod) {
     this.paymentPeriod = paymentPeriod;
-    notifyListeners();
   }
 }

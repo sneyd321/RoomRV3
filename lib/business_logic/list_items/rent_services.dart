@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 
-abstract class RentService extends ChangeNotifier {
+abstract class RentService   {
   String name = "";
   String amount = "0.00";
 
@@ -17,12 +16,10 @@ abstract class RentService extends ChangeNotifier {
 
   void setAmount(String amount) {
     this.amount = amount;
-    notifyListeners();
   }
 
   void setName(String name) {
     this.name = name;
-    notifyListeners();
   }
 
 }

@@ -5,9 +5,9 @@ import '../business_logic/house.dart';
 import '../widgets/builders/notification_stream_builder.dart';
 
 class NotificationPage extends StatelessWidget {
-  final House house;
+  final List<House> houses;
   final Landlord landlord;
-  const NotificationPage({Key? key, required this.house,required this.landlord})
+  const NotificationPage({Key? key, required this.houses, required this.landlord})
       : super(key: key);
  
 
@@ -19,6 +19,6 @@ class NotificationPage extends StatelessWidget {
               height: 60,
               margin: const EdgeInsets.only(bottom: 16),
             ),
-            body: NotificationStreamBuilder(house: house, landlord: landlord,)));
+            body: NotificationStreamBuilder(houses: houses, landlord: landlord,)));
   }
 }

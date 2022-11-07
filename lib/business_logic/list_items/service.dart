@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:notification_app/business_logic/list_items/detail.dart';
 
 
-abstract class Service extends ChangeNotifier {
+abstract class Service   {
   String name = "";
   bool isIncludedInRent = false;
   List<Detail> details = [];
@@ -21,17 +20,14 @@ abstract class Service extends ChangeNotifier {
 
   void addDetail(String detail) {
     details.add(Detail(detail));
-    notifyListeners();
   }
 
   void setName(String name) {
     this.name = name;
-    notifyListeners();
   }
 
   void setIncludedInRent(bool value) {
     isIncludedInRent = value;
-    notifyListeners();
   }
 }
 
@@ -61,7 +57,6 @@ abstract class PayPerUseService extends Service {
 
   void setPayPerUse(bool value) {
     isPayPerUse = value;
-    notifyListeners();
   }
 
   

@@ -1,17 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/business_logic/tenant.dart';
+import 'package:notification_app/graphql/mutation_helper.dart';
+import 'package:notification_app/services/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
-import 'package:notification_app/widgets/FormFields/SimpleFormField.dart';
-import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
-import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
-import 'package:notification_app/widgets/Helper/TextHelper.dart';
-import 'package:notification_app/widgets/mutations/add_tenant_email_mutation.dart';
 
-import '../../services/graphql_client.dart';
 
 class AddTenantCard extends StatelessWidget {
   final Tenant tenant;
@@ -23,68 +19,93 @@ class AddTenantCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Row(children: [
-        Container(
-          margin: const EdgeInsets.only(left: 8, right: 8),
-          decoration:
-              const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-          child: const Icon(Icons.account_circle, color: Colors.blue, size: 35),
-        ),
-        TextHelper(text: tenant.getFullName()),
-        Spacer(),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: const EdgeInsets.only(right: 8),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.email,
-                  color: Colors.blue,
-                  size: 30,
+              margin: const EdgeInsets.only(top: 16),
+              child: const CircleAvatar(
+                radius: 50.0,
+                backgroundColor: Colors.blue,
+                child: Icon(
+                  Icons.account_circle,
+                  color: Colors.white,
+                  size: 95,
                 ),
-                onPressed: () {
-                  BottomSheetHelper(GraphQLProvider(
-                    client: GQLClient().getClient(),
-                    child: Form(
-                      key: formKey,
-                        child: Column(
-                      children: [
-                        SimpleFormField(
-                            label: "Email",
-                            icon: Icons.email,
-                            textEditingController: TextEditingController(),
-                            onSaved: (value) {
-                              tenant.setEmail(value!);
-                            },
-                            onValidate: (value) {
-                              return Email(value!).validate();
-                            }),
-                        TwoColumnRow(
-                            left: SecondaryButton(Icons.chevron_left, "Back",
-                                (context) {
-                              Navigator.pop(context);
-                            }),
-                            right: AddTenantMutation(
-                              formKey: formKey,
-                              houseKey: houseKey,
-                              tenant: tenant,
-                              onComplete:
-                                  (BuildContext context, int houseId) {},
-                            ))
-                      ],
-                    )),
-                  )).show(context);
-                },
               ),
             ),
             Container(
-                margin: const EdgeInsets.only(right: 8),
-                child: const Text("Invite"))
+                margin: const EdgeInsets.only(top: 16),
+                child: Center(
+                    child: Text(
+                  tenant.getFullName(),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ))),
+            Container(
+                margin: const EdgeInsets.only(top: 8, bottom: 16),
+                child: Center(
+                    child: Text(
+                  tenant.email,
+                ))),
+     
+            SecondaryButton(Icons.email, "Invite", (context) {
+              showDialog(
+                context: context, 
+                builder: (context) {
+                  return GraphQLProvider(
+                      client: GQLClient().getClient(),
+                      child: MutationHelper(onComplete: (json) {
+                        Navigator.pop(context);
+                      }, 
+                      mutationName: "addTenantEmail", builder: ((runMutation) {
+                        return AlertDialog(
+                          actions: [
+                            TextButton(
+                              child: const Text('No'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('Yes'),
+                              onPressed: () {
+                                
+                                runMutation({
+                                  "houseKey": houseKey,
+                                  "tenant": tenant.toJson()
+                                });
+                               
+                              },
+                            ),
+                          ],
+                          content:  Row(
+                          
+                            children: const [
+                              CircleAvatar(
+                                backgroundColor: Colors.blue,
+                                child: Icon(
+                                  Icons.error,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Flexible(
+                                child: Text("This will send an email to this tenant with:\n- A copy of the lease agreement\n- The house key\n- Access to the tenant version of the app.\n\nFor the tenant to get access you will need to approve the tenant in the notification feed after the tenant signs the lease agreement.\n\nWould you like to continue?",
+                                  softWrap: true,
+                                ),
+                              ),
+                            ],
+                          ));
+                      })),
+                    );
+                  
+                });
+            })
           ],
-        )
-      ]),
+        ),
     );
   }
 }
