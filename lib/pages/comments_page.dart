@@ -52,12 +52,17 @@ class _CommentsPageState extends State<CommentsPage> {
     return GraphQLProvider(
         client: GQLClient().getClient(),
         child: QueryHelper(
+          isList: false,
           queryName: "getMaintenanceTicket",
           variables: {
             "houseKey": widget.houseKey,
-            "maintenanceTicketId": 25
+            "maintenanceTicketId": widget.maintenanceTicketId
           },
           onComplete: (json) {
+            if (json == null) {
+              return CircularProgressIndicator();
+            }
+            json = json as Map<String, dynamic>;
             MaintenanceTicket maintenanceTicket =
                 MaintenanceTicket.fromJson(json);
             return SafeArea(

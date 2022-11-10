@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/login_landlord.dart';
+import 'package:notification_app/graphql/mutation_helper.dart';
+import 'package:notification_app/pages/landlord_view_pager.dart';
 import 'package:notification_app/pages/sign_up_page.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Dialogs/loading_dialog.dart';
 
 import '../business_logic/fields/field.dart';
+import '../business_logic/landlord.dart';
 import '../services/FirebaseConfig.dart';
 import '../services/graphql_client.dart';
 import '../widgets/FormFields/EmailFormField.dart';
@@ -48,84 +50,74 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return GraphQLProvider(
       client: GQLClient().getClient(),
-      child: SafeArea(
-          child: Scaffold(
-        body: SingleChildScrollView(
-          child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  Container(
-                      margin: const EdgeInsets.only(
-                        top: 16,
+      child: MutationHelper(
+        builder: (runMutation) {
+          return SafeArea(
+              child: Scaffold(
+            body: SingleChildScrollView(
+              child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      Container(
+                          margin: const EdgeInsets.only(
+                            top: 16,
+                          ),
+                          child: const Center(
+                              child: Text(
+                            "RoomR",
+                            style: TextStyle(color: Colors.blue, fontSize: 36),
+                          ))),
+                      const SizedBox(
+                        height: 200,
                       ),
-                      child: const Center(
-                          child: Text(
-                        "RoomR",
-                        style: TextStyle(color: Colors.blue, fontSize: 36),
-                      ))),
-                  const SizedBox(
-                    height: 200,
-                  ),
-                  EmailFormField(
-                    textEditingController: emailTextEditingController,
-                    onSaved: ((email) {
-                      loginLandlord.setEmail(email);
-                    }),
-                  ),
-                  PasswordFormField(
-                      textEditingController: passwordTextEditingController,
-                      onSaved: (value) {
-                        loginLandlord.setPassword(value!);
-                      },
-                      label: "Password",
-                      icon: Icons.password,
-                      onValidate: (value) {
-                        return Password(value!).validate();
-                      }),
-                  TwoColumnRow(
-                    left: SecondaryButton(Icons.account_box, "Sign Up",
-                        (context) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpPage()),
-                      );
-                    }),
-                    right: Text("0")
-                    /*
-                    MutationButton(
-                      builder: (runMutation, result) {
-                        return PrimaryButton(Icons.login, "Login", (context) {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            runMutation({"login": loginLandlord.toJson()});
-                            loadingDialog.show(context);
-                          }
-                        });
-                      },
-                      mutationName: 'loginLandlord',
-                      onComplete: (Map<String, dynamic>? result) {
-                        loadingDialog.close(context);
-                        if (result == null) {
-                          return;
-                        }
-                        Landlord landlord = Landlord.fromJson(result);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginPage(
-                                  email: landlord.email,
-                                  password: landlord.password)),
-                        );
-                      },
-                    ),
-                    */
-                  )
-                ],
-              )),
-        ),
-      )),
+                      EmailFormField(
+                        textEditingController: emailTextEditingController,
+                        onSaved: ((email) {
+                          loginLandlord.setEmail(email);
+                        }),
+                      ),
+                      PasswordFormField(
+                          textEditingController: passwordTextEditingController,
+                          onSaved: (value) {
+                            loginLandlord.setPassword(value!);
+                          },
+                          label: "Password",
+                          icon: Icons.password,
+                          onValidate: (value) {
+                            return Password(value!).validate();
+                          }),
+                      TwoColumnRow(
+                          left: SecondaryButton(Icons.account_box, "Sign Up",
+                              (context) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpPage()),
+                            );
+                          }),
+                          right: PrimaryButton(Icons.login, "Login", (context) async {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              loginLandlord.setDeviceId(await FirebaseConfiguration().getToken());
+                              runMutation({"login": loginLandlord.toJson()});
+                            }
+                          }))
+                    ],
+                  )),
+            ),
+          ));
+        },
+        mutationName: 'loginLandlord',
+        onComplete: (json) {
+          print(json);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      LandlordViewPager(landlord: Landlord.fromJson(json))));
+        },
+      ),
     );
   }
 }

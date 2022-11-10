@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/pages/add_lease_pages/add_landlord_info_page.dart';
 import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
+import 'package:notification_app/services/graphql_client.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'add_lease_pages/add_landlord_address_page.dart';
@@ -10,7 +13,8 @@ import 'add_lease_pages/add_rental_address_page.dart';
 import 'add_lease_pages/add_tenancy_terms_page.dart';
 
 class AddLeaseViewPager extends StatefulWidget {
-  const AddLeaseViewPager({Key? key}) : super(key: key);
+  final Landlord landlord;
+  const AddLeaseViewPager({Key? key, required this.landlord}) : super(key: key);
 
   @override
   State<AddLeaseViewPager> createState() => _AddLeaseViewPagerState();
@@ -19,7 +23,7 @@ class AddLeaseViewPager extends StatefulWidget {
 class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
   final PageController controller = PageController();
   int currentPage = 0;
-  static const int MAX_PAGE = 5;
+  static const int MAX_PAGE = 4;
   String title = "Landlord Info";
   Map titleMapping = {
     0: "Landlord Info",
@@ -27,10 +31,19 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
     2: "Rental Address",
     3: "Rent",
     4: "Tenancy Terms",
-    5: "Sign Lease"
   };
 
   final Lease lease = Lease();
+
+  @override
+  void initState() {
+    super.initState();
+    lease.landlordInfo.fullName = widget.landlord.getFullName();
+    lease.landlordInfo.addEmail(widget.landlord.email);
+    lease.landlordInfo.addContactInfo(widget.landlord.email);
+  }
+
+
   void animateToPage(int currentPage) {
     controller.animateToPage(currentPage,
         duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
@@ -40,7 +53,7 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  void upload(BuildContext context) {}
+
 
   void onNext(BuildContext context) {
     if (currentPage < MAX_PAGE) {
@@ -51,8 +64,10 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
   }
 
   void onBack(BuildContext context) {
-    if (currentPage <= 0) {}
-
+    if (currentPage <= 0) {
+      Navigator.pop(context);
+      return;
+    }
     currentPage -= 1;
     animateToPage(currentPage);
   }
@@ -60,56 +75,53 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text(title),
-            ),
-            body: Column(children: [
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 16),
-                child: SmoothPageIndicator(
-                  controller: controller,
-                  count: MAX_PAGE + 1,
-                  effect: const WormEffect(),
-                ),
+          child: Scaffold(
+              appBar: AppBar(
+                title: Text(title),
               ),
-              Expanded(
-                child: PageView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: controller,
-                  children: [
-                    AddLandlordInfoPage(
-                      lease: lease,
-                      onNext: onNext,
-                      onBack: onBack,
-                    ),
-                    AddLandlordAddressPage(
-                      lease: lease,
-                      onNext: onNext,
-                      onBack: onBack,
-                    ),
-                    AddRentalAddressPage(
-                      lease: lease,
-                      onNext: onNext,
-                      onBack: onBack,
-                    ),
-                    AddRentPage(
-                      lease: lease,
-                      onNext: onNext,
-                      onBack: onBack,
-                    ),
-                    AddTenancyTermsPage(
-                      lease: lease,
-                      onNext: onNext,
-                      onBack: onBack,
-                    ),
-                    AddLeaseSigniturePage(
-                      lease: lease,
-                      onBack: onBack,
-                    ),
-                  ],
+              body: Column(children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 16),
+                  child: SmoothPageIndicator(
+                    controller: controller,
+                    count: MAX_PAGE + 1,
+                    effect: const WormEffect(),
+                  ),
                 ),
-              ),
-            ])));
+                Expanded(
+                  child: PageView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: controller,
+                    children: [
+                      AddLandlordInfoPage(
+                        lease: lease,
+                        onNext: onNext,
+                        onBack: onBack,
+                      ),
+                      AddLandlordAddressPage(
+                        lease: lease,
+                        onNext: onNext,
+                        onBack: onBack,
+                      ),
+                      AddRentalAddressPage(
+                        lease: lease,
+                        onNext: onNext,
+                        onBack: onBack,
+                      ),
+                      AddRentPage(
+                        lease: lease,
+                        onNext: onNext,
+                        onBack: onBack,
+                      ),
+                      AddTenancyTermsPage(
+                        landlord: widget.landlord,
+                        lease: lease,
+                        onBack: onBack,
+                      ),
+                    ],
+                  ),
+                ),
+              ])),
+    );
   }
 }

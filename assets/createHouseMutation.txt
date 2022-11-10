@@ -1,5 +1,5 @@
-mutation createHouse($landlordId: Int!, $lease: LeaseInput!, $signature: String!){
-    createHouse(landlordId: $landlordId, lease: $lease, signature: $signature) {
+mutation createHouse($landlordId: Int!, $lease: LeaseInput!){
+    createHouse(landlordId: $landlordId, lease: $lease) {
         id,
         landlordId,
         houseKey,

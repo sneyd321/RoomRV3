@@ -2,7 +2,7 @@ class LoginLandlord {
 
   String email = "";
   String password = "";
-  String deviceId = "";
+  String? deviceId;
 
   LoginLandlord();
 
@@ -14,7 +14,7 @@ class LoginLandlord {
     this.password = password;
   }
 
-  void setDeviceId(String deviceId) {
+  void setDeviceId(String? deviceId) {
     this.deviceId = deviceId;
   }
 
@@ -22,7 +22,7 @@ class LoginLandlord {
     return {
       "email": email,
       "password": password,
-      "deviceId": deviceId
+      "deviceId": deviceId ?? ""
     };
   }
 

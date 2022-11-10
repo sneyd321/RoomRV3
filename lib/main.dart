@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/comment.dart';
 import 'package:notification_app/business_logic/landlord.dart';
+import 'package:notification_app/firebase_options.dart';
 import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
 import 'package:notification_app/pages/add_tenant_page.dart';
 import 'package:notification_app/pages/comments_page.dart';
@@ -33,14 +34,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
  
   await Firebase.initializeApp(
-      options: const FirebaseOptions(
-    apiKey: 'AIzaSyBxpgJlnz2e5NV03gFfDQQjd0NVv8RvD0w',
-    appId: '1:959426188245:android:32150f37668273de50a35c',
-    messagingSenderId: '959426188245',
-    projectId: 'roomr-222721',
-    databaseURL: 'https://roomr-222721.firebaseio.com',
-    storageBucket: 'roomr-222721.appspot.com',
-  ));
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseConfiguration().initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await initHiveForFlutter();
   runApp(const MyApp());
@@ -59,7 +55,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/":(context) =>  AddTenantPage(house: House(),)
+        "/":(context) =>  const LoginPage(email: "", password: "",)
       },
     );
   }

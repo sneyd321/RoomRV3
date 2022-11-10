@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:notification_app/business_logic/suggested_address.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import '../business_logic/address.dart';

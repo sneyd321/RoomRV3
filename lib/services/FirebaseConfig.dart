@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/services/notification.dart';
 import 'package:notification_app/services/notification/download_lease_notification.dart';
@@ -63,6 +64,7 @@ class FirebaseConfiguration {
     return FirebaseFirestore.instance;
   }
 
+
   Future<void> setComment(String firebaseId, Comment comment) async {
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection("MaintenanceTicket")
@@ -73,6 +75,9 @@ class FirebaseConfiguration {
   }
 
   Future<String?> getToken() async {
+    if (kIsWeb) {
+      return await FirebaseMessaging.instance.getToken(vapidKey: "BN0NLV1vcX9IwimhTRi5UomTfgBOSVfFJ86K01mzxkKXmfWGNgYF2kQgrsG-VQGNyE9C3el6-J8dj8AHZpWn6lk");
+    }
     return await FirebaseMessaging.instance.getToken();
   }
 }

@@ -1,4 +1,5 @@
 class Landlord {
+  int id = 0;
   String firstName = "";
   String lastName = "";
   String email = "";
@@ -34,6 +35,7 @@ class Landlord {
     lastName = json["lastName"];
     email = json["email"];
     deviceId = json["deviceId"];
+    id = json["id"];
   }
 
   Map<String, dynamic> toJson(){ 

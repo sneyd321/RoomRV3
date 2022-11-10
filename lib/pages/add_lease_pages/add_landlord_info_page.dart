@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';

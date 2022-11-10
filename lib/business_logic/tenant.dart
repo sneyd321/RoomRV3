@@ -3,6 +3,7 @@ class Tenant {
   String firstName = "";
   String lastName = "";
   String email = "";
+  String password = "";
   String tenantState = "Not Approved";
   int tenantPosition = 0;
   int houseId = 0;
@@ -28,7 +29,8 @@ class Tenant {
     return {
       "firstName": firstName,
       "lastName": lastName,
-      "email": email
+      "email": email,
+      "password": password
     };
   }
 

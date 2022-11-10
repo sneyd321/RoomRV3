@@ -31,17 +31,18 @@ class _LandlordViewPagerState extends State<LandlordViewPager> {
         child: Scaffold(
           appBar: AppBar(),
           body:  QueryHelper(
+            isList: true,
                queryName: 'getHouses', 
-               variables: const {"id": 4},
-               onCompleteList: (json) {
+               variables: {"id": widget.landlord.id},
+               onComplete: (json) {
                  List<House> houses = json.map<House>((json) => House.fromJson(json)).toList();
                  switch (index) {
                   case 0:
                     return NotificationPage(houses: houses, landlord: widget.landlord,);
                   case 1:
-                    return HousesPage(houses: houses,);
+                    return HousesPage(houses: houses, landlord: widget.landlord,);
                   default:
-                    return HousesPage(houses: houses,);
+                    return HousesPage(houses: houses, landlord: widget.landlord,);
                 }
                },
                ),

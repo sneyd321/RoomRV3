@@ -21,6 +21,7 @@ class HouseCard extends StatelessWidget {
   String parseSecondaryAddress(House house) {
     RentalAddress rentalAddress = house.lease.rentalAddress;
     String city = rentalAddress.city;
+    print(city.length);
     String province = rentalAddress.province;
     String postalCode = rentalAddress.postalCode;
     return "$city, $province $postalCode";
@@ -28,31 +29,54 @@ class HouseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-                margin: const EdgeInsets.only(top: 8),
-                alignment: Alignment.center,
-                child: Text("House Key: ${house.houseKey}",
-                    style: const TextStyle(fontWeight: FontWeight.bold))),
-            Image(image: AssetImage("assets/house.jpg")),
-            ListTile(
-              title: TextHelper(text: parsePrimaryAddress(house)),
-              subtitle: TextHelper(text: parseSecondaryAddress(house)),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HouseMenuPage(
+                    house: house,
+                  )),
+        );
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        clipBehavior: Clip.hardEdge,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Image(
+            fit: BoxFit.fill,
+            image: AssetImage("assets/house.jpg")),
+          Container(
+              margin: const EdgeInsets.only(top: 8, bottom: 8, left: 8),
+              child: Row(
+                children: [
+                  const Text("House Key: ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  Text(house.houseKey,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.blue))
+                ],
+              )),
+          Container(
+            margin: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(parsePrimaryAddress(house),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    )),
+                Text(parseSecondaryAddress(house)),
+              ],
             ),
-            SecondaryButton(Icons.door_back_door, "Enter", (context) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => HouseMenuPage(
-                          house: house,
-                        )),
-              );
-            })
-          ]),
+          ),
+        ]),
+      ),
     );
   }
 }

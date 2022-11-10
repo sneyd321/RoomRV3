@@ -33,6 +33,7 @@ class _AdditionalTermsPageState extends State<AdditionalTermsPage> {
             child: Scaffold(
                 appBar: AppBar(),
                 body: QueryHelper(
+                  isList: true,
                     queryName: "getHouse",
                     variables: {
                       "houseKey": widget.houseKey,

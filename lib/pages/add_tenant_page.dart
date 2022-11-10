@@ -12,9 +12,7 @@ import '../widgets/Listviews/CardSliverGridView.dart';
 
 class AddTenantPage extends StatefulWidget {
   final House house;
-  AddTenantPage({Key? key, required this.house}) : super(key: key) {
-    house.houseKey = "QQJ1VG";
-  }
+  const AddTenantPage({Key? key, required this.house}) : super(key: key);
 
   @override
   State<AddTenantPage> createState() => _AddTenantPageState();
@@ -26,21 +24,29 @@ class _AddTenantPageState extends State<AddTenantPage> {
     return GraphQLProvider(
         client: GQLClient().getClient(),
         child: QueryHelper(
-          variables: {"houseId": 2},
+          isList: true,
+          variables: {"houseId": widget.house.houseId},
           queryName: "getTenants",
-          onCompleteList: (json) {
+          onComplete: (json) {
+            json = json as List<dynamic>;
             List<Tenant> tenants = json
                 .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
                 .toList();
+            print(tenants);
             return SafeArea(
                 child: Scaffold(
                     floatingActionButton: FloatingActionButton.extended(
                       icon: const Icon(Icons.add),
                       label: const Text("Add Tenant"),
                       onPressed: () async {
-                        await BottomSheetHelper<Tenant?>(
-                                const AddTenantEmailForm(houseId: 2))
+                        Tenant? tenant = await BottomSheetHelper<Tenant?>(
+                                AddTenantEmailForm(houseId: widget.house.houseId))
                             .show(context);
+                        if (tenant == null) {
+                          return;
+                        }
+                        tenants.add(tenant);
+
                         setState(() {
                           
                         });

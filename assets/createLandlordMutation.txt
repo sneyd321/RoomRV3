@@ -1,4 +1,4 @@
-mutation createLandlord(landlord: LandlordInput!){
+mutation createLandlord($landlord: LandlordInput!){
 	createLandlord(landlord: $landlord) {
         firstName,
         lastName,

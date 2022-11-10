@@ -14,7 +14,7 @@ class GQLClient {
     return ValueNotifier(
       GraphQLClient(
         link: HttpLink(
-          'http://192.168.100.110:8081/graphql',
+          'http://localhost:8081/graphql',
 
         ),
         cache: GraphQLCache(store: HiveStore()),

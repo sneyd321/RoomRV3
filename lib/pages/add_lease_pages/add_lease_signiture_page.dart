@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/services/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
@@ -14,10 +15,11 @@ import '../../widgets/Buttons/SecondaryButton.dart';
 class AddLeaseSigniturePage extends StatefulWidget {
   final Function(BuildContext context) onBack;
   final Lease lease;
+  final Landlord landlord;
   const AddLeaseSigniturePage({
     Key? key,
     required this.onBack,
-    required this.lease,
+    required this.lease, required this.landlord,
   }) : super(key: key);
 
   @override
@@ -71,7 +73,7 @@ class _AddLeaseSigniturePageState extends State<AddLeaseSigniturePage> {
                     String base64EncodedSigniture =
                         base64Encode(await controller.toPngBytes() ?? []);
                     runMutation({
-                      "landlordId": 4,
+                      "landlordId": widget.landlord.id,
                       "lease": widget.lease.toJson(),
                       "signature": base64EncodedSigniture
                     });
