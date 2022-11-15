@@ -1,10 +1,11 @@
 {
     "data": {
         "createLandlord": {
-            "firstName": "str",
+            "firstName": "Ryan",
             "lastName": "str",
             "email": "str1",
-            "deviceId": ""
+            "deviceId": "",
+            "id": 0
         }
     }
 }

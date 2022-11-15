@@ -1,4 +1,4 @@
-mutation loginTenant(login: LoginTenantInput!){
+mutation loginTenant($login: LoginTenantInput!){
 	loginTenant(login: $login) {
         firstName,
         lastName,

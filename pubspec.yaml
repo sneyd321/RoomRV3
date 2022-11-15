@@ -93,7 +93,7 @@ flutter:
     - assets/updateRentDiscountsMutation.txt
     - assets/updateRentDepositsMutation.txt
     - assets/updateAdditionalTermsMutation.txt
-    - assets/addTenantEmailMutation.txt
+    - assets/addTenantMutation.txt
     - assets/createTenantMutation.txt
     - assets/createLandlordMutation.txt
     - assets/loginTenantMutation.txt
@@ -103,7 +103,6 @@ flutter:
     - assets/getHousesQuery.txt
     - assets/getHouseQuery.txt
     - assets/scheduleLeaseMutation.txt
-    - assets/addTenantEmailMutation.txt
     - assets/createTempTenantMutation.txt
     - assets/getTenantsQuery.txt
 

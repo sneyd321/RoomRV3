@@ -1,0 +1,20 @@
+{
+    "data": {
+        "updateTenancyTerms": {
+            "startDate": "8/16/2022",
+            "rentDueDate": "First",
+            "paymentPeriod": "Month",
+            "rentalPeriod": {
+                "rentalPeriod": "Month to Month",
+                "endDate": ""
+            },
+            "partialPeriod": {
+                "amount": "20.00",
+                "dueDate": "8/31/2022",
+                "startDate": "8/16/2022",
+                "endDate": "8/31/2022",
+                "isEnabled": false
+            }
+        }
+    }
+}

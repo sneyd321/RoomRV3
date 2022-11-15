@@ -1,7 +1,7 @@
 {
     "data": {
       "addTenant": {
-        "firstName": "str",
+        "firstName": "Ryan",
         "lastName": "str",
         "email": "str",
         "tenantState": "str",
