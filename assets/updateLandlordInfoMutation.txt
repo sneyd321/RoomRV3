@@ -1,5 +1,5 @@
-mutation updateLandlordInfo($leaseId: Int!, $landlordInfo: LandlordInfoInput!){
-   updateLandlordInfo(leaseId: $leaseId, landlordInfo: $landlordInfo)
+mutation updateLandlordInfo($houseId: Int!, $landlordInfo: LandlordInfoInput!){
+   updateLandlordInfo(houseId: $houseId, landlordInfo: $landlordInfo)
     {
         fullName,
         receiveDocumentsByEmail,

@@ -26,7 +26,7 @@ class _AddressFormFieldState extends State<AddressFormField> {
   bool hasFailedToConnect = false;
   final int maxCharacterLength = 100;
   final IO.Socket socket = IO.io(
-      'http://192.168.100.110:8087',
+      'https://address-service-s5xgw6tidq-uc.a.run.app',
       OptionBuilder()
           .setTransports(['websocket']) // for Flutter or Dart VM
           .disableAutoConnect()

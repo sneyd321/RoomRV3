@@ -6,11 +6,13 @@ import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/AdditionalTermsList.dart';
 
+import '../../business_logic/house.dart';
+
 class UpdateAdditionalTermsPage extends StatefulWidget {
-  final Lease lease;
+  final House house;
 
   const UpdateAdditionalTermsPage(
-      {Key? key, required this.lease})
+      {Key? key, required this.house})
       : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
 
   bool validate() {
     errorText = "";
-    List<String> additionalTermsNames = widget.lease.additionalTerms
+    List<String> additionalTermsNames = widget.house.lease.additionalTerms
         .map<String>((AdditionalTerm additionalTerm) => additionalTerm.name)
         .toList();
     List<String> differences = {
@@ -38,10 +40,10 @@ class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
       errorText += errorText.isEmpty ? element : ", $element";
       switch (element) {
         case "Tenant Insurance":
-          widget.lease.additionalTerms.insert(0, TenantInsuranceTerm());
+          widget.house.lease.additionalTerms.insert(0, TenantInsuranceTerm());
           continue;
         case "Smoking":
-          widget.lease.additionalTerms.insert(0, NoSmokingTerm());
+          widget.house.lease.additionalTerms.insert(0, NoSmokingTerm());
           continue;
       }
     }
@@ -61,7 +63,7 @@ class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
             children: [
               Expanded(
                   child: AdditonalTermsList(
-                additionalTerms: widget.lease.additionalTerms,
+                additionalTerms: widget.house.lease.additionalTerms,
               )),
               Container(
                   margin: const EdgeInsets.only(left: 8, bottom: 8),
@@ -74,8 +76,8 @@ class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
                   (context) {
                 if (validate()) {
                   runMutation({
-                    "leaseId": widget.lease.leaseId,
-                    "additionalTerms": widget.lease.additionalTerms
+                    "houseId": widget.house.houseId,
+                    "additionalTerms": widget.house.lease.additionalTerms
                         .map((additionalTerm) => additionalTerm.toJson())
                         .toList()
                   });

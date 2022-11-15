@@ -1,5 +1,5 @@
-mutation updateAdditionalTerms($leaseId: Int!, $additionalTerms: [AdditionalTermInput!]!) {
-   updateAdditionalTerms(leaseId: $leaseId, additionalTerms: $additionalTerms) {
+mutation updateAdditionalTerms($houseId: Int!, $additionalTerms: [AdditionalTermInput!]!) {
+   updateAdditionalTerms(houseId: $houseId, additionalTerms: $additionalTerms) {
         name,
         details {
             detail

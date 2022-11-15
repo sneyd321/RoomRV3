@@ -99,7 +99,8 @@ class _LoginPageState extends State<LoginPage> {
                           right: PrimaryButton(Icons.login, "Login", (context) async {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              loginLandlord.setDeviceId(await FirebaseConfiguration().getToken());
+                              
+                              
                               runMutation({"login": loginLandlord.toJson()});
                             }
                           }))
@@ -110,7 +111,6 @@ class _LoginPageState extends State<LoginPage> {
         },
         mutationName: 'loginLandlord',
         onComplete: (json) {
-          print(json);
           Navigator.push(
               context,
               MaterialPageRoute(

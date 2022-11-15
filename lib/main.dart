@@ -8,7 +8,7 @@ import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/firebase_options.dart';
 import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
 import 'package:notification_app/pages/add_tenant_page.dart';
-import 'package:notification_app/pages/comments_page.dart';
+import 'package:notification_app/pages/maintenance_ticket_pages/comments_page.dart';
 import 'package:notification_app/pages/house_page.dart';
 import 'package:notification_app/pages/landlord_view_pager.dart';
 import 'package:notification_app/pages/login_page.dart';

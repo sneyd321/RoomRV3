@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 
 import '../../business_logic/maintenance_ticket_notification.dart';
-import '../../pages/comments_page.dart';
+import '../../pages/maintenance_ticket_pages/comments_page.dart';
 import '../Buttons/SecondaryButton.dart';
 
 class MaintenanceTicketNotificationCard extends StatelessWidget {

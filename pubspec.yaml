@@ -105,6 +105,7 @@ flutter:
     - assets/scheduleLeaseMutation.txt
     - assets/addTenantEmailMutation.txt
     - assets/createTempTenantMutation.txt
+    - assets/getTenantsQuery.txt
 
   #   - images/a_dot_ham.jpeg
 

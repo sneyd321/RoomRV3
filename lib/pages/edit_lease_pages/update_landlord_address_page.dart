@@ -4,9 +4,11 @@ import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/LandlordAddressForm.dart';
 
+import '../../business_logic/house.dart';
+
 class UpdateLandlordAddressPage extends StatefulWidget {
-  final Lease lease;
-  const UpdateLandlordAddressPage({Key? key, required this.lease}) : super(key: key);
+  final House house;
+  const UpdateLandlordAddressPage({Key? key, required this.house}) : super(key: key);
 
   @override
   State<UpdateLandlordAddressPage> createState() =>
@@ -31,7 +33,7 @@ class _UpdateLandlordAddressPageState extends State<UpdateLandlordAddressPage> {
                       physics: const BouncingScrollPhysics(),
                       children: [
                     LandlordAddressForm(
-                      landlordAddress: widget.lease.landlordAddress,
+                      landlordAddress: widget.house.lease.landlordAddress,
                       formKey: formKey,
                     ),
                   ])),
@@ -40,8 +42,8 @@ class _UpdateLandlordAddressPageState extends State<UpdateLandlordAddressPage> {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
                   runMutation({
-                    "leaseId": widget.lease.leaseId,
-                    "landlordAddress": widget.lease.landlordAddress.toJson()
+                    "houseId": widget.house.houseId,
+                    "landlordAddress": widget.house.lease.landlordAddress.toJson()
                   });
                 } else {
                   scrollController.animateTo(

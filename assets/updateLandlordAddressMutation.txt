@@ -1,5 +1,5 @@
-mutation updateLandlordAddress($leaseId: Int!, $landlordAddress: LandlordAddressInput!){
-    updateLandlordAddress(leaseId: $leaseId, landlordAddress: $landlordAddress)
+mutation updateLandlordAddress($houseId: Int!, $landlordAddress: LandlordAddressInput!){
+    updateLandlordAddress(houseId: $houseId, landlordAddress: $landlordAddress)
     {
         streetNumber,
         streetName,

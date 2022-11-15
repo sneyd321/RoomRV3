@@ -1,94 +1,136 @@
+import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/testing.dart';
+import 'package:notification_app/business_logic/house.dart';
+import 'package:notification_app/business_logic/maintenance_ticket.dart';
+import 'package:notification_app/business_logic/tenant.dart';
 import 'package:notification_app/services/graphql_client.dart';
 import 'package:notification_app/graphql/query_helper.dart';
 import 'package:http/http.dart' as http;
 
-
 void main() {
-  
-  HttpLink getMockServer(String path, int responseCode) {
-    String content = File(path).readAsStringSync();
-    return HttpLink(
-      'https://unused/graphql',
-      httpClient: MockClient((request) async {
-        return http.Response(content, responseCode)
-        ;
-      }),
+  Widget getQuery(String responseFileName, String queryName,
+      dynamic Function(dynamic json) convert) {
+    String content =
+        File("./test/responses/$responseFileName").readAsStringSync();
+    return GraphQLProvider(
+      client: GQLClient().getTestClient(HttpLink('https://unused/graphql',
+          httpClient: MockClient((request) async {
+        return http.Response(content, 200);
+      }))),
+      child: MaterialApp(
+        home: QueryHelper(
+          queryName: queryName,
+          onComplete: (json) {
+            if (json == null) {
+              return CircularProgressIndicator();
+            }
+            dynamic data = convert(json);
+            return SafeArea(
+                child: Scaffold(body: Text(data.toJson().toString())));
+          },
+          variables: {},
+          isList: false,
+        ),
+      ),
     );
   }
 
-  Future<Widget> createQuery(HttpLink httpLink, String queryName) async{
+  Widget getQueryList(String responseFileName, String queryName, dynamic Function(dynamic json) convert) {
+    String content =
+        File("./test/responses/$responseFileName").readAsStringSync();
     return GraphQLProvider(
-      client: GQLClient().getTestClient(httpLink),
-      child: QueryHelper(
-        queryName: queryName,
-        onComplete: (json) {
-          return MaterialApp(
-            home: Scaffold(
-              body: Text(json.toString())
-              )
-            );
-        }, 
-        variables: const {"houseId": 1},),
-      );
+      client: GQLClient().getTestClient(HttpLink('https://unused/graphql',
+          httpClient: MockClient((request) async {
+        return http.Response(content, 200);
+      }))),
+      child: MaterialApp(
+        home: QueryHelper(
+          queryName: queryName,
+          onComplete: (json) {
+            if (json == null) {
+              return CircularProgressIndicator();
+            }
+            dynamic data = convert(json);
+            return SafeArea(
+                child: Scaffold(
+                    body: ListView(
+              children: data
+                  .map<ListTile>(
+                      (e) => ListTile(title: Text(e.toJson().toString())))
+                  .toList(),
+            )));
+          },
+          variables: {},
+          isList: true,
+        ),
+      ),
+    );
   }
 
-  Future<Widget> createQueryNoOnComplete(HttpLink httpLink, String queryName) async{
-    return GraphQLProvider(
-      client: GQLClient().getTestClient(httpLink),
-      child: QueryHelper(
-        queryName: queryName,
-        variables: const {"houseId": 1},),
-      );
-  }
-
-  Future<Widget> createQueryList(HttpLink httpLink, String queryName) async{
-    return GraphQLProvider(
-      client: GQLClient().getTestClient(httpLink),
-      child: QueryHelper(
-        queryName: queryName,
-        onCompleteList: (json) {
-          return MaterialApp(
-            home: Scaffold(
-              body: ListView.builder(itemBuilder: ((context, index) {
-                return Text(json[index].toString());
-              }))
-              )
-            );
-        }, 
-        variables: const {"houseId": 1},),
-      );
-  }
+  /**
+   * ###############################################################################
+   * 
+   * ###############################################################################
+   * 
+   * ###############################################################################
+   * 
+   */
 
   setUpAll(() async {
     await initHiveForFlutter();
   });
 
-  testWidgets("Verify that query helper returns error if missing on complete", (tester) async {
-    HttpLink httpLink = getMockServer('./test/responses/maintenance_ticket_200.json', 200);
-    await tester.pumpWidget(await createQueryNoOnComplete(httpLink, "getMaintenanceTicket"));
-    await tester.pump();
-    expect(find.textContaining("Forgot to add an on complete callback"), findsOneWidget);
+  testWidgets("Query_helper_successfully_parses_house", (tester) async {
+    await tester.pumpWidget(
+        getQuery("house_200.json", "getHouse",  (json) {
+      return House.fromJson(json);
+    }));
+    await tester.pumpAndSettle();
+    expect(find.textContaining("SoMfxJpiGxsfDiAhlIm4"), findsOneWidget);
   });
 
-  testWidgets("Get Maintenance Ticket Successfully", (tester) async {
-    HttpLink httpLink = getMockServer('./test/responses/maintenance_ticket_200.json', 200);
-    await tester.pumpWidget(await createQuery(httpLink, "getMaintenanceTicket"));
-    await tester.pump();
-    expect(find.textContaining("description"), findsOneWidget);
+  testWidgets("Query_helper_successfully_parses_houses", (tester) async {
+    await tester.pumpWidget(
+        getQueryList("houses_200.json", "getHouses", (json) {
+      return json.map<House>((e) => House.fromJson(e)).toList();
+    }));
+    await tester.pumpAndSettle();
+    expect(find.textContaining("SoMfxJpiGxsfDiAhlIm4"), findsOneWidget);
   });
 
-  testWidgets("Get Maintenance Tickets Successfully", (tester) async {
-    HttpLink httpLink = getMockServer('./test/responses/maintenance_tickets_200.json', 200);
-    await tester.pumpWidget(await createQueryList(httpLink, "getMaintenanceTickets"));
-    await tester.pump();
-    expect(find.textContaining("description"), findsNWidgets(7));
+  testWidgets("Query_helper_successfully_parses_tenants", (tester) async {
+    await tester.pumpWidget(
+        getQueryList("tenants_200.json", "getTenants",  (json) {
+      return json.map<Tenant>((e) => Tenant.fromJson(e)).toList();
+    }));
+    await tester.pumpAndSettle();
+    expect(find.textContaining("Ryan"), findsOneWidget);
   });
-   
+
+  testWidgets("Query_helper_successfully_parses_maintenance_ticket",
+      (tester) async {
+    await tester.pumpWidget(getQuery(
+        "maintenance_ticket_200.json",
+        "getMaintenanceTicket",
+       (json) {
+      return MaintenanceTicket.fromJson(json);
+    }));
+    await tester.pumpAndSettle();
+    expect(find.textContaining("fdagfdasfsdfasdfa"), findsOneWidget);
+  });
+
+  testWidgets("Query_helper_successfully_parses_maintenance_tickets", (tester) async {
+    await tester.pumpWidget(
+        getQueryList("maintenance_tickets_200.json", "getMaintenanceTickets", (json) {
+      return json.map<MaintenanceTicket>((e) => MaintenanceTicket.fromJson(e)).toList();
+    }));
+    await tester.pumpAndSettle();
+    expect(find.textContaining("Ryan"), findsNWidgets(9));
+  });
+
 }

@@ -1,5 +1,5 @@
-mutation scheduleLease($houseId: Int!, $firebaseId: String!, $signature: String!){
-	scheduleLease(houseId: $houseId, firebaseId: $firebaseId, signature: $signature){
+mutation scheduleLease($houseKey: String!, $signature: String!){
+	scheduleLease(houseKey: $houseKey, signature: $signature){
         id,
         houseId,
         documentName,

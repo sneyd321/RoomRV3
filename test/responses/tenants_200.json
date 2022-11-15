@@ -1,0 +1,14 @@
+{
+    "data": {
+      "getTenants": [
+        {
+          "firstName": "Ryan",
+          "lastName": "Sneyd",
+          "email": "e@s.com",
+          "tenantState": "Temp_Account_Created",
+          "tenantPosition": 0,
+          "houseId": 3
+        }
+      ]
+    }
+  }

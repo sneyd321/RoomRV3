@@ -1,5 +1,5 @@
-mutation updateTenancyTerms($leaseId: Int!, $tenancyTerms: TenancyTermsInput!) {
-    updateTenancyTerms(leaseId: $leaseId, tenancyTerms: $tenancyTerms) {
+mutation updateTenancyTerms($houseId: Int!, $tenancyTerms: TenancyTermsInput!) {
+    updateTenancyTerms(houseId: $houseId, tenancyTerms: $tenancyTerms) {
         rentalPeriod {
             rentalPeriod,
             endDate

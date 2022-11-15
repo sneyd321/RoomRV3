@@ -3,11 +3,11 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/graphql/query_helper.dart';
 
-import '../business_logic/house.dart';
-import '../business_logic/list_items/additional_term.dart';
-import '../services/graphql_client.dart';
-import '../widgets/Cards/AdditionalTermCardReadOnly.dart';
-import '../widgets/listviews/CardSliverListView.dart';
+import '../../business_logic/house.dart';
+import '../../business_logic/list_items/additional_term.dart';
+import '../../services/graphql_client.dart';
+import '../../widgets/Cards/AdditionalTermCardReadOnly.dart';
+import '../../widgets/listviews/CardSliverListView.dart';
 
 class AdditionalTermsPage extends StatefulWidget {
   final String houseKey;

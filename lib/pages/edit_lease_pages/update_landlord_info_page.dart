@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/lease.dart';
-import 'package:notification_app/services/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/LandlordInfoForm.dart';
 
+import '../../business_logic/house.dart';
 import '../../graphql/mutation_helper.dart';
 
 class UpdateLandlordInfoPage extends StatefulWidget {
-  final Lease lease;
+  final House house;
   const UpdateLandlordInfoPage({
     Key? key,
-    required this.lease,
+    required this.house,
   }) : super(key: key);
 
   @override
@@ -31,7 +30,7 @@ class _UpdateLandlordInfoPageState extends State<UpdateLandlordInfoPage> {
                 child:
                     ListView(physics: const BouncingScrollPhysics(), children: [
                   LandlordInfoForm(
-                    landlordInfo: widget.lease.landlordInfo,
+                    landlordInfo: widget.house.lease.landlordInfo,
                     formKey: formKey,
                   ),
                 ]),
@@ -40,8 +39,8 @@ class _UpdateLandlordInfoPageState extends State<UpdateLandlordInfoPage> {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
                   runMutation({
-                    "leaseId": widget.lease.leaseId,
-                    "landlordInfo": widget.lease.landlordInfo.toJson()
+                    "houseId": widget.house.houseId,
+                    "landlordInfo": widget.house.lease.landlordInfo.toJson()
                   });
                 }
               })

@@ -14,7 +14,8 @@ class QueryHelper extends StatefulWidget {
       {Key? key,
       required this.variables,
       required this.queryName,
-      required this.onComplete, required this.isList})
+      required this.onComplete,
+      required this.isList})
       : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class _QueryHelperState extends State<QueryHelper> {
   bool isVisible = false;
 
   Future<String> getQuery(String name) async {
-    return await rootBundle.loadString('${name}Query.txt');
+    return await rootBundle.loadString('assets/${name}Query.txt');
   }
 
   @override
@@ -68,6 +69,7 @@ class _QueryHelperState extends State<QueryHelper> {
                   ]);
                 }
                 if (result.hasException) {
+                  
                   return Stack(
                     children: [
                       Visibility(

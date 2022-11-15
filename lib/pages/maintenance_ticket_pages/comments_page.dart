@@ -4,12 +4,12 @@ import 'package:notification_app/business_logic/comment.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/graphql/query_helper.dart';
 
-import '../business_logic/maintenance_ticket.dart';
-import '../services/FirebaseConfig.dart';
-import '../services/graphql_client.dart';
-import '../widgets/Forms/Form/comment_form.dart';
-import '../widgets/Forms/FormRow/table_row.dart';
-import '../widgets/builders/comment_stream_builder.dart';
+import '../../business_logic/maintenance_ticket.dart';
+import '../../services/FirebaseConfig.dart';
+import '../../services/graphql_client.dart';
+import '../../widgets/Forms/Form/comment_form.dart';
+import '../../widgets/Forms/FormRow/table_row.dart';
+import '../../widgets/builders/comment_stream_builder.dart';
 
 class CommentsPage extends StatefulWidget {
   final int maintenanceTicketId;

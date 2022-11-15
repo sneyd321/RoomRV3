@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 class MutationHelper extends StatefulWidget {
   final String mutationName;
+  final bool shouldCache;
   final Function(dynamic json) onComplete;
   final Widget Function(
       MultiSourceResult<Object?> Function(Map<String, dynamic>,
@@ -15,6 +16,7 @@ class MutationHelper extends StatefulWidget {
     required this.onComplete,
     required this.mutationName,
     required this.builder,
+    this.shouldCache = false
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class _MutationButtonState extends State<MutationHelper> {
   bool isVisible = true;
 
   Future<String> getMutation(String name) async {
-    return await rootBundle.loadString('${name}Mutation.txt');
+    return await rootBundle.loadString('assets/${name}Mutation.txt');
   }
 
   @override
@@ -46,9 +48,12 @@ class _MutationButtonState extends State<MutationHelper> {
         }
 
         return Mutation(
+          
             options: MutationOptions(
               document: gql(snapshot.data),
+              fetchPolicy: widget.shouldCache ? FetchPolicy.cacheFirst : FetchPolicy.networkOnly,
               onCompleted: (Map<String, dynamic>? resultData) async {
+                
                 if (resultData == null) {
                   return;
                 }

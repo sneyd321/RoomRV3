@@ -1,5 +1,5 @@
-mutation updateUtilities($leaseId: Int!, $utilities: [UtilityInput!]!) {
-   updateUtilities(leaseId: $leaseId, utilities: $utilities) {
+mutation updateUtilities($houseId: Int!, $utilities: [UtilityInput!]!) {
+   updateUtilities(houseId: $houseId, utilities: $utilities) {
         name,
         responsibility,
         details {

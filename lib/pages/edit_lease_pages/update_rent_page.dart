@@ -5,9 +5,11 @@ import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/RentForm.dart';
 
+import '../../business_logic/house.dart';
+
 class UpdateRentPage extends StatefulWidget {
-  final Lease lease;
-  const UpdateRentPage({Key? key, required this.lease}) : super(key: key);
+  final House house;
+  const UpdateRentPage({Key? key, required this.house}) : super(key: key);
 
   @override
   State<UpdateRentPage> createState() => _UpdateRentPageState();
@@ -28,7 +30,7 @@ class _UpdateRentPageState extends State<UpdateRentPage> {
                   child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: RentForm(
-                  rent: widget.lease.rent,
+                  rent: widget.house.lease.rent,
                   formKey: formKey,
                 ),
               )),
@@ -36,8 +38,8 @@ class _UpdateRentPageState extends State<UpdateRentPage> {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
                   runMutation({
-                    "leaseId": widget.lease.leaseId,
-                    "rent": widget.lease.rent.toJson()
+                    "houseId": widget.house.lease.leaseId,
+                    "rent": widget.house.lease.rent.toJson()
                   });
                 }
               })

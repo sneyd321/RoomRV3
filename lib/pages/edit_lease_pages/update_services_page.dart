@@ -5,13 +5,15 @@ import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/ServicesList.dart';
 
+import '../../business_logic/house.dart';
+
 class UpdateServicesPage extends StatefulWidget {
-  final Lease lease;
+  final House house;
 
   const UpdateServicesPage(
       {Key? key,
     
-      required this.lease})
+      required this.house})
       : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class _UpdateServicesPageState extends State<UpdateServicesPage> {
     String errorText = "";
    bool validate() {
     errorText = "";
-    List<String> serviceNames = widget.lease.services
+    List<String> serviceNames = widget.house.lease.services
         .map<String>((Service service) => service.name)
         .toList();
     List<String> differences = {
@@ -42,19 +44,19 @@ class _UpdateServicesPageState extends State<UpdateServicesPage> {
       errorText += errorText.isEmpty ? element : ", $element";
       switch (element) {
         case "Gas":
-          widget.lease.services.insert(0, GasService());
+          widget.house.lease.services.insert(0, GasService());
           continue;
         case "Air Conditioning":
-          widget.lease.services.insert(0, AirConditioningService());
+          widget.house.lease.services.insert(0, AirConditioningService());
           continue;
         case "Additional Storage Space":
-          widget.lease.services.insert(0, AdditionalStorageSpace());
+          widget.house.lease.services.insert(0, AdditionalStorageSpace());
           continue;
         case "On-Site Laundry":
-          widget.lease.services.insert(0, OnSiteLaundry());
+          widget.house.lease.services.insert(0, OnSiteLaundry());
           continue;
         case "Guest Parking":
-          widget.lease.services.insert(0, GuestParking());
+          widget.house.lease.services.insert(0, GuestParking());
           continue;
       }
     }
@@ -74,7 +76,7 @@ class _UpdateServicesPageState extends State<UpdateServicesPage> {
       builder: (runMutation) {
         return Column(
           children: [
-            Expanded(child: ServicesList(services: widget.lease.services)),
+            Expanded(child: ServicesList(services: widget.house.lease.services)),
             Container(
               margin: const EdgeInsets.only(left: 8, bottom: 8),
               alignment: Alignment.centerLeft,
@@ -82,8 +84,8 @@ class _UpdateServicesPageState extends State<UpdateServicesPage> {
               SecondaryButton(Icons.update, "Update Services", (context) {
                 if (validate()) {
                   runMutation({
-                    "leaseId": widget.lease.leaseId,
-                    "services": widget.lease.services
+                    "houseId": widget.house.lease.leaseId,
+                    "services": widget.house.lease.services
                         .map((service) => service.toJson())
                         .toList()
                   });

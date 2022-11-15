@@ -1,9 +1,10 @@
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/business_logic/suggested_address.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/services/stream_socket.dart';
+import 'package:notification_app/services/web_network.dart';
 import 'package:notification_app/widgets/FormFields/AddressFormField.dart';
 import '../../../business_logic/address.dart';
 import '../../FormFields/SimpleFormField.dart';
@@ -14,7 +15,7 @@ class LandlordAddressForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final StreamSocket streamSocket = StreamSocket();
   LandlordAddressForm(
-      {Key? key, required this.landlordAddress, required this.formKey })
+      {Key? key, required this.landlordAddress, required this.formKey})
       : super(key: key);
 
   void testAddAddressToStream(dynamic address) {
@@ -45,24 +46,34 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
 
   void onSuggestedAddress(
       BuildContext context, SuggestedAddress suggestedAddress) async {
-    PredictedAddress address =
-        await Network().getPredictedAddress(suggestedAddress.placesId);
-    setState(() {
-     
+    if (kIsWeb) {
+      PredictedAddress address =
+          await WebNetwork().getPredictedAddress(suggestedAddress.placesId);
       streetNumberTextEditingController.text = address.streetNumber;
       streetNameTextEditingController.text = address.streetName;
       cityTextEditingController.text = address.city;
       provinceTextEditingController.text = address.province;
       postalCodeTextEditingController.text = address.postalCode;
+    } else {
+      PredictedAddress address =
+          await Network().getPredictedAddress(suggestedAddress.placesId);
+      streetNumberTextEditingController.text = address.streetNumber;
+      streetNameTextEditingController.text = address.streetName;
+      cityTextEditingController.text = address.city;
+      provinceTextEditingController.text = address.province;
+      postalCodeTextEditingController.text = address.postalCode;
+    }
+
+    setState(() {
       widget.streamSocket.addResponse([]);
-      
     });
   }
 
   @override
   void initState() {
     super.initState();
-    streetNumberTextEditingController.text = widget.landlordAddress.streetNumber;
+    streetNumberTextEditingController.text =
+        widget.landlordAddress.streetNumber;
     streetNameTextEditingController.text = widget.landlordAddress.streetName;
     cityTextEditingController.text = widget.landlordAddress.city;
     provinceTextEditingController.text = widget.landlordAddress.province;

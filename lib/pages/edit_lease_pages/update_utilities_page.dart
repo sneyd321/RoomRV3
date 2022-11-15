@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/utility.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
@@ -6,11 +7,11 @@ import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/UtilitiesList.dart';
 
 class UpdateUtilityPage extends StatefulWidget {
-  final Lease lease;
+  final House house;
 
   const UpdateUtilityPage(
       {Key? key,
-      required this.lease})
+      required this.house})
       : super(key: key);
 
   @override
@@ -23,7 +24,7 @@ class _UpdateUtilityPageState extends State<UpdateUtilityPage> {
 
   bool validate() {
     errorText = "";
-    List<String> utilityNames = widget.lease.utilities.map<String>((Utility utility) => utility.name).toList();
+    List<String> utilityNames = widget.house.lease.utilities.map<String>((Utility utility) => utility.name).toList();
     List<String> differences = {"Electricity", "Heat", "Water"}.difference(utilityNames.toSet()).toList();
     if (differences.isEmpty) {
       setState(() {
@@ -35,13 +36,13 @@ class _UpdateUtilityPageState extends State<UpdateUtilityPage> {
       errorText += errorText.isEmpty ? element : ", $element"; 
       switch (element) {
         case "Electricity":
-          widget.lease.utilities.insert(0, ElectricityUtility());
+          widget.house.lease.utilities.insert(0, ElectricityUtility());
           continue;
         case "Heat":
-          widget.lease.utilities.insert(1, HeatUtility());
+          widget.house.lease.utilities.insert(1, HeatUtility());
           continue;
         case "Water":
-          widget.lease.utilities.insert(2, WaterUtility());
+          widget.house.lease.utilities.insert(2, WaterUtility());
           continue;
  
        
@@ -66,7 +67,7 @@ class _UpdateUtilityPageState extends State<UpdateUtilityPage> {
       builder: (runMutation) {
         return Column(
           children: [
-            Expanded(child: UtilitiesList(utilities: widget.lease.utilities,)),
+            Expanded(child: UtilitiesList(utilities: widget.house.lease.utilities,)),
             Container(
               margin: const EdgeInsets.only(left: 8, bottom: 8),
               alignment: Alignment.centerLeft,
@@ -74,8 +75,8 @@ class _UpdateUtilityPageState extends State<UpdateUtilityPage> {
             SecondaryButton(Icons.update, "Update Utilities", (context) {
               if (validate()) {
                   runMutation({
-                    "leaseId": widget.lease.leaseId,
-                    "utilities": widget.lease.utilities
+                    "houseId": widget.house.lease.leaseId,
+                    "utilities": widget.house.lease.utilities
                         .map((utility) => utility.toJson())
                         .toList()
                   });

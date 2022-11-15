@@ -28,8 +28,7 @@ class NotificationStreamBuilder extends StatefulWidget {
 
 class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
   Stream<List<QuerySnapshot<Map<String, dynamic>>>> getCombinedStream() {
-    print(
-        widget.houses.map<String>((House house) => house.firebaseId).toList());
+    
     CombineLatestStream<QuerySnapshot<Map<String, dynamic>>,
             List<QuerySnapshot<Map<String, dynamic>>>> combinedStreams =
         CombineLatestStream.list(widget.houses

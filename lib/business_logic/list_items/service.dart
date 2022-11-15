@@ -32,7 +32,7 @@ abstract class Service   {
 }
 
 abstract class PayPerUseService extends Service {
-  bool isPayPerUse = false;
+  bool? isPayPerUse = false;
 
 
   PayPerUseService() : super();
