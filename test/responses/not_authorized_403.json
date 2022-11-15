@@ -1,0 +1,17 @@
+{
+    "data": null,
+    "errors": [
+      {
+        "message": "Missing Authorization header",
+        "locations": [
+          {
+            "line": 33,
+            "column": 3
+          }
+        ],
+        "path": [
+          "getTenants"
+        ]
+      }
+    ]
+  }

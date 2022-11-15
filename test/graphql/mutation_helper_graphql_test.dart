@@ -301,4 +301,17 @@ void main() {
     await tester.pump();
     expect(find.textContaining("Post Dated Cheques"), findsOneWidget);
   });
+
+  testWidgets("Mutation_helper_displays_error_dialog_in_error_state",
+      (tester) async {
+    Widget widget =
+        getMutationList("not_authorized_403.json", "updateAdditionalTerms", (json) {
+      return json.map<AdditionalTerm>((e) => CustomTerm.fromJson(e)).toList();
+    });
+
+    await tester.pumpWidget(widget);
+    await tester.pump();
+    await tester.pump();
+    expect(find.textContaining("Missing Authorization header"), findsOneWidget);
+  });
 }
