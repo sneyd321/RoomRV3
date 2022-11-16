@@ -49,7 +49,7 @@ class _PayPerUseServiceCardState extends State<PayPerUseServiceCard> {
                 });
               }),
           CheckboxListTile(
-              subtitle: TextHelper(text: widget.payPerUseService.isPayPerUse ? "Pay per use" : "No Charge"),
+              subtitle: TextHelper(text: widget.payPerUseService.isPayPerUse! ? "Pay per use" : "No Charge"),
               value: widget.payPerUseService.isPayPerUse,
               onChanged: (bool? value) {
                 setState(() {

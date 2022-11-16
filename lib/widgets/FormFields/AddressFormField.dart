@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:notification_app/services/stream_socket.dart';
@@ -9,12 +11,13 @@ import 'package:socket_io_client/socket_io_client.dart';
 import '../../business_logic/suggested_address.dart';
 
 class AddressFormField extends StatefulWidget {
-  final Function(BuildContext context, SuggestedAddress suggestedAddress)
+  final Function(BuildContext context, SuggestedAddress suggestedAddress, bool isTest)
       onSuggestedAddress;
 
   final StreamSocket streamSocket;
+  final bool isTest;
 
-  const AddressFormField(this.onSuggestedAddress, this.streamSocket, {Key? key})
+  const AddressFormField(this.onSuggestedAddress, this.streamSocket, {Key? key, this.isTest=false})
       : super(key: key);
 
   @override
@@ -75,7 +78,6 @@ class _AddressFormFieldState extends State<AddressFormField> {
             ),
             onSaved: (String? value) {},
             validator: (String? value) {
-              print(value!);
               if (hasFailedToConnect) {
                 return "Service currently unavailable";
               }
@@ -120,7 +122,8 @@ class _AddressFormFieldState extends State<AddressFormField> {
                     margin: const EdgeInsets.only(left: 8, right: 8),
                     child: SuggestedAddressCard(
                         SuggestedAddress.fromJson(snapshot.data![index]),
-                        widget.onSuggestedAddress));
+                        widget.onSuggestedAddress, isTest: widget.isTest,
+                        ));
               },
             );
           },

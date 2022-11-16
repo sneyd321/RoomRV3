@@ -91,9 +91,7 @@ class _RentFormState extends State<RentForm> {
               widget.rent.setRentMadePayableTo(value!);
              
             },
-            onValidate: (String? value) {
-              return RentMadePayableTo(value!).validate();
-            },
+            field: RentMadePayableTo(""),
           ),
           TextHelper(text: "Total Lawful Rent: \$${widget.rent.getTotalLawfulRent()}"),
           RentServicesList(rent: widget.rent, onAddRentService: ((context, rentService) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../business_logic/fields/field.dart';
+
 
 class SimpleFormField extends StatefulWidget {
 
@@ -8,13 +10,10 @@ class SimpleFormField extends StatefulWidget {
   final String label;
   final IconData icon;
   final void Function(String? value) onSaved;
-  final String? Function(String? value) onValidate;
+  final Field field;
   final TextEditingController textEditingController;
    
-
-
-
-  const SimpleFormField({Key? key, required this.label, required this.icon, required this.textEditingController, required this.onSaved, required this.onValidate}) : super(key: key);
+  const SimpleFormField({Key? key, required this.label, required this.icon, required this.textEditingController, required this.onSaved, required this.field}) : super(key: key);
 
   @override
   State<SimpleFormField> createState() => SimpleFormFieldState();
@@ -58,7 +57,8 @@ class SimpleFormFieldState extends State<SimpleFormField> {
         },
         
         validator: (String? value) {
-          return widget.onValidate(value);
+          widget.field.value = value!;
+          return widget.field.validate();
         },
         inputFormatters: [
           LengthLimitingTextInputFormatter(maxCharacterLength)

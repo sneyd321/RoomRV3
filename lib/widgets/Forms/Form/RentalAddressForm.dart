@@ -15,11 +15,12 @@ import '../../FormFields/SimpleFormField.dart';
 class RentalAddressForm extends StatefulWidget {
   final RentalAddress rentalAddress;
   final GlobalKey<FormState> formKey;
+  final bool isTest;
 
   const RentalAddressForm({
     Key? key,
     required this.rentalAddress,
-    required this.formKey,
+    required this.formKey, this.isTest = false,
   }) : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
   final ScrollController scrollController = ScrollController();
 
   void onSuggestedAddress(
-      BuildContext context, SuggestedAddress suggestedAddress) async {
+      BuildContext context, SuggestedAddress suggestedAddress, bool isTest) async {
     PredictedAddress address =
         await Network().getPredictedAddress(suggestedAddress.placesId);
 
@@ -90,7 +91,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
       key: widget.formKey,
       child:
           ListView(controller: scrollController, shrinkWrap: true, children: [
-        AddressFormField(onSuggestedAddress, streamSocket),
+        AddressFormField(onSuggestedAddress, streamSocket, isTest: widget.isTest),
         TwoColumnRow(
             left: SimpleFormField(
               label: "Street Number",
@@ -99,9 +100,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
               onSaved: (String? value) {
                 widget.rentalAddress.setStreetNumber(value!);
               },
-              onValidate: (String? value) {
-                return StreetNumber(value!).validate();
-              },
+              field: StreetName(""),
             ),
             right: SimpleFormField(
               label: "Street Name",
@@ -110,9 +109,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
               onSaved: (String? value) {
                 widget.rentalAddress.setStreetName(value!);
               },
-              onValidate: (String? value) {
-                return StreetName(value!).validate();
-              },
+              field: StreetName(""),
             )),
         TwoColumnRow(
             left: SimpleFormField(
@@ -122,9 +119,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
               onSaved: (String? value) {
                 widget.rentalAddress.setCity(value!);
               },
-              onValidate: (String? value) {
-                return City(value!).validate();
-              },
+              field: City(""),
             ),
             right: SimpleFormField(
               label: "Province",
@@ -133,9 +128,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
               onSaved: (String? value) {
                 widget.rentalAddress.setProvince(value!);
               },
-              onValidate: (String? value) {
-                return Province(value!).validate();
-              },
+              field: Province(""),
             )),
         Align(
             alignment: Alignment.centerLeft,
@@ -148,9 +141,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
                   onSaved: (String? value) {
                     widget.rentalAddress.setPostalCode(value!);
                   },
-                  onValidate: (String? value) {
-                    return PostalCode(value!).validate();
-                  },
+                 field: PostalCode(""),
                 ))),
         Container(
             margin: const EdgeInsets.only(left: 8, right: 8),

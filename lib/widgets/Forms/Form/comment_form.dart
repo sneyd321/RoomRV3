@@ -89,9 +89,7 @@ class _CommentFormState extends State<CommentForm> {
                   onSaved: (value) {
                     comment.setComment(value!);
                   },
-                  onValidate: (value) {
-                    return CommentField(value!).validate();
-                  }),
+                  field: CommentField(""),),
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 8, right: 8),

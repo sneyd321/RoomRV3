@@ -107,6 +107,7 @@ class _MutationButtonState extends State<MutationHelper> {
                               ),
                               Flexible(
                                 child: Text(
+
                                   result.exception!.graphqlErrors.isNotEmpty
                                       ? result
                                           .exception!.graphqlErrors[0].message

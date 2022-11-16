@@ -48,9 +48,7 @@ class _LandlordInfoFormState extends State<LandlordInfoForm> {
           onSaved: (value) {
             widget.landlordInfo.setFullName(value!);
           },
-          onValidate: (value) {
-            return Name(value!).validate();
-          },
+          field: Name(""),
           textEditingController: fullNameTextEditingController,
         ),
         Container(

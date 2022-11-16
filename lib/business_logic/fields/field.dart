@@ -41,9 +41,7 @@ class POBox extends Field {
 
   @override
   String? validate() {
-    if (value.isEmpty) {
-      return "Please enter a P.O. Box Number";
-    }
+   
     return null;
   }
 }

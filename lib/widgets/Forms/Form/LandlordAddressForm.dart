@@ -14,8 +14,12 @@ class LandlordAddressForm extends StatefulWidget {
   final LandlordAddress landlordAddress;
   final GlobalKey<FormState> formKey;
   final StreamSocket streamSocket = StreamSocket();
+  final bool isTest;
   LandlordAddressForm(
-      {Key? key, required this.landlordAddress, required this.formKey})
+      {Key? key,
+      required this.landlordAddress,
+      required this.formKey,
+      this.isTest = false})
       : super(key: key);
 
   void testAddAddressToStream(dynamic address) {
@@ -44,25 +48,23 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
 
   final ScrollController scrollController = ScrollController();
 
-  void onSuggestedAddress(
-      BuildContext context, SuggestedAddress suggestedAddress) async {
-    if (kIsWeb) {
-      PredictedAddress address =
-          await WebNetwork().getPredictedAddress(suggestedAddress.placesId);
-      streetNumberTextEditingController.text = address.streetNumber;
-      streetNameTextEditingController.text = address.streetName;
-      cityTextEditingController.text = address.city;
-      provinceTextEditingController.text = address.province;
-      postalCodeTextEditingController.text = address.postalCode;
-    } else {
-      PredictedAddress address =
-          await Network().getPredictedAddress(suggestedAddress.placesId);
-      streetNumberTextEditingController.text = address.streetNumber;
-      streetNameTextEditingController.text = address.streetName;
-      cityTextEditingController.text = address.city;
-      provinceTextEditingController.text = address.province;
-      postalCodeTextEditingController.text = address.postalCode;
+  void onSuggestedAddress(BuildContext context,
+      SuggestedAddress suggestedAddress, bool isTest) async {
+    PredictedAddress address;
+    if (isTest) {
+      address = PredictedAddress.fromJson({"streetNumber": "123", "streetName": "Queen Street West", "city": "Toronto", "province": "Ontario", "postalCode": "M5H 2M9"});
     }
+    else if (kIsWeb) {
+      address =
+          await WebNetwork().getPredictedAddress(suggestedAddress.placesId);
+    } else {
+      address = await Network().getPredictedAddress(suggestedAddress.placesId);
+    }
+    streetNumberTextEditingController.text = address.streetNumber;
+    streetNameTextEditingController.text = address.streetName;
+    cityTextEditingController.text = address.city;
+    provinceTextEditingController.text = address.province;
+    postalCodeTextEditingController.text = address.postalCode;
 
     setState(() {
       widget.streamSocket.addResponse([]);
@@ -100,7 +102,8 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
         key: widget.formKey,
         child: Column(
           children: [
-            AddressFormField(onSuggestedAddress, widget.streamSocket),
+            AddressFormField(onSuggestedAddress, widget.streamSocket,
+                isTest: widget.isTest),
             TwoColumnRow(
                 left: SimpleFormField(
                   label: "Street Number",
@@ -108,10 +111,8 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
                   textEditingController: streetNumberTextEditingController,
                   onSaved: (String? value) {
                     widget.landlordAddress.setStreetNumber(value!);
-                  },
-                  onValidate: (String? value) {
-                    return StreetNumber(value!).validate();
-                  },
+                  }, 
+                  field: StreetNumber(""),
                 ),
                 right: SimpleFormField(
                   label: "Street Name",
@@ -120,9 +121,7 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
                   onSaved: (String? value) {
                     widget.landlordAddress.setStreetName(value!);
                   },
-                  onValidate: (String? value) {
-                    return StreetName(value!).validate();
-                  },
+                  field: StreetName(""),
                 )),
             TwoColumnRow(
                 left: SimpleFormField(
@@ -132,9 +131,7 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
                   onSaved: (String? value) {
                     widget.landlordAddress.setCity(value!);
                   },
-                  onValidate: (String? value) {
-                    return City(value!).validate();
-                  },
+                  field: City(""),
                 ),
                 right: SimpleFormField(
                   label: "Province",
@@ -143,9 +140,7 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
                   onSaved: (String? value) {
                     widget.landlordAddress.setProvince(value!);
                   },
-                  onValidate: (String? value) {
-                    return Province(value!).validate();
-                  },
+                  field: Province(""),
                 )),
             Align(
                 alignment: Alignment.centerLeft,
@@ -158,9 +153,7 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
                       onSaved: (String? value) {
                         widget.landlordAddress.setPostalCode(value!);
                       },
-                      onValidate: (String? value) {
-                        return PostalCode(value!).validate();
-                      },
+                      field: PostalCode("")
                     ))),
             TwoColumnRow(
                 left: SimpleFormField(
@@ -170,9 +163,7 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
                   onSaved: (String? value) {
                     widget.landlordAddress.setUnitNumber(value!);
                   },
-                  onValidate: (String? value) {
-                    return null;
-                  },
+                  field: UnitNumber(""),
                 ),
                 right: SimpleFormField(
                   label: "P.O. Box",
@@ -181,9 +172,7 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
                   onSaved: (String? value) {
                     widget.landlordAddress.setPOBox(value!);
                   },
-                  onValidate: (String? value) {
-                    return null;
-                  },
+                  field: POBox(""),
                 )),
           ],
         ));

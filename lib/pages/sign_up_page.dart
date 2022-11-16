@@ -50,9 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             onSaved: (value) {
                               landlord.setFirstName(value!);
                             },
-                            onValidate: (value) {
-                              return FirstName(value!).validate();
-                            }),
+                            field: Name(""),),
                         right: SimpleFormField(
                             label: "Last Name",
                             icon: Icons.account_circle,
@@ -60,9 +58,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             onSaved: (value) {
                               landlord.setLastName(value!);
                             },
-                            onValidate: (value) {
-                              return LastName(value!).validate();
-                            })),
+                            field: Name(""),)),
                     EmailFormField(
                       textEditingController: TextEditingController(),
                       onSaved: (value) {

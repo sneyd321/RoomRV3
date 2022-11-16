@@ -47,14 +47,10 @@ class _AddTenantEmailFormState extends State<AddTenantEmailForm> {
                       else {
                         tenant.firstName = value;
                       }
-                    }, onValidate: ((value) {
-                      return Name(value!).validate();
-                    })),
+                    }, field: Name(""),),
                     SimpleFormField(label: "Email", icon: Icons.email, textEditingController: TextEditingController(), onSaved: (value) {
                       tenant.email = value!;
-                    }, onValidate: ((value) {
-                      return Email(value!).validate();
-                    })),
+                    },field: Email(""),),
                     TwoColumnRow(
                         left: SecondaryButton(Icons.arrow_downward, "Back",
                             (context) {
