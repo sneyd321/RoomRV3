@@ -40,11 +40,11 @@ jobs:
           repository: sneyd321/flutter_flask_web_server
           path: web-server
 
-      - name: copy file
-        uses: canastro/copy-file-action@master
-        with:
-          source: "build/web"
-          target: "web-server/templates"
+      - name: Install alembic dependencies
+        run: |
+          cp build/web web-server/templates
+          cd web-server/templates
+          ls -a
        
 
         
