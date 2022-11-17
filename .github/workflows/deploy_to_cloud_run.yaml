@@ -44,12 +44,9 @@ jobs:
       - name: copy file
         uses: canastro/copy-file-action@master
         with:
-          source: "assets"
-          target: "web-server/templates/assets"
-        run: |
-          cd web-server/templates/assets
-          ls
-          
+          source: "web/*"
+          target: "web-server/templates/"
+       
 
         
 
