@@ -58,7 +58,7 @@ class AddTenantCard extends StatelessWidget {
                       child: MutationHelper(onComplete: (json) {
                         Navigator.pop(context);
                       }, 
-                      mutationName: "addTenantEmail", builder: ((runMutation) {
+                      mutationName: "addTenant", builder: ((runMutation) {
                         return AlertDialog(
                           actions: [
                             TextButton(

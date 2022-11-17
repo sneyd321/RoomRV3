@@ -77,7 +77,7 @@ class _UpdateRentDepositPageState extends State<UpdateRentDepositPage> {
                 
                 if (validate()) {
                   runMutation({
-                    "houseId": widget.house.lease.leaseId,
+                    "houseId": widget.house.houseId,
                     "rentDeposits": widget.house.lease.rentDeposits
                         .map((rentDeposit) => rentDeposit.toJson())
                         .toList()

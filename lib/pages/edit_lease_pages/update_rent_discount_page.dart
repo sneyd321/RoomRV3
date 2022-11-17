@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/RentDiscountsList.dart';

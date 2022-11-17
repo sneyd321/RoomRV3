@@ -41,7 +41,7 @@ class _UpdateTenancyTermsPageState extends State<UpdateTenancyTermsPage> {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
                   runMutation({
-                    "houseId": widget.house.lease.leaseId,
+                    "houseId": widget.house.houseId,
                     "tenancyTerms": widget.house.lease.tenancyTerms.toJson()
                   });
                 }

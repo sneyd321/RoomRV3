@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/house.dart';
-import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/utility.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
@@ -75,7 +74,7 @@ class _UpdateUtilityPageState extends State<UpdateUtilityPage> {
             SecondaryButton(Icons.update, "Update Utilities", (context) {
               if (validate()) {
                   runMutation({
-                    "houseId": widget.house.lease.leaseId,
+                    "houseId": widget.house.houseId,
                     "utilities": widget.house.lease.utilities
                         .map((utility) => utility.toJson())
                         .toList()

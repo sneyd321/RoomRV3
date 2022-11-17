@@ -84,7 +84,7 @@ class _UpdateServicesPageState extends State<UpdateServicesPage> {
               SecondaryButton(Icons.update, "Update Services", (context) {
                 if (validate()) {
                   runMutation({
-                    "houseId": widget.house.lease.leaseId,
+                    "houseId": widget.house.houseId,
                     "services": widget.house.lease.services
                         .map((service) => service.toJson())
                         .toList()

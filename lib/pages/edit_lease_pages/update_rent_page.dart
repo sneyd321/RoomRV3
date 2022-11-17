@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/lease.dart';
-import 'package:notification_app/business_logic/list_items/deposit.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/RentForm.dart';
@@ -38,7 +36,7 @@ class _UpdateRentPageState extends State<UpdateRentPage> {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
                   runMutation({
-                    "houseId": widget.house.lease.leaseId,
+                    "houseId": widget.house.houseId,
                     "rent": widget.house.lease.rent.toJson()
                   });
                 }

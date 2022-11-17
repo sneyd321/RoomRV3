@@ -44,7 +44,7 @@ class _UpdateRentalAddressPageState extends State<UpdateRentalAddressPage> {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
                   runMutation({
-                    "houseId": widget.house.lease.leaseId,
+                    "houseId": widget.house.houseId,
                     "rentalAddress": widget.house.lease.rentalAddress.toJson()
                   });
                 } else {
