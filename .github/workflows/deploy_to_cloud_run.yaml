@@ -40,9 +40,9 @@ jobs:
           repository: sneyd321/flutter_flask_web_server
           path: web-server
 
-      - name: Install alembic dependencies
+      - name: Copy files into server
         run: |
-          cp build/web web-server/templates
+          cp -r build/web web-server/templates
           cd web-server/templates
           ls -a
        
