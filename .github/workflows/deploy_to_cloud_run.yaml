@@ -43,7 +43,7 @@ jobs:
       - name: copy file
         uses: canastro/copy-file-action@master
         with:
-          source: "web/*"
+          source: "build/web/*"
           target: "web-server/templates/"
        
 
