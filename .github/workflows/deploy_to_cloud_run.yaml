@@ -43,10 +43,12 @@ jobs:
       - name: Copy files into server
         run: |
           cp -r build/web web-server/templates
-          cd web-server/templates
-          ls -a
-       
-
+          cd web-server
+          cp templates/firebase-messaging-sw.js static/firebase-messaging-sw.js
+          docker build -t us-central1-docker.pkg.dev/roomr-222721/roomr-docker-repo/roomr-landlord .
+          docker push us-central1-docker.pkg.dev/roomr-222721/roomr-docker-repo/roomr-landlord
+          gcloud run deploy roomr-landlord --region=us-central1 --image us-central1-docker.pkg.dev/roomr-222721/roomr-docker-repo/roomr-landlord --allow-unauthenticated
+          
         
 
      
