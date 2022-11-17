@@ -32,7 +32,7 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: flutter clean
-      - run: flutter build web --release
+      - run: flutter build web 
       
 
       - name: Checkout Web Server
