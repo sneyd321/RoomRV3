@@ -20,7 +20,7 @@ class LandlordViewPager extends StatefulWidget {
 
 class _LandlordViewPagerState extends State<LandlordViewPager> {
   final PageController controller = PageController();
-  int index = 0;
+  int index = 1;
 
 
   @override

@@ -105,7 +105,7 @@ class _LandlordAddressFormState extends State<LandlordAddressForm> {
           children: [
             Row(children: const [
             Icon(Icons.lightbulb, color: Colors.blue,),
-            Text("This is the address for recieving notices or documents from your tenants", softWrap: true,)
+            Flexible(child: Text("This is the address for recieving notices or documents from your tenants", softWrap: true,))
           ],),
             AddressFormField(onSuggestedAddress, widget.streamSocket,
                 isTest: widget.isTest),
