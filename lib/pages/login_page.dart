@@ -7,6 +7,7 @@ import 'package:notification_app/pages/sign_up_page.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Dialogs/loading_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../business_logic/fields/field.dart';
 import '../business_logic/landlord.dart';
@@ -41,6 +42,12 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     emailTextEditingController.text = widget.email;
     passwordTextEditingController.text = widget.password;
+    SharedPreferences.getInstance().then((value) {
+      String? sharedPreferencesEmail = value.getString("email");
+      if (sharedPreferencesEmail != null) {
+        emailTextEditingController.text = sharedPreferencesEmail;
+      }
+    });
     FirebaseConfiguration()
         .getToken()
         .then((value) => loginLandlord.deviceId = value ?? "");
@@ -99,7 +106,9 @@ class _LoginPageState extends State<LoginPage> {
                           right: PrimaryButton(Icons.login, "Login", (context) async {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
-                              
+                              SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            prefs.setString("email", loginLandlord.email);
                               
                               runMutation({"login": loginLandlord.toJson()});
                             }

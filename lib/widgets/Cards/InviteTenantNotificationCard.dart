@@ -11,10 +11,12 @@ class InviteTenantNotificationCard extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<InviteTenantNotificationCard> createState() => _InviteTenantNotificationCardState();
+  State<InviteTenantNotificationCard> createState() =>
+      _InviteTenantNotificationCardState();
 }
 
-class _InviteTenantNotificationCardState extends State<InviteTenantNotificationCard> {
+class _InviteTenantNotificationCardState
+    extends State<InviteTenantNotificationCard> {
   late Map<String, dynamic> data;
   late String path;
   @override
@@ -29,6 +31,16 @@ class _InviteTenantNotificationCardState extends State<InviteTenantNotificationC
     return Card(
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+                onPressed: () {
+                  widget.document.reference.delete();
+                },
+                icon: const Icon(Icons.close))
+          ],
+        ),
         ListTile(
           leading: const Icon(
             Icons.account_circle,

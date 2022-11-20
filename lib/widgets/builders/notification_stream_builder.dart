@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/Cards/ApproveTenantNotification.dart';
 import 'package:notification_app/widgets/Cards/InviteTenantNotificationCard.dart';
@@ -28,7 +29,6 @@ class NotificationStreamBuilder extends StatefulWidget {
 
 class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
   Stream<List<QuerySnapshot<Map<String, dynamic>>>> getCombinedStream() {
-    
     CombineLatestStream<QuerySnapshot<Map<String, dynamic>>,
             List<QuerySnapshot<Map<String, dynamic>>>> combinedStreams =
         CombineLatestStream.list(widget.houses
@@ -56,7 +56,12 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
           }
           if (snapshot.connectionState == ConnectionState.waiting ||
               !snapshot.hasData) {
-            return const Text("Loading");
+            return const Card(
+              margin: EdgeInsets.all(8),
+              child: ListTile(
+                title: Text("No Notifications"),
+              ),
+            );
           }
           List<QueryDocumentSnapshot> queryDocumentSnapshots = [];
 
@@ -67,7 +72,6 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
           return CardSliverListView(
             items: queryDocumentSnapshots,
             builder: (context, index) {
-
               QueryDocumentSnapshot document = queryDocumentSnapshots[index];
               switch (document.get("Name")) {
                 case "MaintenanceTicket":
@@ -79,8 +83,7 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
                   );
                 case "DownloadLease":
                   return DownloadLeaseNotificationCard(
-                    documentURL: document.get("data")["documentURL"],
-                    houseKey: document.get("houseKey"),
+                    document: document,
                   );
                 case "InvitePendingTenant":
                   return InviteTenantNotificationCard(document: document);

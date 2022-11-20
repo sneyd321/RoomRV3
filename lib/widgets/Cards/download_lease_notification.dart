@@ -1,22 +1,25 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
+import 'package:notification_app/services/FirebaseConfig.dart';
 import 'package:notification_app/services/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:signature/signature.dart';
+import 'package:universal_html/html.dart';
 
 import '../../services/network.dart';
 import '../../services/notification/download_lease_notification.dart';
 import '../../services/web_network.dart';
 
 class DownloadLeaseNotificationCard extends StatefulWidget {
-  final String documentURL;
-  final String houseKey;
-  const DownloadLeaseNotificationCard({Key? key, required this.documentURL, required this.houseKey})
+  final QueryDocumentSnapshot document;
+  
+  const DownloadLeaseNotificationCard({Key? key, required this.document})
       : super(key: key);
 
   @override
@@ -34,8 +37,22 @@ class _DownloadLeaseNotificationCardState
 
   String errorText = "";
 
+  late String documentURL;
+  late String houseKey;
+  late String documentName;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    documentURL = widget.document.get("data")["documentURL"];
+    houseKey = widget.document.get("houseKey");
+    documentName = "StandardLeaseAgreement_Ontario.pdf"; 
+
+  }
+
   void onDownloadLease() async {
-    if (widget.documentURL == "") {
+    if (documentURL == "") {
       setState(() {
         errorText =
             "Download link is missing. Please tell landlord to re generate lease and invite again.";
@@ -43,13 +60,13 @@ class _DownloadLeaseNotificationCardState
     }
     if (kIsWeb) {
       WebNetwork webNetwork = WebNetwork();
-      String filePath = webNetwork.downloadFromURL(widget.documentURL);
+      String filePath = webNetwork.downloadFromURL(documentURL);
       await downloadLeaseNotification.localNotificationService.cancel(0);
       webNetwork.openFile(filePath);
     } else {
       Network network = Network();
       String filePath = await network.downloadFromURL(
-          widget.documentURL, "StandardLeaseAgreement_Ontario.pdf");
+          documentURL, documentName);
       await downloadLeaseNotification.localNotificationService.cancel(0);
       network.openFile(filePath);
     }
@@ -64,6 +81,14 @@ class _DownloadLeaseNotificationCardState
           return Card(
             child: Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(onPressed: () {
+                      widget.document.reference.delete();
+                    }, icon: const Icon(Icons.close))
+                  ],
+                ),
                 Container(
                   height: 75,
                   margin: const EdgeInsets.all(8),
@@ -74,10 +99,10 @@ class _DownloadLeaseNotificationCardState
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Align(
+                      Align(
                           alignment: Alignment.center,
                           child: Text(
-                            "StandardLeaseAgreement_Ontario.pdf",
+                            documentName,
                             style: TextStyle(color: Colors.white, fontSize: 16),
                           )),
                       const Spacer(),
@@ -120,7 +145,7 @@ class _DownloadLeaseNotificationCardState
                                     await controller.toPngBytes() ?? []);
                                 runMutation({
                                   "signature": base64EncodedSigniture,
-                                  "houseKey": widget.houseKey
+                                  "houseKey": houseKey
                                 });
                                 Navigator.pop(context);
                               },

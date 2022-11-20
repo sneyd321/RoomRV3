@@ -32,6 +32,16 @@ class _ApproveTenantNotificationCardState
     return Card(
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+                onPressed: () {
+                  widget.document.reference.delete();
+                },
+                icon: const Icon(Icons.close))
+          ],
+        ),
         ListTile(
           leading: const Icon(
             Icons.account_circle,

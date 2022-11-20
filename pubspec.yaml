@@ -51,6 +51,7 @@ dependencies:
   async: ^2.9.0
   rxdart: ^0.27.5
   universal_html: ^2.0.8
+  shared_preferences: ^2.0.15
 
 
 dev_dependencies:

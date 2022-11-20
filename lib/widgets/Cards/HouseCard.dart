@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/address.dart';
-import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/pages/house_menu_page.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
-import 'package:notification_app/widgets/Helper/TextHelper.dart';
+
 
 class HouseCard extends StatelessWidget {
   final House house;
@@ -21,7 +18,6 @@ class HouseCard extends StatelessWidget {
   String parseSecondaryAddress(House house) {
     RentalAddress rentalAddress = house.lease.rentalAddress;
     String city = rentalAddress.city;
-    print(city.length);
     String province = rentalAddress.province;
     String postalCode = rentalAddress.postalCode;
     return "$city, $province $postalCode";

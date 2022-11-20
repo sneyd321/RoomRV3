@@ -32,7 +32,7 @@ class _AddTenantPageState extends State<AddTenantPage> {
             List<Tenant> tenants = json
                 .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
                 .toList();
-            print(tenants);
+  
             return SafeArea(
                 child: Scaffold(
                     floatingActionButton: FloatingActionButton.extended(

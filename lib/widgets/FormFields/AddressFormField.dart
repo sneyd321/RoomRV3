@@ -42,7 +42,6 @@ class _AddressFormFieldState extends State<AddressFormField> {
     
     socket.connect();
       socket.onConnect((_) {
-        print('connect');
 
       });
   }

@@ -5,6 +5,7 @@ import 'package:notification_app/business_logic/list_items/deposit.dart';
 import 'package:notification_app/business_logic/rent.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
+import 'package:notification_app/widgets/Forms/Form/CreateHouseRentForm.dart';
 import 'package:notification_app/widgets/Forms/Form/RentForm.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 
@@ -45,7 +46,7 @@ class _AddRentPageState extends State<AddRentPage> {
         Expanded(
             child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: RentForm(
+          child: CreateHouseRentForm(
             rent: widget.lease.rent,
             formKey: formKey,
           ),

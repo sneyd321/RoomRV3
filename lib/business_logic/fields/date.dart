@@ -35,7 +35,7 @@ abstract class Date {
 class StartDate extends Date {
   StartDate(date) : super(date);
   StartDate.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    print(json);
+
     date = formatDate(parseDate(json["startDate"]));
   }
 

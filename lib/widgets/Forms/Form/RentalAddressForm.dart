@@ -91,6 +91,10 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
       key: widget.formKey,
       child:
           ListView(controller: scrollController, shrinkWrap: true, children: [
+            Row(children: const [
+            Icon(Icons.lightbulb, color: Colors.blue,),
+            Text("This is the address you will rent to the tenant", softWrap: true,)
+          ],),
         AddressFormField(onSuggestedAddress, streamSocket, isTest: widget.isTest),
         TwoColumnRow(
             left: SimpleFormField(
