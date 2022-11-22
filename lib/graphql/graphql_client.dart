@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-const String host = 'http://localhost:8081/graphql';
+const String host = 'https://router-s5xgw6tidq-uc.a.run.app/graphql';
 
 class GQLClient implements ResponseObserver {
   static final GQLClient _singleton = GQLClient._internal();
