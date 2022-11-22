@@ -1,0 +1,8 @@
+mutation ($houseId: Int!){
+  deleteHouse(houseId: $houseId) {
+    id,
+    landlordId,
+    houseKey,
+    firebaseId
+  }
+}

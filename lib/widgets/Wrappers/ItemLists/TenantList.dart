@@ -22,7 +22,7 @@ class _TenantListState extends State<TenantList> {
   Widget build(BuildContext context) {
     return SliverAddItemStateWrapper(items: widget.tenants, builder: (context, index) {
       Tenant tenant = widget.tenants[index];
-      return AddTenantCard(tenant: tenant, houseKey: widget.house.houseKey,);
+      return AddTenantCard(tenant: tenant, houseKey: widget.house.houseKey, onDeleteTenant: (Tenant tenant) {  },);
     }, form: AddNameForm(onSave: (context, name) {
       setState(() {
         //widget.tenants.add(Tenant.fromTenantName(TenantName(name)));

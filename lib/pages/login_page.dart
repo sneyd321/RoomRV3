@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../business_logic/fields/field.dart';
 import '../business_logic/landlord.dart';
 import '../services/FirebaseConfig.dart';
-import '../services/graphql_client.dart';
+import '../graphql/graphql_client.dart';
 import '../widgets/FormFields/EmailFormField.dart';
 import '../widgets/FormFields/PasswordFormField.dart';
 import '../widgets/Forms/FormRow/TwoColumnRow.dart';

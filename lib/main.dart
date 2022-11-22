@@ -3,26 +3,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/comment.dart';
-import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/firebase_options.dart';
-import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
-import 'package:notification_app/pages/add_tenant_page.dart';
-import 'package:notification_app/pages/maintenance_ticket_pages/comments_page.dart';
-import 'package:notification_app/pages/house_page.dart';
-import 'package:notification_app/pages/landlord_view_pager.dart';
 import 'package:notification_app/pages/login_page.dart';
-import 'package:notification_app/pages/sign_up_page.dart';
-import 'package:notification_app/pages/test_page.dart';
 import 'package:notification_app/services/FirebaseConfig.dart';
-
-import 'business_logic/house.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
-
   print("Handling a background message: ${message.messageId}");
 }
 

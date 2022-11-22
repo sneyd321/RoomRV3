@@ -6,7 +6,7 @@ import 'package:notification_app/graphql/query_helper.dart';
 
 import '../../business_logic/maintenance_ticket.dart';
 import '../../services/FirebaseConfig.dart';
-import '../../services/graphql_client.dart';
+import '../../graphql/graphql_client.dart';
 import '../../widgets/Forms/Form/comment_form.dart';
 import '../../widgets/Forms/FormRow/table_row.dart';
 import '../../widgets/builders/comment_stream_builder.dart';

@@ -5,7 +5,7 @@ import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 
 import '../../../business_logic/fields/field.dart';
 import '../../../graphql/mutation_helper.dart';
-import '../../../services/graphql_client.dart';
+import '../../../graphql/graphql_client.dart';
 import '../../Buttons/SecondaryButton.dart';
 import '../../FormFields/SimpleFormField.dart';
 import '../FormRow/TwoColumnRow.dart';

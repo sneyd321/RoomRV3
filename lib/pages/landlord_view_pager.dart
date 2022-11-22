@@ -5,7 +5,7 @@ import 'package:notification_app/pages/house_page.dart';
 
 import '../business_logic/house.dart';
 import '../business_logic/landlord.dart';
-import '../services/graphql_client.dart';
+import '../graphql/graphql_client.dart';
 import '../graphql/query_helper.dart';
 import 'notification_page.dart';
 

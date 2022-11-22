@@ -8,7 +8,7 @@ import 'package:http/testing.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/maintenance_ticket.dart';
 import 'package:notification_app/business_logic/tenant.dart';
-import 'package:notification_app/services/graphql_client.dart';
+import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/graphql/query_helper.dart';
 import 'package:http/http.dart' as http;
 

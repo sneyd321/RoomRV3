@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/tenant.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
-import 'package:notification_app/services/graphql_client.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
+import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 
 
@@ -13,16 +12,37 @@ class AddTenantCard extends StatelessWidget {
   final Tenant tenant;
   final String houseKey;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  AddTenantCard({Key? key, required this.tenant, required this.houseKey})
+  final void Function(Tenant tenant) onDeleteTenant; 
+  AddTenantCard({Key? key, required this.tenant, required this.houseKey, required this.onDeleteTenant})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            MutationHelper(
+              builder: (runMutation) {
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(onPressed: () {
+                       runMutation({
+                        "tenant": tenant.toJson()
+                       });
+                      }, icon: const Icon(Icons.close))
+                    ],
+                  );
+              }, 
+              mutationName: 'deleteTenant', 
+              onComplete: (json) { 
+                  onDeleteTenant(Tenant.fromJson(json));
+              },
+              
+            ),
             Container(
               margin: const EdgeInsets.only(top: 16),
               child: const CircleAvatar(

@@ -19,11 +19,6 @@ class CardSliverGridView extends StatefulWidget {
 class _CardSliverGridViewState extends State<CardSliverGridView> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
-    /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
-    final double itemWidth = size.width / 2;
     return CustomScrollView(
       slivers: [
         SliverGrid(

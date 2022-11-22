@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/maintenance_ticket.dart';
-import 'package:notification_app/services/graphql_client.dart';
+import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Dialogs/loading_dialog.dart';
 

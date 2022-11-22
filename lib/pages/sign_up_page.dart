@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/pages/login_page.dart';
-import 'package:notification_app/services/graphql_client.dart';
+import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Dialogs/loading_dialog.dart';
 import 'package:notification_app/widgets/FormFields/EmailFormField.dart';

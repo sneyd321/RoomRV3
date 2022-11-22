@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
@@ -9,7 +8,7 @@ import 'package:notification_app/widgets/Forms/Form/TenancyTermsForm.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 
 import '../../graphql/mutation_helper.dart';
-import '../../services/graphql_client.dart';
+import '../../graphql/graphql_client.dart';
 
 class AddTenancyTermsPage extends StatefulWidget {
   final Lease lease;

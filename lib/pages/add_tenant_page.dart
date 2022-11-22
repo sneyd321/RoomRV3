@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/graphql/query_helper.dart';
-import 'package:notification_app/services/graphql_client.dart';
+import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Cards/AddTenantCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddTenantForm.dart';
 import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
@@ -32,7 +32,7 @@ class _AddTenantPageState extends State<AddTenantPage> {
             List<Tenant> tenants = json
                 .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
                 .toList();
-  
+
             return SafeArea(
                 child: Scaffold(
                     floatingActionButton: FloatingActionButton.extended(
@@ -40,17 +40,15 @@ class _AddTenantPageState extends State<AddTenantPage> {
                       label: const Text("Add Tenant"),
                       onPressed: () async {
                         Tenant? tenant = await BottomSheetHelper<Tenant?>(
-                                AddTenantEmailForm(houseId: widget.house.houseId))
+                                AddTenantEmailForm(
+                                    houseId: widget.house.houseId))
                             .show(context);
                         if (tenant == null) {
                           return;
                         }
                         tenants.add(tenant);
 
-                        setState(() {
-                          
-                        });
-                        
+                        setState(() {});
                       },
                     ),
                     appBar: AppBar(
@@ -65,14 +63,28 @@ class _AddTenantPageState extends State<AddTenantPage> {
                         )
                       ],
                     ),
-                    body: CardSliverGridView(
-                      childAspectRatio: .91,
+                    body: tenants.isNotEmpty ? CardSliverGridView(
+                      childAspectRatio: .85,
                       builder: (context, index) {
                         Tenant tenant = tenants[index];
                         return AddTenantCard(
-                            tenant: tenant, houseKey: widget.house.houseKey);
+                          tenant: tenant,
+                          houseKey: widget.house.houseKey,
+                          onDeleteTenant: (Tenant tenantToBeDeleted) {
+                            setState(() {
+                              Tenant tenant = tenants.where((element) => element.getFullName() == tenantToBeDeleted.getFullName() && element.email == tenantToBeDeleted.email).first;
+                              tenants.remove(tenant);
+                            
+                            });
+                          },
+                        );
                       },
                       items: tenants,
+                    ): const Card(
+                      margin: EdgeInsets.all(8),
+                      child: ListTile(
+                        title: Text("No Tenants"),
+                      ),
                     )));
           },
         ));

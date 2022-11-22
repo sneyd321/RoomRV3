@@ -4,7 +4,7 @@ import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/pages/add_lease_pages/add_landlord_info_page.dart';
 import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
-import 'package:notification_app/services/graphql_client.dart';
+import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'add_lease_pages/add_landlord_address_page.dart';

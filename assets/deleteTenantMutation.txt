@@ -1,0 +1,11 @@
+mutation ($tenant: TenantInput!) {
+  deleteTenant(tenant: $tenant) {
+    firstName,
+    lastName,
+    email,
+    tenantState,
+    houseId,
+    tenantPosition,
+    deviceId
+  }
+}

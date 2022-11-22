@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/services/FirebaseConfig.dart';
-import 'package:notification_app/services/graphql_client.dart';
+import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:signature/signature.dart';

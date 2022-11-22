@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 
-import 'package:notification_app/services/graphql_client.dart';
+import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Cards/HouseCard.dart';
 import 'package:notification_app/widgets/Listviews/CardSliverGridView.dart';
 
@@ -56,10 +56,16 @@ class _HousesPageState extends State<HousesPage> {
               ),
               body: widget.houses.isNotEmpty
                   ? CardSliverGridView(
-                      childAspectRatio: .85,
+                      childAspectRatio: (MediaQuery.of(context).size.width * 0.65) / MediaQuery.of(context).size.height * 2,
                       builder: (context, index) {
                         House house = widget.houses[index];
-                        return HouseCard(house: house);
+                        return HouseCard(house: house, onDeleteHouse: (String houseKey) {  
+                          House house = widget.houses.where((element) => element.houseKey == houseKey).first;
+                          setState(() {
+                            widget.houses.remove(house);
+                          });
+                        
+                        },);
                       },
                       items: widget.houses,
                     )

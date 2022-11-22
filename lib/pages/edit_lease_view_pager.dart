@@ -16,7 +16,7 @@ import 'package:notification_app/pages/edit_lease_pages/update_utilities_page.da
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 
 import '../graphql/mutation_helper.dart';
-import '../services/graphql_client.dart';
+import '../graphql/graphql_client.dart';
 
 
 class EditLeaseStatePager extends StatefulWidget {
