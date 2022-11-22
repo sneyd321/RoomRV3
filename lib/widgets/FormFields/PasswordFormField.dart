@@ -45,7 +45,7 @@ class PasswordFormFieldState extends State<PasswordFormField> {
               '${widget.textEditingController.text.length.toString()}/$maxCharacterLength',
           errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red)),
-          prefixIcon: const Icon(Icons.password),
+          prefixIcon: const Icon(Icons.lock),
           labelText: widget.label,
           suffixIcon: IconButton(
             icon: Icon(
