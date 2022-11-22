@@ -56,7 +56,7 @@ class _HousesPageState extends State<HousesPage> {
               ),
               body: widget.houses.isNotEmpty
                   ? CardSliverGridView(
-                      childAspectRatio: (MediaQuery.of(context).size.width * 0.65) / MediaQuery.of(context).size.height * 2,
+                      childAspectRatio: .8,
                       builder: (context, index) {
                         House house = widget.houses[index];
                         return HouseCard(house: house, onDeleteHouse: (String houseKey) {  

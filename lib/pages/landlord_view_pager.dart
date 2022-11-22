@@ -21,7 +21,7 @@ class LandlordViewPager extends StatefulWidget {
 class _LandlordViewPagerState extends State<LandlordViewPager> {
   final PageController controller = PageController();
   int index = 1;
-
+  List<House> houses = [];
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,10 @@ class _LandlordViewPagerState extends State<LandlordViewPager> {
                queryName: 'getHouses', 
                variables: {"id": widget.landlord.id},
                onComplete: (json) {
-                 List<House> houses = json.map<House>((json) => House.fromJson(json)).toList();
+                  if (json.length != houses.length) {
+                    houses = json.map<House>((json) => House.fromJson(json)).toList();
+                  }
+                 
                  switch (index) {
                   case 0:
                     return NotificationPage(houses: houses, landlord: widget.landlord,);
@@ -62,7 +65,6 @@ class _LandlordViewPagerState extends State<LandlordViewPager> {
             onTap: (index) {
               setState(() {
                 this.index = index;
-                
               });
             },
           ),

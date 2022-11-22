@@ -10,12 +10,13 @@ class QueryHelper extends StatefulWidget {
   final String queryName;
   final Widget Function(dynamic json) onComplete;
   final bool isList;
+  final bool shouldCache;
   const QueryHelper(
       {Key? key,
       required this.variables,
       required this.queryName,
       required this.onComplete,
-      required this.isList})
+      required this.isList, this.shouldCache = false})
       : super(key: key);
 
   @override
@@ -52,7 +53,8 @@ class _QueryHelperState extends State<QueryHelper> {
           }
           return Query(
               options: QueryOptions(
-                  fetchPolicy: FetchPolicy.noCache,
+                cacheRereadPolicy: CacheRereadPolicy.mergeOptimistic,
+                  fetchPolicy: FetchPolicy.networkOnly,
                   document: gql(snapshot.data!),
                   variables: widget.variables),
               builder: (result, {fetchMore, refetch}) {

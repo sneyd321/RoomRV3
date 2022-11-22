@@ -19,6 +19,8 @@ class AddTenantPage extends StatefulWidget {
 }
 
 class _AddTenantPageState extends State<AddTenantPage> {
+  List<Tenant> tenants = [];
+
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
@@ -28,10 +30,11 @@ class _AddTenantPageState extends State<AddTenantPage> {
           variables: {"houseId": widget.house.houseId},
           queryName: "getTenants",
           onComplete: (json) {
-            json = json as List<dynamic>;
-            List<Tenant> tenants = json
-                .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
-                .toList();
+            if (json.length != tenants.length) {
+              tenants = json
+                  .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
+                  .toList();
+            }
 
             return SafeArea(
                 child: Scaffold(
@@ -63,29 +66,33 @@ class _AddTenantPageState extends State<AddTenantPage> {
                         )
                       ],
                     ),
-                    body: tenants.isNotEmpty ? CardSliverGridView(
-                      childAspectRatio: .85,
-                      builder: (context, index) {
-                        Tenant tenant = tenants[index];
-                        return AddTenantCard(
-                          tenant: tenant,
-                          houseKey: widget.house.houseKey,
-                          onDeleteTenant: (Tenant tenantToBeDeleted) {
-                            setState(() {
-                              Tenant tenant = tenants.where((element) => element.getFullName() == tenantToBeDeleted.getFullName() && element.email == tenantToBeDeleted.email).first;
-                              tenants.remove(tenant);
-                            
-                            });
-                          },
-                        );
-                      },
-                      items: tenants,
-                    ): const Card(
-                      margin: EdgeInsets.all(8),
-                      child: ListTile(
-                        title: Text("No Tenants"),
-                      ),
-                    )));
+                    body: tenants.isNotEmpty
+                        ? CardSliverGridView(
+                            childAspectRatio: .75,
+                            builder: (context, index) {
+                              Tenant tenant = tenants[index];
+                              return AddTenantCard(
+                                tenant: tenant,
+                                houseKey: widget.house.houseKey,
+                                onDeleteTenant: (Tenant tenant) {
+                                  setState(() {
+                                    Tenant tenantToBeDeleted = tenants
+                                        .where((element) =>
+                                            element.email == tenant.email)
+                                        .first;
+                                    tenants.remove(tenantToBeDeleted);
+                                  });
+                                },
+                              );
+                            },
+                            items: tenants,
+                          )
+                        : const Card(
+                            margin: EdgeInsets.all(8),
+                            child: ListTile(
+                              title: Text("No Tenants"),
+                            ),
+                          )));
           },
         ));
   }

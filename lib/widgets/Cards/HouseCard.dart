@@ -5,11 +5,11 @@ import 'package:notification_app/pages/house_menu_page.dart';
 
 import '../../graphql/mutation_helper.dart';
 
-
 class HouseCard extends StatelessWidget {
   final House house;
   final void Function(String houseKey) onDeleteHouse;
-  const HouseCard({Key? key, required this.house, required this.onDeleteHouse}) : super(key: key);
+  const HouseCard({Key? key, required this.house, required this.onDeleteHouse})
+      : super(key: key);
 
   String parsePrimaryAddress(House house) {
     RentalAddress rentalAddress = house.lease.rentalAddress;
@@ -28,78 +28,77 @@ class HouseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => HouseMenuPage(
-                    house: house,
-                  )),
-        );
-      },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        clipBehavior: Clip.hardEdge,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start, children: [
-            MutationHelper(
-                builder: (runMutation) {
-                  return Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(onPressed: () {
-                         runMutation({
-                          "houseId": house.houseId
-                         });
-                        }, icon: const Icon(Icons.close))
-                      ],
-                    );
-                }, 
-                onComplete: (json) {  
-                  
-                  onDeleteHouse(json["houseKey"]);
-                }, 
-                mutationName: 'deleteHouse', ),
-            Container(
-              constraints: const BoxConstraints(maxHeight: 200),
-              child: const Image(
-                fit: BoxFit.fill,
-                image: AssetImage("assets/house.jpg")),
-            ),
-            Container(
-                margin: const EdgeInsets.only(top: 8, bottom: 8, left: 8),
-                child: Row(
-                  children: [
-                    const Text("House Key: ",
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    Text(house.houseKey,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Colors.blue))
-                  ],
-                )),
-            Container(
-              margin: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(parsePrimaryAddress(house),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      )),
-                  Text(parseSecondaryAddress(house)),
-                ],
-              ),
-            ),
-          ]),
-        ),
-
-    );
+    return MutationHelper(
+        onComplete: (json) {
+          onDeleteHouse(json["houseKey"]);
+        },
+        mutationName: 'deleteHouse',
+        builder: (runMutation) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HouseMenuPage(
+                          house: house,
+                        )),
+              );
+            },
+            child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                clipBehavior: Clip.hardEdge,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                runMutation({"houseId": house.houseId});
+                              },
+                              icon: const Icon(Icons.close))
+                        ],
+                      ),
+                      Container(
+                        constraints: const BoxConstraints(maxHeight: 200),
+                        child: const Image(
+                            fit: BoxFit.fill,
+                            image: AssetImage("assets/house.jpg")),
+                      ),
+                      Container(
+                          margin:
+                              const EdgeInsets.only(top: 8, bottom: 8, left: 8),
+                          child: Row(
+                            children: [
+                              const Text("House Key: ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                              Text(house.houseKey,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.blue))
+                            ],
+                          )),
+                      Container(
+                        margin: const EdgeInsets.all(8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(parsePrimaryAddress(house),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            Text(parseSecondaryAddress(house)),
+                          ],
+                        ),
+                      )
+                    ])),
+          );
+        });
   }
 }

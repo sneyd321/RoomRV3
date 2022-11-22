@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                             loginLandlord.setPassword(value!);
                           },
                           label: "Password",
-                          icon: Icons.password,
+                          icon: Icons.lock,
                           onValidate: (value) {
                             return Password(value!).validate();
                           }),

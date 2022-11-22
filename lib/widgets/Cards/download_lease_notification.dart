@@ -47,8 +47,7 @@ class _DownloadLeaseNotificationCardState
     super.initState();
     documentURL = widget.document.get("data")["documentURL"];
     houseKey = widget.document.get("houseKey");
-    documentName = "StandardLeaseAgreement_Ontario.pdf"; 
-
+    documentName = widget.document.get("data")["documentName"];
   }
 
   void onDownloadLease() async {
@@ -99,13 +98,16 @@ class _DownloadLeaseNotificationCardState
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            documentName,
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          )),
-                      const Spacer(),
+                      Flexible(
+                        child: Container(
+                            margin: const EdgeInsets.only(right: 8),
+                            alignment: Alignment.center,
+                            child: Text(
+                              documentName,
+                              style: TextStyle(color: Colors.white, fontSize: 16),
+                            )),
+                      ),
+                      
                       Container(
                         margin:
                             const EdgeInsets.only(top: 16, bottom: 16, right: 8),
