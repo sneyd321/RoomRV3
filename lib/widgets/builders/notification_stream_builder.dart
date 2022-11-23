@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/Cards/ApproveTenantNotification.dart';
 import 'package:notification_app/widgets/Cards/InviteTenantNotificationCard.dart';
+import 'package:notification_app/widgets/Cards/TenantAccountCreatedNotification.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../business_logic/house.dart';
@@ -87,6 +88,8 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
                   );
                 case "InvitePendingTenant":
                   return InviteTenantNotificationCard(document: document);
+                case "TenantAccountCreated":
+                  return TenantAccountCreatedNotification(document: document);
                 case "ApproveTenant":
                   return ApproveTenantNotificationCard(document: document);
                 default:
