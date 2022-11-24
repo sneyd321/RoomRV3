@@ -68,7 +68,7 @@ class _AddTenantPageState extends State<AddTenantPage> {
                     ),
                     body: tenants.isNotEmpty
                         ? CardSliverGridView(
-                            childAspectRatio: .75,
+                            childAspectRatio: .5,
                             builder: (context, index) {
                               Tenant tenant = tenants[index];
                               return AddTenantCard(

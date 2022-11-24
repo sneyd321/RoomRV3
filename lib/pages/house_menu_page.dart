@@ -32,7 +32,7 @@ class MenuItemCard extends StatelessWidget {
       ),
       onTap: () {
         switch (label) {
-          case "Add Tenants":
+          case "View Tenants":
             Navigator.push(context, MaterialPageRoute(builder: (context) => AddTenantPage(house: house)));
             break;
           case "Edit Lease":
@@ -67,7 +67,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    menuItems.add(MenuItem(Icons.group_add_outlined, "Add Tenants", widget.house));
+    menuItems.add(MenuItem(Icons.group, "View Tenants", widget.house));
     menuItems.add(MenuItem(Icons.assignment, "Edit Lease", widget.house));
   }
 
