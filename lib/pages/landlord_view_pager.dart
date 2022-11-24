@@ -29,7 +29,10 @@ class _LandlordViewPagerState extends State<LandlordViewPager> {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              leading: Icon(Icons.exit_to_app_sharp),
+              leading: IconButton(icon: Text("Exit"),
+              onPressed: () { 
+                Navigator.pop(context);
+               },),
               bottom: const TabBar(
                 tabs: [
                   Tab(
