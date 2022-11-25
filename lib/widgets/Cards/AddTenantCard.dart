@@ -68,6 +68,7 @@ class AddTenantCard extends StatelessWidget {
                         child: Text(
                       tenant.email,
                     ))),
+                Spacer(),
                 SecondaryButton(Icons.email, "Invite", (context) {
                   showDialog(
                       context: context,
