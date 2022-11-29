@@ -55,7 +55,7 @@ class _InviteTenantNotificationCardState
         const SizedBox(
           height: 16,
         ),
-        SecondaryButton(Icons.email, "Re Send Invite", (context) {
+        SecondaryButton(Icons.email, "Resend Invite", (context) {
           BottomSheetHelper(UpdateTenantEmailForm(
             names: [data["data"]["email"]],
             onSave: (context, email) {

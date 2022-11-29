@@ -76,7 +76,7 @@ class _UpdateTenantEmailFormState extends State<UpdateTenantEmailForm> {
                 ]),
           );
         },
-        mutationName: 'addTenantEmail',
+        mutationName: 'addTenant',
         onComplete: (json) {
         },
       ),
