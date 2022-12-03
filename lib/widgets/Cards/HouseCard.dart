@@ -43,7 +43,7 @@ class HouseCard extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                NavigateToHouseMenuRoute(
+                MaterialPageRoute(
                    
                     builder: (context) => HouseMenuPage(
                           house: house,
@@ -114,10 +114,3 @@ class HouseCard extends StatelessWidget {
 }
 
 
-class NavigateToHouseMenuRoute extends MaterialPageRoute {
-  NavigateToHouseMenuRoute({required WidgetBuilder builder}) : super(builder: builder);
-
-   @override
-  Duration get transitionDuration => Duration(seconds: 2);
-
-}
