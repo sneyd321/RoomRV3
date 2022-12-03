@@ -62,7 +62,7 @@ class HouseCard extends StatelessWidget {
                   child: Container(
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("house.jpg"),
+                        image: AssetImage("assets/house.jpg"),
                         fit: BoxFit.fill,
                         alignment: Alignment.topCenter,
                       ),
