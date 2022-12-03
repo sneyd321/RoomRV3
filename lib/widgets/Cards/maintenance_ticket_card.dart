@@ -21,49 +21,57 @@ class MaintenanceTicketNotificationCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Colors.white,
       child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Row(
-          children: [
-            const CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 30,
-              child: Icon(
-                Icons.account_circle,
-                size: 40,
-              ),
+          ListTile(
+           visualDensity: VisualDensity(vertical: 0.5),
+                isThreeLine: true,
+            leading: const CircleAvatar(child: Icon(Icons.build)),
+            title: const Text("New Maintenance Ticket Reported"),
+            subtitle: Text("Reported by: ${maintenanceTicketNotification.getFullName()}"),
+            trailing: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          const EdgeInsets.all(25)),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              side: const BorderSide(color: Colors.black)))),
+                  onPressed: () async {
+                    
+                    showDialog(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                          
+                            content: Container(
+                              constraints: const BoxConstraints(maxWidth: 400),
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text("data")
+                                 
+                                 
+                                ],
+                              ),
+                            ),
+                          );
+                        });
+                  },
+                  child: const Text(
+                    "View Details",
+                    style: TextStyle(fontSize: 16),
+                  )),
             ),
-            Container(
-                margin: const EdgeInsets.only(top: 16),
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  maintenanceTicketNotification.getFullName(),
-                  textAlign: TextAlign.left,
-                ))
-          ],
-        ),
-        Row(children: [
-          Container(
-              margin: const EdgeInsets.only(left: 16),
-              child: const Text("This is a description"))
-        ]),
-        Container(
-          margin: const EdgeInsets.all(8),
-          height: 200,
-          constraints: const BoxConstraints(maxWidth: 600),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-          width: MediaQuery.of(context).size.width,
-          child: Image.network(maintenanceTicketNotification.data.imageURL, fit: BoxFit.fill,),
-        ),
+          )
         
-          SecondaryButton(Icons.chevron_right_rounded, "Open Maintenance Ticket",
-              (context) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CommentsPage(
-                        maintenanceTicketId: maintenanceTicketNotification.data.maintenanceTicketId, houseKey: maintenanceTicketNotification.houseKey, landlord: landlord,
-                      )),
-            );
-          }),
+         
         
       ]),
     );

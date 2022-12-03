@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/Cards/ApproveTenantNotification.dart';
 import 'package:notification_app/widgets/Cards/InviteTenantNotificationCard.dart';
 import 'package:notification_app/widgets/Cards/TenantAccountCreatedNotification.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../../business_logic/house.dart';
 import '../../business_logic/maintenance_ticket_notification.dart';
@@ -17,10 +15,12 @@ import '../Cards/maintenance_ticket_card.dart';
 import '../Listviews/CardSliverListView.dart';
 
 class NotificationStreamBuilder extends StatefulWidget {
-  final List<House> houses;
+  final House house;
   final Landlord landlord;
+  final TextEditingController textEditingController;
+
   const NotificationStreamBuilder(
-      {Key? key, required this.houses, required this.landlord})
+      {Key? key, required this.house, required this.landlord, required this.textEditingController})
       : super(key: key);
 
   @override
@@ -29,6 +29,7 @@ class NotificationStreamBuilder extends StatefulWidget {
 }
 
 class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
+  /*
   Stream<List<QuerySnapshot<Map<String, dynamic>>>> getCombinedStream() {
     CombineLatestStream<QuerySnapshot<Map<String, dynamic>>,
             List<QuerySnapshot<Map<String, dynamic>>>> combinedStreams =
@@ -39,20 +40,26 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
                     .doc(house.firebaseId)
                     .collection("Landlord")
                     .orderBy("dateCreated", descending: true)
+                    .limit(3)
                     .snapshots())
             .toList());
     return combinedStreams.cast();
   }
+  */
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8),
-      child: StreamBuilder<List<QuerySnapshot<Map<String, dynamic>>>>(
-        stream: getCombinedStream(),
+      child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance
+            .collection('House')
+            .doc(widget.house.firebaseId)
+            .collection("Landlord")
+            .orderBy("dateCreated", descending: true)
+            .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            print(snapshot.error);
             return const Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting ||
@@ -64,13 +71,18 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
               ),
             );
           }
-          List<QueryDocumentSnapshot> queryDocumentSnapshots = [];
-
-          for (QuerySnapshot<Map<String, dynamic>> snapshot in snapshot.data!) {
-            queryDocumentSnapshots.addAll(snapshot.docs);
-          }
+          List<QueryDocumentSnapshot> queryDocumentSnapshots =
+              snapshot.data!.docs.where((element) {
+                print(widget.textEditingController.text);
+            return element
+                .data()
+                .toString()
+                .toLowerCase()
+                .contains(widget.textEditingController.text.toLowerCase());
+          }).toList();
 
           return CardSliverListView(
+            shrinkWrap: true,
             items: queryDocumentSnapshots,
             builder: (context, index) {
               QueryDocumentSnapshot document = queryDocumentSnapshots[index];

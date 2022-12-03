@@ -30,34 +30,19 @@ class _TenantAccountCreatedNotificationState
   @override
   Widget build(BuildContext context) {
     return Card(
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-                onPressed: () {
-                  widget.document.reference.delete();
-                },
-                icon: const Icon(Icons.close))
-          ],
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      color: Colors.white,
+      child: ListTile(
+        visualDensity: VisualDensity(vertical: 0.5),
+        isThreeLine: true,
+        leading: const CircleAvatar(child: Icon(Icons.account_circle)),
+        title: Text(
+          "${data["data"]["firstName"]} ${data["data"]["lastName"]}",
+          style: const TextStyle(fontSize: 16),
         ),
-        ListTile(
-          leading: const Icon(
-            Icons.account_circle,
-            size: 60,
-          ),
-          title: Text(
-            "${data["data"]["firstName"]} ${data["data"]["lastName"]}",
-            style: const TextStyle(fontSize: 16),
-          ),
-          subtitle: const Text("Has created an account"),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-       
-      ]),
+        subtitle: const Text("Has created an account"),
+      ),
     );
   }
 }

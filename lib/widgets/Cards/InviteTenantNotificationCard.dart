@@ -29,43 +29,53 @@ class _InviteTenantNotificationCardState
   @override
   Widget build(BuildContext context) {
     return Card(
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-                onPressed: () {
-                  widget.document.reference.delete();
-                },
-                icon: const Icon(Icons.close))
-          ],
-        ),
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      color: Colors.white,
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(
-          leading: const Icon(
-            Icons.account_circle,
-            size: 60,
+          visualDensity: VisualDensity(vertical: 0.5),
+          isThreeLine: true,
+          leading: const CircleAvatar(child: Icon(Icons.account_circle)),
+          title: Text("${data['firstName']} ${data['lastName']}"),
+          subtitle: const Text("Has signed the lease"),
+          trailing: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            child: ElevatedButton(
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        const EdgeInsets.all(25)),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            side: const BorderSide(color: Colors.black)))),
+                onPressed: () async {
+                  showDialog(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Container(
+                            constraints: const BoxConstraints(maxWidth: 400),
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [Text("data")],
+                            ),
+                          ),
+                        );
+                      });
+                },
+                child: const Text(
+                  "View Details",
+                  style: TextStyle(fontSize: 16),
+                )),
           ),
-          title: Text(
-            "${data["data"]["firstName"]} ${data["data"]["lastName"]}",
-            style: const TextStyle(fontSize: 16),
-          ),
-          subtitle: Text(data["data"]["email"]),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        SecondaryButton(Icons.email, "Resend Invite", (context) {
-          BottomSheetHelper(UpdateTenantEmailForm(
-            names: [data["data"]["email"]],
-            onSave: (context, email) {
-              widget.document.reference.delete();
-            },
-            firstName: data["data"]["firstName"],
-            houseKey: data["houseKey"],
-            lastName: data["data"]["lastName"],
-          )).show(context);
-        })
+        )
       ]),
     );
   }
