@@ -44,6 +44,11 @@ class EmailFormFieldState extends State<EmailFormField> {
           errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
           prefixIcon: const Icon(Icons.email),
           labelText: "Email",
+          suffixIcon: IconButton(icon: const Icon(Icons.close), onPressed: (() {
+            setState(() {
+              widget.textEditingController.text = "";
+            });
+          }),)
         ),
         onSaved: (String? value) {
           Email email = Email(value!);

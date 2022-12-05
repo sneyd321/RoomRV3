@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/firebase_options.dart';
 import 'package:notification_app/pages/login_page.dart';
+import 'package:notification_app/pages/test_page.dart';
 import 'package:notification_app/services/FirebaseConfig.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -29,7 +30,7 @@ void main() async {
   await initHiveForFlutter();
   runApp(const MyApp());
 }
-const int _blackPrimaryValue = 0xFF000000;
+const int primaryColour = 0xFF000000;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -41,14 +42,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch:  const MaterialColor(
-  _blackPrimaryValue,
+  primaryColour,
   <int, Color>{
     50: Color(0xFF000000),
     100: Color(0xFF000000),
     200: Color(0xFF000000),
     300: Color(0xFF000000),
     400: Color(0xFF000000),
-    500: Color(_blackPrimaryValue),
+    500: Color(primaryColour),
     600: Color(0xFF000000),
     700: Color(0xFF000000),
     800: Color(0xFF000000),
