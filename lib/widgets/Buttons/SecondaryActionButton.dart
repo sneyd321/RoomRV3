@@ -13,7 +13,7 @@ class SecondaryActionButton extends StatelessWidget {
     return ElevatedButton(
           style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.all(25)),
+                  const EdgeInsets.all(18)),
               foregroundColor: MaterialStateProperty.all<Color>(Color(primaryColour)),
               backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(

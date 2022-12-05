@@ -13,7 +13,7 @@ class CallToActionButton extends StatelessWidget {
     return ElevatedButton(
           style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.all(16)),
+                  const EdgeInsets.all(18)),
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
               backgroundColor: MaterialStateProperty.all<Color>(Color(primaryColour)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
