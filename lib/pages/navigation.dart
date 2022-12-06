@@ -52,11 +52,17 @@ class Navigation {
 
   void navigateToHouseMenuPage(
       BuildContext context, House house, Landlord landlord) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => HouseMenuPage(house: house, landlord: landlord,)),
-    );
+        Navigator.of(context).push(PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => HouseMenuPage(house: house, landlord: landlord,),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+   
+
+      final tween = Tween(begin: 0, end: 1);
+      final offsetAnimation = animation.drive(tween);
+      return child;
+    },)
+  );
+  
   }
 
 

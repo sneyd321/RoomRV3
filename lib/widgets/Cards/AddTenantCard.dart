@@ -64,7 +64,15 @@ class AddTenantCard extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(45),
                                     side:
                                         const BorderSide(color: Colors.red)))),
-                        onPressed: () async {},
+                        onPressed: () async {
+                          runMutation({
+                            "tenant": tenant.toJson()
+                          });
+                          onDeleteTenant(tenant);
+                          Navigator.pop(context);
+                          
+                          
+                        },
                         child: const Text(
                           "Remove Tenant",
                         )),

@@ -58,7 +58,6 @@ class _HousesPageState extends State<HousesPage> {
                                     Navigation().navigateToHouseMenuPage(
                                         context, house, landlord);
                                   },
-                                  children: [],
                                 );
                               },
                               items: houses,

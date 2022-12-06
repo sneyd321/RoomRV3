@@ -11,9 +11,8 @@ class HouseCard extends StatelessWidget {
   final House house;
   final Landlord landlord;
   final double height;
-  final List<Widget> children;
   final void Function(House house, Landlord landlord) onHouse;
-  const HouseCard({Key? key, required this.house, required this.landlord, required this.onHouse, this.height = 200, required this.children})
+  const HouseCard({Key? key, required this.house, required this.landlord, required this.onHouse, this.height = 200})
       : super(key: key);
 
   String parsePrimaryAddress(House house) {
@@ -95,14 +94,7 @@ class HouseCard extends StatelessWidget {
                               parseSecondaryAddress(house),
                               style: const TextStyle(color: Colors.white),
                             ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 16, left: 8, right: 8),
-                              child: Row(
-                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              mainAxisSize: MainAxisSize.max,
-                                children: children,
-                              ),
-                            )
+                            
                           ],
                         ),
                       ),
