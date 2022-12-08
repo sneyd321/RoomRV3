@@ -36,7 +36,7 @@ class _NotificationPageState extends State<NotificationPage> {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(),
-            bottomNavigationBar: BottomNavBar(),
+            bottomNavigationBar: BottomNavBar(landlord: widget.landlord,),
             body: ListView(
               children: [
                 Row(

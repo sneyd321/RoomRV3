@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/login_landlord.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
-import 'package:notification_app/pages/navigation.dart';
+import 'package:notification_app/main.dart';
+import 'package:notification_app/widgets/Navigation/navigation.dart';
 import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -67,16 +68,27 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Container(
                                 margin: const EdgeInsets.only(
-                                  top: 16,
+                                  top: 32,
                                 ),
-                                child: const Center(
-                                    child: Text(
-                                  "RoomR",
-                                  style: TextStyle(
-                                      color: Colors.blue, fontSize: 36),
+                                child: Center(
+                                    child: Column(
+                                  children: const [
+                                    Text(
+                                      "Room Renting",
+                                      style: TextStyle(
+                                          color: Color(primaryColour),
+                                          fontSize: 36),
+                                    ),
+                                    Text(
+                                      "Landlord",
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 28),
+                                    ),
+                                  ],
                                 ))),
                             const SizedBox(
-                              height: 200,
+                              height: 128,
                             ),
                             EmailFormField(
                               textEditingController: emailTextEditingController,
@@ -113,7 +125,8 @@ class _LoginPageState extends State<LoginPage> {
                                   SharedPreferences prefs =
                                       await SharedPreferences.getInstance();
                                   prefs.setString("email", loginLandlord.email);
-                                  runMutation({"login": loginLandlord.toJson()});
+                                  runMutation(
+                                      {"login": loginLandlord.toJson()});
                                 }
                               }),
                         )

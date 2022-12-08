@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/address.dart';
 import 'package:notification_app/business_logic/house.dart';
-import 'package:notification_app/pages/navigation.dart';
+import 'package:notification_app/widgets/Navigation/navigation.dart';
 
 import '../../business_logic/landlord.dart';
 import '../../graphql/mutation_helper.dart';

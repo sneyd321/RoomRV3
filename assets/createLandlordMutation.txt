@@ -1,8 +1,17 @@
-mutation createLandlord($landlord: LandlordInput!){
+mutation createLandlord($landlord: CreateLandlordInput!){
 	createLandlord(landlord: $landlord) {
         firstName,
         lastName,
+        phoneNumber,
         email,
-        deviceId
+        landlordAddress {
+            city, 
+            poBox, 
+            postalCode, 
+            province, 
+            streetName, 
+            streetNumber, 
+            unitNumber
+        }
     } 
 }

@@ -4,7 +4,7 @@ import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 
 import 'package:notification_app/graphql/graphql_client.dart';
-import 'package:notification_app/pages/navigation.dart';
+import 'package:notification_app/widgets/Navigation/navigation.dart';
 import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
 import 'package:notification_app/widgets/Cards/HouseCard.dart';
 import 'package:notification_app/widgets/Listviews/CardSliverListView.dart';
@@ -31,7 +31,7 @@ class _HousesPageState extends State<HousesPage> {
         child: SafeArea(
             child: Scaffold(
                 appBar: AppBar(),
-                bottomNavigationBar: const BottomNavBar(),
+                bottomNavigationBar: BottomNavBar(landlord: widget.landlord),
                 body: QueryHelper(
                     isList: true,
                     queryName: 'getHouses',

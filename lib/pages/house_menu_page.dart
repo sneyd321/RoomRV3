@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
-import 'package:notification_app/pages/navigation.dart';
+import 'package:notification_app/widgets/Navigation/navigation.dart';
 import 'package:notification_app/widgets/Buttons/TenantRow.dart';
 import 'package:notification_app/widgets/Cards/HouseMenuCard.dart';
 import 'package:notification_app/widgets/Navigation/bottom_nav_bar.dart';
@@ -46,7 +46,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
         client: GQLClient().getClient(),
         child: SafeArea(
             child: Scaffold(
-          bottomNavigationBar: const BottomNavBar(),
+          bottomNavigationBar: BottomNavBar(landlord: widget.landlord,),
           appBar: AppBar(
             backgroundColor: Colors.black,
           ),

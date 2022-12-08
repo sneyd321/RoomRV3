@@ -5,6 +5,7 @@ class IconTextColumn extends StatelessWidget {
   final String text;
   final double profileSize;
   final double iconSize;
+  final double textSize;
   final Color profileColor;
   final Color iconColor;
   final Color textColor;
@@ -17,6 +18,7 @@ class IconTextColumn extends StatelessWidget {
       required this.onClick,
       this.profileSize = 24.0,
       this.iconSize = 24.0,
+      this.textSize = 14,
       this.iconColor = Colors.black,
       this.textColor = Colors.white,
       this.profileColor = Colors.white})
@@ -26,18 +28,21 @@ class IconTextColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 8),
-      constraints: BoxConstraints(maxWidth: 100),
       child: GestureDetector(
         onTap: () {
           onClick();
         },
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center, children: [
           CircleAvatar(
             backgroundColor: profileColor,
             radius: profileSize,
             child: Icon(icon, size: iconSize, color: iconColor),
           ),
-          const SizedBox(height: 8,),
+          const SizedBox(
+            height: 8,
+          ),
           Flex(
             direction: Axis.horizontal,
             children: [
@@ -45,7 +50,7 @@ class IconTextColumn extends StatelessWidget {
                 child: Center(
                   child: Text(
                     text,
-                    style: TextStyle(color: textColor),
+                    style: TextStyle(color: textColor, fontSize: textSize),
                   ),
                 ),
               ),

@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/business_logic/landlord.dart';
-import 'package:notification_app/main.dart';
 import 'package:notification_app/pages/login_page.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/services/stream_socket.dart';
 import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
-import 'package:notification_app/widgets/Dialogs/loading_dialog.dart';
 import 'package:notification_app/widgets/FormFields/EmailFormField.dart';
 import 'package:notification_app/widgets/FormFields/PasswordFormField.dart';
 import 'package:notification_app/widgets/FormFields/SimpleFormField.dart';
@@ -22,15 +19,16 @@ import '../services/web_network.dart';
 import '../widgets/FormFields/AddressFormField.dart';
 import '../widgets/Forms/FormRow/TwoColumnRow.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class EditProfilePage extends StatefulWidget {
+  final Landlord landlord;
+  const EditProfilePage({Key? key, required this.landlord}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  final Landlord landlord = Landlord();
+class _EditProfilePageState extends State<EditProfilePage> {
+  late Landlord landlord;
   String password = "";
   final StreamSocket streamSocket = StreamSocket();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -42,10 +40,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController emailTextEditingController =
       TextEditingController();
   final TextEditingController phoneNumberTextEditingController =
-      TextEditingController();
-  final TextEditingController passwordTextEditingController =
-      TextEditingController();
-  final TextEditingController reTypeTextEditingController =
       TextEditingController();
 
   final TextEditingController streetNumberTextEditingController =
@@ -97,12 +91,11 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     super.initState();
+    landlord = widget.landlord;
     firstNameTextEditingController.text = landlord.firstName;
     lastNameTextEditingController.text = landlord.lastName;
     emailTextEditingController.text = landlord.email;
     phoneNumberTextEditingController.text = landlord.phoneNumber;
-    passwordTextEditingController.text = landlord.password;
-    reTypeTextEditingController.text = landlord.password;
     streetNumberTextEditingController.text =
         landlord.landlordAddress.streetNumber;
     streetNameTextEditingController.text = landlord.landlordAddress.streetName;
@@ -120,8 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
     lastNameTextEditingController.dispose();
     emailTextEditingController.dispose();
     phoneNumberTextEditingController.dispose();
-    passwordTextEditingController.dispose();
-    reTypeTextEditingController.dispose();
+
     //
     streetNumberTextEditingController.dispose();
     streetNameTextEditingController.dispose();
@@ -141,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
         builder: (runMutation) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Sign Up"),
+              title: const Text("Edit Profile"),
             ),
             body: SingleChildScrollView(
               child: Form(
@@ -181,26 +173,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         landlord.setEmail(value.trim());
                       },
                     ),
-                    PasswordFormField(
-                        label: "Password",
-                        icon: Icons.password,
-                        textEditingController: passwordTextEditingController,
-                        onSaved: (value) {},
-                        onValidate: (value) {
-                          password = value!;
-                          return Password(value.trim()).validate();
-                        }),
-                    PasswordFormField(
-                        label: "Re Type Password",
-                        icon: Icons.password,
-                        textEditingController: reTypeTextEditingController,
-                        onSaved: (value) {
-                          landlord.setPassword(value!.trim());
-                        },
-                        onValidate: (value) {
-                          return ReTypePassword(value!.trim())
-                              .validatePassword(password);
-                        }),
+                   
                     Container(
                       margin: const EdgeInsets.all(8),
                       child: Row(
@@ -304,13 +277,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Container(
                             margin: const EdgeInsets.all(8),
                             child: CallToActionButton(
-                                text: "Create Account",
+                                text: "Update",
                                 onClick: () {
                                   if (formKey.currentState!.validate()) {
                                     formKey.currentState!.save();
                                     runMutation({
                                       "landlord":
-                                          landlord.toCreateLandlordJson()
+                                          landlord.toLandlordJson()
                                     });
                                   }
                                 }),
@@ -324,15 +297,9 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           );
         },
-        mutationName: 'createLandlord',
+        mutationName: 'updateLandlord',
         onComplete: (json) {
-          Landlord landlord = Landlord.fromJson(json);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => LoginPage(
-                    email: landlord.email, password: landlord.password)),
-          );
+          Navigator.pop<Landlord>(context, Landlord.fromJson(json));
         },
       )),
     );

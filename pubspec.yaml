@@ -108,6 +108,8 @@ flutter:
     - assets/getTenantsQuery.txt
     - assets/deleteTenantMutation.txt
     - assets/deleteHouseMutation.txt
+    - assets/deleteLandlordMutation.txt
+    - assets/updateLandlordMutation.txt
     - assets/profile1.jpg
 
   #   - images/a_dot_ham.jpeg

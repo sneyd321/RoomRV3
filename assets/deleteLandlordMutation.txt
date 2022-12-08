@@ -1,5 +1,5 @@
-mutation loginLandlord($login: LoginLandlordInput!){
-	loginLandlord(login: $login) {
+mutation deleteLandlord($landlord: LandlordInput!){
+	deleteLandlord(landlord: $landlord) {
         id
         firstName,
         lastName,

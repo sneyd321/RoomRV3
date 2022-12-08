@@ -1,25 +1,14 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:notification_app/business_logic/landlord.dart';
+
+import 'navigation.dart';
+
 
 class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+  final Landlord landlord;
+  const BottomNavBar({Key? key, required this.landlord}) : super(key: key);
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -28,9 +17,21 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
 
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      switch (_selectedIndex) {
+        case 0:
+          Navigation().navigateToHousesPage(context, widget.landlord);
+          break;
+        case 1:
+        Navigation().navigateToProfilePage(context, widget.landlord);
+          break;
+        default:
+        Navigation().navigateToHousesPage(context, widget.landlord);
+          break;
+      }
     });
   }
 

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/pages/edit_lease_view_pager.dart';
+import 'package:notification_app/pages/edit_profile_page.dart';
 import 'package:notification_app/pages/house_page.dart';
+import 'package:notification_app/pages/profile_page.dart';
 import 'package:notification_app/pages/sign_up_page.dart';
 
-import 'add_lease_view_pager.dart';
-import 'house_menu_page.dart';
-import 'notification_page.dart';
+import '../../pages/add_lease_view_pager.dart';
+import '../../pages/house_menu_page.dart';
+import '../../pages/notification_page.dart';
 
 class Navigation {
   void navigateToEditLeasePage(BuildContext context, House house) {
@@ -16,6 +18,16 @@ class Navigation {
       MaterialPageRoute(
           builder: (context) => EditLeaseStatePager(
                 house: house,
+              )),
+    );
+  }
+
+  void navigateToProfilePage(BuildContext context, Landlord landlord) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ProfilePage(
+                landlord: landlord,
               )),
     );
   }
@@ -49,6 +61,18 @@ class Navigation {
       ),
     );
   }
+
+  Future<Landlord?> navigateToEditProfilePage(BuildContext context, Landlord landlord) async {
+    return await Navigator.push<Landlord>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProfilePage(
+          landlord: landlord,
+        ),
+      ),
+    );
+  }
+
 
   void navigateToHouseMenuPage(
       BuildContext context, House house, Landlord landlord) {
