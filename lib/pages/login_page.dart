@@ -179,9 +179,9 @@ class _LoginPageState extends State<LoginPage> {
           print("On complete");
           print(result);
           if (result != null) return;
-          if (result!) {
-              login();
-          }
+          
+          login();
+          
 
         },
       ),

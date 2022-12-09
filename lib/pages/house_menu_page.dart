@@ -50,39 +50,46 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
           appBar: AppBar(
             backgroundColor: Colors.black,
           ),
-          body: ListView(shrinkWrap: true, children: [
-            Hero(
-              tag: widget.house.houseKey,
-              child: TweenAnimationBuilder(
-                builder: (BuildContext context, double value, Widget? child) {
-                  return HouseMenuCard(
-                      house: widget.house,
-                      landlord: widget.landlord,
-                      height: value);
-                },
-                duration: const Duration(seconds: 1),
-                tween: Tween<double>(begin: 200, end: 300),
+          body: SingleChildScrollView(
+            
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Hero(
+                tag: widget.house.houseKey,
+                child: TweenAnimationBuilder(
+                  builder: (BuildContext context, double value, Widget? child) {
+                    return HouseMenuCard(
+                        house: widget.house,
+                        landlord: widget.landlord,
+                        height: value);
+                  },
+                  duration: const Duration(seconds: 1),
+                  tween: Tween<double>(begin: 200, end: 300),
+                ),
               ),
-            ),
-            TenantRow(house: widget.house),
-            NotificationLimit(house: widget.house, landlord: widget.landlord),
-            GestureDetector(
-              onTap: (() {
-                Navigation().navigateToNotificationsPage(
-                    context, widget.house, widget.landlord);
-              }),
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                color: Colors.black,
-                height: 40,
-                child: const Center(
-                    child: Text(
-                  "View More Notifications",
-                  style: TextStyle(color: Colors.white),
-                )),
-              ),
-            )
-          ]),
+              
+              TenantRow(house: widget.house),
+              NotificationLimit(house: widget.house, landlord: widget.landlord),
+              GestureDetector(
+                onTap: (() {
+                  Navigation().navigateToNotificationsPage(
+                      context, widget.house, widget.landlord);
+                }),
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
+                  color: Colors.black,
+                  height: 40,
+                  child: const Center(
+                      child: Text(
+                    "View More Notifications",
+                    style: TextStyle(color: Colors.white),
+                  )),
+                ),
+              )
+              
+            ]),
+          ),
         )));
   }
 }

@@ -48,39 +48,41 @@ class _HousesPageState extends State<HousesPage>  {
                       List<House> houses = json
                           .map<House>((json) => House.fromJson(json))
                           .toList();
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.all(4),
-                            child: CardSliverListView(
-                              noItemsText: "No Properties",
-                              shrinkWrap: true,
-                              controller: ScrollController(),
-                              builder: (context, index) {
-                                House house = houses[index];
-                                return HouseCard(
-                                  landlord: widget.landlord,
-                                  house: house,
-                                  onHouse: (House house, Landlord landlord) {
-                                    Navigation().navigateToHouseMenuPage(
-                                        context, house, landlord);
-                                  },
-                                );
-                              },
-                              items: houses,
+                      return SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.all(4),
+                              child: CardSliverListView(
+                                noItemsText: "No Properties",
+                                shrinkWrap: true,
+                                controller: ScrollController(),
+                                builder: (context, index) {
+                                  House house = houses[index];
+                                  return HouseCard(
+                                    landlord: widget.landlord,
+                                    house: house,
+                                    onHouse: (House house, Landlord landlord) {
+                                      Navigation().navigateToHouseMenuPage(
+                                          context, house, landlord);
+                                    },
+                                  );
+                                },
+                                items: houses,
+                              ),
                             ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.all(8),
-                            child: CallToActionButton(
-                                text: "Add Property",
-                                onClick: () {
-                                  Navigation().navigateToAddHousePage(
-                                      context, widget.landlord);
-                                }),
-                          )
-                        ],
+                            Container(
+                              margin: const EdgeInsets.all(8),
+                              child: CallToActionButton(
+                                  text: "Add Property",
+                                  onClick: () {
+                                    Navigation().navigateToAddHousePage(
+                                        context, widget.landlord);
+                                  }),
+                            )
+                          ],
+                        ),
                       );
                     }))));
   }

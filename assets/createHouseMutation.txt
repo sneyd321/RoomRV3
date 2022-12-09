@@ -1,5 +1,5 @@
-mutation createHouse($landlordId: Int!, $lease: LeaseInput!){
-    createHouse(landlordId: $landlordId, lease: $lease) {
+mutation createHouse($landlord: LandlordInput!, $lease: LeaseInput!){
+    createHouse(landlord: $landlord, lease: $lease) {
         id,
         landlordId,
         houseKey,
@@ -20,15 +20,7 @@ mutation createHouse($landlordId: Int!, $lease: LeaseInput!){
                     contact
                     }
                 },
-            landlordAddress{
-                streetNumber,
-                streetName,
-                city,
-                province,
-                postalCode,
-                unitNumber,
-                poBox
-            },
+            
             rentalAddress {
                 streetNumber,
                 streetName,

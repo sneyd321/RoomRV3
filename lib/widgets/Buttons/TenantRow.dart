@@ -87,11 +87,10 @@ class _TenantRowState extends State<TenantRow> {
             );
           }).toList();
           addTenantButton(tenantWidgets);
-          print(tenantWidgets);
-          print(tenants);
           return Wrap(
-            children: tenantWidgets,
+              children: tenantWidgets,
           );
+          
         });
   }
 }

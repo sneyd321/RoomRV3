@@ -15,7 +15,6 @@ class Lease {
   String? documentURL;
   int leaseId = 0;
   LandlordInfo landlordInfo = LandlordInfo();
-  LandlordAddress landlordAddress = LandlordAddress();
   RentalAddress rentalAddress = RentalAddress();
   Rent rent = Rent();
   TenancyTerms tenancyTerms = TenancyTerms();
@@ -66,7 +65,6 @@ class Lease {
     documentName = json["documentName"];
     documentURL = json["documentURL"];
     landlordInfo = LandlordInfo.fromJson(json["landlordInfo"]);
-    landlordAddress = LandlordAddress.fromJson(json["landlordAddress"]);
     rentalAddress = RentalAddress.fromJson(json["rentalAddress"]);
     rent = Rent.fromJson(json["rent"]);
     tenancyTerms = TenancyTerms.fromJson(json["tenancyTerms"]);
@@ -80,7 +78,6 @@ class Lease {
   Map<String, dynamic> toJson() {
     return {
       "landlordInfo": landlordInfo.toJson(),
-      "landlordAddress": landlordAddress.toJson(),
       "rentalAddress": rentalAddress.toJson(),
       "rent": rent.toJson(),
       "tenancyTerms":tenancyTerms.toJson(),

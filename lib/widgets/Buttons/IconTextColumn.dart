@@ -43,9 +43,7 @@ class IconTextColumn extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          Flex(
-            direction: Axis.horizontal,
-            children: [
+          
               Flexible(
                 child: Center(
                   child: Text(
@@ -54,8 +52,7 @@ class IconTextColumn extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            
         ]),
       ),
     );

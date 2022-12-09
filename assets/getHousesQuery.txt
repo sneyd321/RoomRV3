@@ -18,15 +18,7 @@ query getHouses($id: Int!) {
                     contact
                 }
             },
-            landlordAddress{
-                streetNumber,
-                streetName,
-                city,
-                province,
-                postalCode,
-                unitNumber,
-                poBox
-            },
+            
             rentalAddress {
                 streetNumber,
                 streetName,

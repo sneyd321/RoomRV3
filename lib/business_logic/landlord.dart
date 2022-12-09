@@ -69,6 +69,7 @@ class Landlord {
 
   Map<String, dynamic> toLandlordJson(){ 
     return {
+      "id": id,
       "firstName": firstName,
       "lastName": lastName,
       "email": email,

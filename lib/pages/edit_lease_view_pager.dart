@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_additional_terms_page.dart';
-import 'package:notification_app/pages/edit_lease_pages/update_landlord_address_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_landlord_info_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_rent_deposit_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_rent_discount_page.dart';
@@ -74,9 +73,7 @@ class _EditLeaseStatePagerState extends State<EditLeaseStatePager> {
                   child: TabBarView(
                     children: [
                       UpdateLandlordInfoPage(house: widget.house),
-                      UpdateLandlordAddressPage(
-                        house: widget.house,
-                      ),
+                 
                       UpdateRentalAddressPage(house: widget.house),
                       UpdateRentPage(house: widget.house),
                       UpdateTenancyTermsPage(house: widget.house),

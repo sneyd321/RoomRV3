@@ -57,7 +57,7 @@ class _AddTenancyTermsPageState extends State<AddTenancyTermsPage> {
                               child: const Text('Yes'),
                               onPressed: () {
                                 runMutation({
-                                  "landlordId": widget.landlord.id,
+                                  "landlord": widget.landlord.toLandlordJson(),
                                   "lease": widget.lease.toJson()
                                 });
                               },
