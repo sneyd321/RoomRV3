@@ -9,6 +9,9 @@ import 'package:notification_app/widgets/Forms/Form/CreateHouseRentForm.dart';
 import 'package:notification_app/widgets/Forms/Form/RentForm.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 
+import '../../widgets/Buttons/CallToActionButton.dart';
+import '../../widgets/Buttons/SecondaryActionButton.dart';
+
 class AddRentPage extends StatefulWidget {
   final Lease lease;
   final Function(BuildContext context) onNext;
@@ -30,7 +33,8 @@ class _AddRentPageState extends State<AddRentPage> {
   void onNext(BuildContext context) {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      widget.lease.rentDeposits.insert(0, RentDeposit(widget.lease.rent.baseRent));
+      widget.lease.rentDeposits
+          .insert(0, RentDeposit(widget.lease.rent.baseRent));
       widget.onNext(context);
     }
   }
@@ -51,9 +55,32 @@ class _AddRentPageState extends State<AddRentPage> {
             formKey: formKey,
           ),
         )),
-        TwoColumnRow(
-            left: SecondaryButton(Icons.chevron_left, "Back", onBack),
-            right: PrimaryButton(Icons.chevron_right, "Next", onNext))
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.all(8),
+                child: SecondaryActionButton(
+                  text: "Back",
+                  onClick: () {
+                    onBack(context);
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.all(8),
+                child: CallToActionButton(
+                  text: "Next",
+                  onClick: () {
+                    onNext(context);
+                  },
+                ),
+              ),
+            ),
+          ],
+        )
       ],
     );
   }

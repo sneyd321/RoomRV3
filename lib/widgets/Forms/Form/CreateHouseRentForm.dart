@@ -94,6 +94,24 @@ class _CreateHouseRentFormState extends State<CreateHouseRentForm> {
             field: RentMadePayableTo(""),
           ),
           TextHelper(text: "Total Lawful Rent: \$${widget.rent.getTotalLawfulRent()}"),
+          SizedBox(height: 16,),
+          Container(
+          margin: const EdgeInsets.all(8),
+          child: Row(
+            children: const [
+              Icon(
+                Icons.lightbulb,
+                color: Colors.amber,
+              ),
+              SizedBox(width: 8,),
+              Flexible(
+                  child: Text(
+                "Any service that your rental unit offers as part of total lawful rent",
+                softWrap: true,
+              ))
+            ],
+          ),
+        ),
           RentServicesList(rent: widget.rent, onAddRentService: ((context, rentService) {
             setState(() {
               widget.rent.getTotalLawfulRent();

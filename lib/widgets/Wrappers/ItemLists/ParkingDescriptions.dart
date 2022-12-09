@@ -20,7 +20,7 @@ class _ParkingDescriptionsListState extends State<ParkingDescriptionsList> {
   Widget build(BuildContext context) {
     return SliverAddItemGeneratorWrapper(
         shirnkWrap: true,
-        addButtonTitle: "Add Parking",
+        addButtonTitle: "Add Description",
         noItemsText: "No Parking Descriptions",
         items: widget.rentalAddress.parkingDescriptions,
         generator: (index) {
@@ -40,7 +40,11 @@ class _ParkingDescriptionsListState extends State<ParkingDescriptionsList> {
               });
         },
         form: AddNameForm(
-          names: [],
+          names: const [
+            "Indoors",
+            "Outdoors",
+            "Garage",
+          ],
           onSave: (context, name) {
             setState(() {
               if (widget.rentalAddress.parkingDescriptions

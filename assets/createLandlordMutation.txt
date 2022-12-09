@@ -1,9 +1,13 @@
 mutation createLandlord($landlord: CreateLandlordInput!){
 	createLandlord(landlord: $landlord) {
+        id
         firstName,
         lastName,
         phoneNumber,
         email,
+        profileURL,
+        state,
+        deviceId,
         landlordAddress {
             city, 
             poBox, 

@@ -10,6 +10,7 @@ import 'package:notification_app/widgets/Cards/HouseCard.dart';
 import 'package:notification_app/widgets/Listviews/CardSliverListView.dart';
 
 import '../graphql/query_helper.dart';
+import '../main.dart';
 import '../widgets/Navigation/bottom_nav_bar.dart';
 
 class HousesPage extends StatefulWidget {
@@ -23,14 +24,21 @@ class HousesPage extends StatefulWidget {
   State<HousesPage> createState() => _HousesPageState();
 }
 
-class _HousesPageState extends State<HousesPage> {
+class _HousesPageState extends State<HousesPage>  {
+  
+
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
         client: GQLClient().getClient(),
         child: SafeArea(
             child: Scaffold(
-                appBar: AppBar(),
+                appBar: AppBar(
+                  leading: IconButton(
+                    icon: const Icon(Icons.logout),
+                    onPressed: () => Navigator.pop(context, false),
+                  ),
+                ),
                 bottomNavigationBar: BottomNavBar(landlord: widget.landlord),
                 body: QueryHelper(
                     isList: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
+import 'package:notification_app/business_logic/login_landlord.dart';
 import 'package:notification_app/pages/edit_lease_view_pager.dart';
 import 'package:notification_app/pages/edit_profile_page.dart';
 import 'package:notification_app/pages/house_page.dart';
@@ -44,8 +45,8 @@ class Navigation {
     );
   }
 
-  void navigateToHousesPage(BuildContext context, Landlord landlord) {
-    Navigator.push(
+  Future<bool?> navigateToHousesPage(BuildContext context, Landlord landlord) async {
+    return await Navigator.push<bool>(
         context,
         MaterialPageRoute(
             builder: (context) => HousesPage(landlord: landlord)));
@@ -90,8 +91,8 @@ class Navigation {
   }
 
 
-  void navigateToSignUpPage(BuildContext context) {
-     Navigator.push(
+  Future<LoginLandlord?> navigateToSignUpPage(BuildContext context) async {
+    return await Navigator.push<LoginLandlord>(
       context,
       MaterialPageRoute(
           builder: (context) => const SignUpPage()),

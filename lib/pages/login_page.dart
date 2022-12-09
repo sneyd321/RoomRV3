@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/login_landlord.dart';
@@ -27,27 +29,49 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  bool isLoggedIn = false;
+
   final TextEditingController emailTextEditingController =
       TextEditingController();
   final TextEditingController passwordTextEditingController =
       TextEditingController();
-  final LoginLandlord loginLandlord = LoginLandlord();
+  
+  LoginLandlord loginLandlord = LoginLandlord();
+  
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late MultiSourceResult<Object?> Function(Map<String, dynamic>,
+      {Object? optimisticResult}) runMutation;
 
   @override
   void initState() {
     super.initState();
-    emailTextEditingController.text = widget.email;
-    passwordTextEditingController.text = widget.password;
+    saveEmailPassword(widget.email, widget.password);
+    FirebaseConfiguration()
+        .getToken()
+        .then((value) => loginLandlord.deviceId = value ?? "");
+  }
+
+
+
+  void saveEmailPassword(String email, String password) {
+    emailTextEditingController.text = email;
+    passwordTextEditingController.text = password;
     SharedPreferences.getInstance().then((value) {
       String? sharedPreferencesEmail = value.getString("email");
       if (sharedPreferencesEmail != null) {
         emailTextEditingController.text = sharedPreferencesEmail;
       }
     });
-    FirebaseConfiguration()
-        .getToken()
-        .then((value) => loginLandlord.deviceId = value ?? "");
+  }
+
+  void login() async {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("email", loginLandlord.email);
+      runMutation({"login": loginLandlord.toJson()});
+    }
   }
 
   @override
@@ -56,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
       client: GQLClient().getClient(),
       child: MutationHelper(
         builder: (runMutation) {
+          this.runMutation = runMutation;
           return SafeArea(
               child: Scaffold(
             body: Column(
@@ -82,8 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                                     Text(
                                       "Landlord",
                                       style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 28),
+                                          color: Colors.blue, fontSize: 28),
                                     ),
                                   ],
                                 ))),
@@ -120,14 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: CallToActionButton(
                               text: "Login",
                               onClick: () async {
-                                if (formKey.currentState!.validate()) {
-                                  formKey.currentState!.save();
-                                  SharedPreferences prefs =
-                                      await SharedPreferences.getInstance();
-                                  prefs.setString("email", loginLandlord.email);
-                                  runMutation(
-                                      {"login": loginLandlord.toJson()});
-                                }
+                                login();
                               }),
                         )
                       ]),
@@ -139,7 +156,13 @@ class _LoginPageState extends State<LoginPage> {
                           child: SecondaryActionButton(
                               text: "Sign Up",
                               onClick: () async {
-                                Navigation().navigateToSignUpPage(context);
+                                LoginLandlord? loginLandlord = await Navigation().navigateToSignUpPage(context);
+                                if (loginLandlord != null) {
+                                  this.loginLandlord.email = loginLandlord.email;
+                                  this.loginLandlord.password = loginLandlord.password;
+                                  saveEmailPassword(loginLandlord.email, loginLandlord.password);
+                                  login();
+                                }
                               }),
                         )
                       ])
@@ -151,8 +174,15 @@ class _LoginPageState extends State<LoginPage> {
           ));
         },
         mutationName: 'loginLandlord',
-        onComplete: (json) {
-          Navigation().navigateToHousesPage(context, Landlord.fromJson(json));
+        onComplete: (json) async {
+          bool? result = await Navigation().navigateToHousesPage(context, Landlord.fromJson(json));
+          print("On complete");
+          print(result);
+          if (result != null) return;
+          if (result!) {
+              login();
+          }
+
         },
       ),
     );

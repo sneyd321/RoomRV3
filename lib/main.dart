@@ -18,6 +18,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 
 
+final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [ routeObserver ],
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch:  const MaterialColor(

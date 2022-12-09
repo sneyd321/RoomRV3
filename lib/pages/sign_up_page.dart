@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/business_logic/landlord.dart';
+import 'package:notification_app/business_logic/login_landlord.dart';
 import 'package:notification_app/main.dart';
 import 'package:notification_app/pages/login_page.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
@@ -18,6 +19,7 @@ import 'package:notification_app/widgets/FormFields/SimpleFormField.dart';
 import '../business_logic/address.dart';
 import '../business_logic/suggested_address.dart';
 import '../graphql/mutation_helper.dart';
+import '../services/FirebaseConfig.dart';
 import '../services/web_network.dart';
 import '../widgets/FormFields/AddressFormField.dart';
 import '../widgets/Forms/FormRow/TwoColumnRow.dart';
@@ -111,6 +113,8 @@ class _SignUpPageState extends State<SignUpPage> {
     postalCodeTextEditingController.text = landlord.landlordAddress.postalCode;
     unitNumberTextEditingController.text = landlord.landlordAddress.unitNumber;
     poBoxTextEditingController.text = landlord.landlordAddress.poBox;
+
+
   }
 
   @override
@@ -327,12 +331,10 @@ class _SignUpPageState extends State<SignUpPage> {
         mutationName: 'createLandlord',
         onComplete: (json) {
           Landlord landlord = Landlord.fromJson(json);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => LoginPage(
-                    email: landlord.email, password: landlord.password)),
-          );
+          LoginLandlord loginLandlord = LoginLandlord();
+          loginLandlord.email = landlord.email;
+          loginLandlord.password = password;
+          Navigator.pop(context, loginLandlord);
         },
       )),
     );

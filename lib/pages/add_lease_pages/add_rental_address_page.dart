@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/address.dart';
 import 'package:notification_app/business_logic/lease.dart';
+import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
+import 'package:notification_app/widgets/Buttons/SecondaryActionButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/RentalAddressForm.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
@@ -56,9 +57,32 @@ class _AddRentalAddressPageState extends State<AddRentalAddressPage> {
             formKey: formKey,
           ),
       ])),
-        TwoColumnRow(
-            left: SecondaryButton(Icons.chevron_left, "Back", onBack),
-            right: PrimaryButton(Icons.chevron_right, "Next", onNext))
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.all(8),
+                child: SecondaryActionButton(
+                  text: "Back",
+                  onClick: () {
+                    onBack(context);
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.all(8),
+                child: CallToActionButton(
+                  text: "Next",
+                  onClick: () {
+                    onNext(context);
+                  },
+                ),
+              ),
+            ),
+          ],
+        )
       ],
     );
   }

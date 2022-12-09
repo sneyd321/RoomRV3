@@ -17,10 +17,12 @@ class RentalAddressForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final bool isTest;
 
+
   const RentalAddressForm({
     Key? key,
     required this.rentalAddress,
-    required this.formKey, this.isTest = false,
+    required this.formKey,
+    this.isTest = false,
   }) : super(key: key);
 
   @override
@@ -43,9 +45,10 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
 
   final StreamSocket streamSocket = StreamSocket();
   final ScrollController scrollController = ScrollController();
+  bool isParkingSpacesVisible = false;
 
-  void onSuggestedAddress(
-      BuildContext context, SuggestedAddress suggestedAddress, bool isTest) async {
+  void onSuggestedAddress(BuildContext context,
+      SuggestedAddress suggestedAddress, bool isTest) async {
     PredictedAddress address =
         await Network().getPredictedAddress(suggestedAddress.placesId);
 
@@ -91,11 +94,25 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
       key: widget.formKey,
       child:
           ListView(controller: scrollController, shrinkWrap: true, children: [
-            Row(children: const [
-            Icon(Icons.lightbulb, color: Colors.blue,),
-            Flexible(child: Text("This is the address you will rent to the tenant", softWrap: true,))
-          ],),
-        AddressFormField(onSuggestedAddress, streamSocket, isTest: widget.isTest),
+        Container(
+          margin: const EdgeInsets.all(8),
+          child: Row(
+            children: const [
+              Icon(
+                Icons.lightbulb,
+                color: Colors.amber,
+              ),
+              SizedBox(width: 8,),
+              Flexible(
+                  child: Text(
+                "This is the address you will rent to the tenant",
+                softWrap: true,
+              ))
+            ],
+          ),
+        ),
+        AddressFormField(onSuggestedAddress, streamSocket,
+            isTest: widget.isTest),
         TwoColumnRow(
             left: SimpleFormField(
               label: "Street Number",
@@ -145,21 +162,46 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
                   onSaved: (String? value) {
                     widget.rentalAddress.setPostalCode(value!);
                   },
-                 field: PostalCode(""),
+                  field: PostalCode(""),
                 ))),
-        Container(
-            margin: const EdgeInsets.only(left: 8, right: 8),
-            child: const TextHelper(text: "Is the rental unit a condominum?")),
-        CheckboxListTile(
+              Container(
+          margin: const EdgeInsets.all(8),
+          child: const TextHelper(
+                text: "Is the rental unit a condominium?")
+        ),
+        SwitchListTile(
             value: widget.rentalAddress.isCondo,
             controlAffinity: ListTileControlAffinity.leading,
-            title: Text(widget.rentalAddress.isCondo ? "Yes" : "No"),
+            title: Text(widget.rentalAddress.isCondo
+                ? "Yes, the rental unit is a condominum"
+                : "No, the rental unit is not a condominum"),
             onChanged: (value) {
               setState(() {
-                 widget.rentalAddress.setIsCondo(value!);
+                widget.rentalAddress.setIsCondo(value);
               });
-             
             }),
+        Container(
+          margin: const EdgeInsets.all(8),
+          child: const TextHelper(
+                text: "Number of vehicle parking spaces and description")
+        ),
+        SwitchListTile(
+            value: isParkingSpacesVisible,
+            controlAffinity: ListTileControlAffinity.leading,
+            title: Text(isParkingSpacesVisible
+                ? "Yes, this property contains parking spaces?"
+                : "No, this property does not contain parking spaces?"),
+            onChanged: (value) {
+              setState(() {
+                isParkingSpacesVisible = value;
+              });
+            }),
+        Visibility(
+          visible: isParkingSpacesVisible,
+          child: ParkingDescriptionsList(
+            rentalAddress: widget.rentalAddress,
+          ),
+        ),
         SuggestedFormField(
           icon: Icons.label,
           label: "Unit Name",
@@ -172,13 +214,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
           },
           suggestedNames: const ["Basement Unit", "Suite #", "Apt. #"],
         ),
-        Container(
-            margin: const EdgeInsets.only(left: 8, right: 8),
-            child: const TextHelper(
-                text: "Number of vehicle parking spaces and description")),
-        ParkingDescriptionsList(
-          rentalAddress: widget.rentalAddress,
-        ),
+        
       ]),
     );
   }

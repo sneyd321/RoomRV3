@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/lease.dart';
-import 'package:notification_app/pages/add_lease_pages/add_landlord_info_page.dart';
-import 'package:notification_app/pages/add_lease_pages/add_lease_signiture_page.dart';
-import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'add_lease_pages/add_landlord_address_page.dart';
 import 'add_lease_pages/add_rent_page.dart';
 import 'add_lease_pages/add_rental_address_page.dart';
 import 'add_lease_pages/add_tenancy_terms_page.dart';
@@ -23,14 +18,12 @@ class AddLeaseViewPager extends StatefulWidget {
 class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
   final PageController controller = PageController();
   int currentPage = 0;
-  static const int MAX_PAGE = 4;
+  static const int MAX_PAGE = 2;
   String title = "Landlord Info";
   Map titleMapping = {
-    0: "Landlord Info",
-    1: "Landlord Address",
-    2: "Rental Address",
-    3: "Rent",
-    4: "Tenancy Terms",
+    0: "Rental Address",
+    1: "Rent",
+    2: "Tenancy Terms",
   };
 
   final Lease lease = Lease();
@@ -41,6 +34,8 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
     lease.landlordInfo.fullName = widget.landlord.getFullName();
     lease.landlordInfo.addEmail(widget.landlord.email);
     lease.landlordInfo.addContactInfo(widget.landlord.email);
+    lease.landlordInfo.addContactInfo(widget.landlord.phoneNumber);
+    lease.rent.rentMadePayableTo = widget.landlord.getFullName();
   }
 
 
@@ -93,16 +88,6 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
                     physics: const NeverScrollableScrollPhysics(),
                     controller: controller,
                     children: [
-                      AddLandlordInfoPage(
-                        lease: lease,
-                        onNext: onNext,
-                        onBack: onBack,
-                      ),
-                      AddLandlordAddressPage(
-                        lease: lease,
-                        onNext: onNext,
-                        onBack: onBack,
-                      ),
                       AddRentalAddressPage(
                         lease: lease,
                         onNext: onNext,
