@@ -44,7 +44,7 @@ class _NotificationSearchState extends State<NotificationSearch> {
               margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: const Text(
                 "Notifications",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
             )),
             Flexible(

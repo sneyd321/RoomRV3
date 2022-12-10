@@ -6,18 +6,15 @@ import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/widgets/Navigation/navigation.dart';
 
 import '../../business_logic/landlord.dart';
-import '../../graphql/mutation_helper.dart';
 import '../Buttons/IconTextColumn.dart';
 
 class HouseMenuCard extends StatelessWidget {
   final House house;
   final Landlord landlord;
-  final double height;
   const HouseMenuCard({
     Key? key,
     required this.house,
     required this.landlord,
-    this.height = 200,
   }) : super(key: key);
 
   String parsePrimaryAddress(House house) {
@@ -55,10 +52,10 @@ class HouseMenuCard extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
                     child: Container(
                       color: Colors.black.withOpacity(0.5),
-                      height: height,
+                      height: 300,
                       padding: const EdgeInsets.all(8),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
@@ -68,7 +65,7 @@ class HouseMenuCard extends StatelessWidget {
                                   size: 16.0, color: Colors.redAccent),
                             ],
                           ),
-                          const Spacer(),
+                          Spacer(),
                           Container(
                               margin: const EdgeInsets.only(bottom: 4),
                               child: Text(
@@ -86,18 +83,21 @@ class HouseMenuCard extends StatelessWidget {
                             parseSecondaryAddress(house),
                             style: const TextStyle(color: Colors.white),
                           ),
+                  
                           Container(
                             margin: const EdgeInsets.only(
                                 top: 16, left: 8, right: 8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 IconTextColumn(
                                     icon: Icons.assignment,
                                     text: "View Lease",
-                                    profileSize: 24,
-                                    iconSize: 24,
+                                    profileSize: 30,
+                                    iconSize: 30,
+                                    textSize: 12,
                                     onClick: () {
                                       Navigation().navigateToEditLeasePage(
                                           context, house);
@@ -105,8 +105,9 @@ class HouseMenuCard extends StatelessWidget {
                                 IconTextColumn(
                                     icon: Icons.payment,
                                     text: "View Payments",
-                                    profileSize: 24,
-                                    iconSize: 24,
+                                    profileSize: 30,
+                                    iconSize: 30,
+                                    textSize: 12,
                                     onClick: () {
                                       const snackBar = SnackBar(
                                         content: Text(
@@ -118,8 +119,9 @@ class HouseMenuCard extends StatelessWidget {
                                 IconTextColumn(
                                     icon: Icons.notifications,
                                     text: "Notifications",
-                                    profileSize: 24,
-                                    iconSize: 24,
+                                    profileSize: 30,
+                                    iconSize: 30,
+                                    textSize: 12,
                                     onClick: () {
                                       Navigation().navigateToNotificationsPage(
                                           context, house, landlord);

@@ -3,6 +3,9 @@ query getTenants($houseId: Int!){
     firstName,
     lastName,
     email,
+    phoneNumber,
+    profileURL,
+    state,
     houseId
   }
 }

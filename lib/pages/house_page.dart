@@ -10,7 +10,6 @@ import 'package:notification_app/widgets/Cards/HouseCard.dart';
 import 'package:notification_app/widgets/Listviews/CardSliverListView.dart';
 
 import '../graphql/query_helper.dart';
-import '../main.dart';
 import '../widgets/Navigation/bottom_nav_bar.dart';
 
 class HousesPage extends StatefulWidget {

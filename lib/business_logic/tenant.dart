@@ -3,9 +3,10 @@ class Tenant {
   String firstName = "";
   String lastName = "";
   String email = "";
+  String phoneNumber = "";
   String password = "";
-  String tenantState = "Not Approved";
-  int tenantPosition = 0;
+  String profileURL = "";
+  String state = "";
   int houseId = 0;
 
 
@@ -15,8 +16,10 @@ class Tenant {
     firstName = json["firstName"];
     lastName = json["lastName"];
     email = json["email"];
-    tenantState = json["tenantState"];
-    tenantPosition = json["tenantPosition"];
+    state = json["state"];
+    profileURL = json["profileURL"];
+    phoneNumber = json["phoneNumber"];
+    
     houseId = json["houseId"];
   }
 
@@ -47,7 +50,7 @@ class Tenant {
   }
 
   void setState(String state) {
-    tenantState = state;
+    this.state = state;
   }
 
 }

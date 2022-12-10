@@ -5,13 +5,6 @@ import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/builders/notification_search.dart';
 
-import '../../business_logic/maintenance_ticket_notification.dart';
-import '../Cards/ApproveTenantNotification.dart';
-import '../Cards/InviteTenantNotificationCard.dart';
-import '../Cards/TenantAccountCreatedNotification.dart';
-import '../Cards/download_lease_notification.dart';
-import '../Cards/maintenance_ticket_card.dart';
-import '../Listviews/CardSliverListView.dart';
 
 class NotificationLimit extends StatefulWidget {
   final House house;

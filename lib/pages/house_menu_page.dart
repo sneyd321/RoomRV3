@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
@@ -46,29 +45,21 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
         client: GQLClient().getClient(),
         child: SafeArea(
             child: Scaffold(
-          bottomNavigationBar: BottomNavBar(landlord: widget.landlord,),
+          bottomNavigationBar: BottomNavBar(
+            landlord: widget.landlord,
+          ),
           appBar: AppBar(
             backgroundColor: Colors.black,
           ),
           body: SingleChildScrollView(
-            
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Hero(
-                tag: widget.house.houseKey,
-                child: TweenAnimationBuilder(
-                  builder: (BuildContext context, double value, Widget? child) {
-                    return HouseMenuCard(
-                        house: widget.house,
-                        landlord: widget.landlord,
-                        height: value);
-                  },
-                  duration: const Duration(seconds: 1),
-                  tween: Tween<double>(begin: 200, end: 300),
-                ),
-              ),
-              
+                  tag: widget.house.houseKey,
+                  child: HouseMenuCard(
+                    house: widget.house,
+                    landlord: widget.landlord,
+                  )),
               TenantRow(house: widget.house),
               NotificationLimit(house: widget.house, landlord: widget.landlord),
               GestureDetector(
@@ -87,7 +78,6 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
                   )),
                 ),
               )
-              
             ]),
           ),
         )));

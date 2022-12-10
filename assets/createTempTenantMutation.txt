@@ -3,6 +3,9 @@ mutation createTempTenant($houseId: Int!, $tenant: TempTenantInput!){
     firstName,
     lastName,
     email,
+    phoneNumber,
+    profileURL,
+    state,
     houseId
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class IconTextColumn extends StatelessWidget {
   final IconData icon;
@@ -9,6 +11,7 @@ class IconTextColumn extends StatelessWidget {
   final Color profileColor;
   final Color iconColor;
   final Color textColor;
+  final String profileURL;
 
   final void Function() onClick;
   const IconTextColumn(
@@ -19,42 +22,59 @@ class IconTextColumn extends StatelessWidget {
       this.profileSize = 24.0,
       this.iconSize = 24.0,
       this.textSize = 14,
+      this.profileURL = "",
       this.iconColor = Colors.black,
       this.textColor = Colors.white,
       this.profileColor = Colors.white})
       : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 8),
+  Widget getIconTextColumn(Widget profilePicture) {
+    return SizedBox(
+      width: (profileSize * 2) + 16,
       child: GestureDetector(
         onTap: () {
           onClick();
         },
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center, children: [
-          CircleAvatar(
-            backgroundColor: profileColor,
-            radius: profileSize,
-            child: Icon(icon, size: iconSize, color: iconColor),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                  backgroundColor: profileColor,
+                  radius: profileSize,
+                  child: profilePicture),
+              const SizedBox(
+                height: 8,
+              ),
               Flexible(
-                child: Center(
-                  child: Text(
-                    text,
-                    style: TextStyle(color: textColor, fontSize: textSize),
+                child: Text(
+                  text,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: textSize,
                   ),
                 ),
               ),
-            
-        ]),
+            ]),
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Response>(
+      future: http.get(Uri.parse(profileURL)),
+      builder: (BuildContext context, AsyncSnapshot<Response> snapshot) {
+        return getIconTextColumn(Image.network(
+          profileURL,
+          errorBuilder: (context, error, stackTrace) {
+            return
+                Icon(icon, size: iconSize, color: iconColor);
+          },
+        ));
+      },
     );
   }
 }

@@ -52,13 +52,11 @@ class _TenantRowState extends State<TenantRow> {
         variables: {"houseId": widget.house.houseId},
         queryName: "getTenants",
         onComplete: (json) {
-          if (lock) {
-            tenants = json
-                .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
-                .toList();
-            lock = false;
-          }
-
+          
+          tenants = json
+              .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
+              .toList();
+       
           List<Widget> tenantWidgets = [];
           tenantWidgets = tenants.map<Widget>((tenant) {
             return IconTextColumn(
@@ -67,6 +65,7 @@ class _TenantRowState extends State<TenantRow> {
               profileColor: Colors.blueGrey,
               textColor: Colors.black,
               icon: Icons.account_circle,
+              profileURL: tenant.profileURL,
               text: tenant.getFullName(),
               onClick: () {
                 showDialog(
@@ -87,10 +86,12 @@ class _TenantRowState extends State<TenantRow> {
             );
           }).toList();
           addTenantButton(tenantWidgets);
-          return Wrap(
+          return Container (
+            margin: const EdgeInsets.all(8),
+            child: Wrap(
               children: tenantWidgets,
+            ),
           );
-          
         });
   }
 }
