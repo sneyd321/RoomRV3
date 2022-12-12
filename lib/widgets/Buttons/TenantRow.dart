@@ -22,7 +22,15 @@ class TenantRow extends StatefulWidget {
 class _TenantRowState extends State<TenantRow> {
   List<Tenant> tenants = [];
   List<Widget> tenantWidgets = [];
+
+  //Hack solution: setState keeps fetching from the DB for the latest changes but gets called too fast
   bool lock = true;
+
+  @override
+  void initState() {
+    super.initState();
+    lock = true;
+  }
 
   void showTenantDialog(Tenant tenant) {
     showDialog(
@@ -34,8 +42,11 @@ class _TenantRowState extends State<TenantRow> {
                 tenant: tenant,
                 onDeleteTenant: (tenantToBeDeleted) {
                   setState(() {
-            
                     tenants.remove(tenantToBeDeleted);
+                    tenantWidgets = [];
+                    objectsToWidgets(tenants);
+                    appendAddTenantButton();
+                    lock = false;
                   });
                 }),
           );
@@ -63,7 +74,7 @@ class _TenantRowState extends State<TenantRow> {
   }
 
   void appendAddTenantButton() {
-     tenantWidgets.add(IconTextColumn(
+    tenantWidgets.add(IconTextColumn(
         icon: Icons.add,
         text: "Add Tenant",
         profileSize: 40,
@@ -79,6 +90,10 @@ class _TenantRowState extends State<TenantRow> {
           }
           setState(() {
             tenants.add(tenant);
+            tenantWidgets = [];
+            objectsToWidgets(tenants);
+            appendAddTenantButton();
+            lock = false;
           });
         }));
   }
@@ -94,8 +109,8 @@ class _TenantRowState extends State<TenantRow> {
             tenants = json
                 .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
                 .toList();
-            lock = false;
           }
+
           tenantWidgets = [];
           objectsToWidgets(tenants);
           appendAddTenantButton();

@@ -176,8 +176,7 @@ class _LoginPageState extends State<LoginPage> {
         mutationName: 'loginLandlord',
         onComplete: (json) async {
           bool? result = await Navigation().navigateToHousesPage(context, Landlord.fromJson(json));
-          print("On complete");
-          print(result);
+    
           if (result != null) return;
           
           login();
