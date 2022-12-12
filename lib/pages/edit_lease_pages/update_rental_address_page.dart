@@ -5,6 +5,7 @@ import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/RentalAddressForm.dart';
 
 import '../../business_logic/house.dart';
+import '../../widgets/Buttons/SecondaryActionButton.dart';
 
 class UpdateRentalAddressPage extends StatefulWidget {
   final House house;
@@ -40,21 +41,25 @@ class _UpdateRentalAddressPageState extends State<UpdateRentalAddressPage> {
                       formKey: formKey,
                     ),
                   ])),
-              SecondaryButton(Icons.update, "Update Rental Address", (context) {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  runMutation({
-                    "houseId": widget.house.houseId,
-                    "rentalAddress": widget.house.lease.rentalAddress.toJson()
-                  });
-                } else {
-                  scrollController.animateTo(
-                    scrollController.position.maxScrollExtent,
-                    duration: const Duration(seconds: 2),
-                    curve: Curves.fastOutSlowIn,
-                  );
-                }
-              })
+              Container(
+                 margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                child: SecondaryActionButton(text: "Update Rental Address", onClick: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    runMutation({
+                      "houseId": widget.house.houseId,
+                      "rentalAddress": widget.house.lease.rentalAddress.toJson()
+                    });
+                  } else {
+                    scrollController.animateTo(
+                      scrollController.position.maxScrollExtent,
+                      duration: const Duration(seconds: 2),
+                      curve: Curves.fastOutSlowIn,
+                    );
+                  }
+                }),
+              )
             ],
           );
         });

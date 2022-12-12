@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/widgets/Buttons/SecondaryActionButton.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/FormRow/HalfRow.dart';
 import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
@@ -43,7 +44,9 @@ class _SliverAddItemStateWrapperState extends State<SliverAddItemStateWrapper> {
         getCardSliverListView(widget.shirnkWrap),
        Container(
           margin: const EdgeInsets.only(top: 8),
-          child: HalfRow(child: SecondaryButton(Icons.add, widget.addButtonTitle, addItem)))
+          child: SecondaryActionButton(text:widget.addButtonTitle, onClick: () {
+            addItem(context);
+          }))
       ],
     );
   }

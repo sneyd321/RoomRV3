@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/service.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/ServicesList.dart';
 
 import '../../business_logic/house.dart';
+import '../../widgets/Buttons/SecondaryActionButton.dart';
 
 class UpdateServicesPage extends StatefulWidget {
   final House house;
@@ -81,16 +80,20 @@ class _UpdateServicesPageState extends State<UpdateServicesPage> {
               margin: const EdgeInsets.only(left: 8, bottom: 8),
               alignment: Alignment.centerLeft,
               child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
-              SecondaryButton(Icons.update, "Update Services", (context) {
-                if (validate()) {
-                  runMutation({
-                    "houseId": widget.house.houseId,
-                    "services": widget.house.lease.services
-                        .map((service) => service.toJson())
-                        .toList()
-                  });
-                }
-              })
+               Container(
+                 margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                 child: SecondaryActionButton(text: "Update Rental Address", onClick: () {
+                  if (validate()) {
+                    runMutation({
+                      "houseId": widget.house.houseId,
+                      "services": widget.house.lease.services
+                          .map((service) => service.toJson())
+                          .toList()
+                    });
+                  }
+              }),
+               )
           ],
         );
       }

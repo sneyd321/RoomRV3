@@ -183,7 +183,7 @@ class _RentalAddressFormState extends State<RentalAddressForm> {
         Container(
           margin: const EdgeInsets.all(8),
           child: const TextHelper(
-                text: "Number of vehicle parking spaces and description")
+                text: "Does this propery contain parking spaces?")
         ),
         SwitchListTile(
             value: isParkingSpacesVisible,

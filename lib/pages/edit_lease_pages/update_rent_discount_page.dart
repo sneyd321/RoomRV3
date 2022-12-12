@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/RentDiscountsList.dart';
 
 import '../../business_logic/house.dart';
+import '../../widgets/Buttons/SecondaryActionButton.dart';
 
 class UpdateRentDiscountPage extends StatefulWidget {
   final House house;
@@ -39,16 +39,20 @@ class _UpdateRentDiscountPageState extends State<UpdateRentDiscountPage> {
               margin: const EdgeInsets.only(left: 8, bottom: 8),
               alignment: Alignment.centerLeft,
               child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
-             SecondaryButton(Icons.update, "Update Rent Discounts", (context) {
-                if (validate()) {
-                  runMutation({
-                    "houseId": widget.house.houseId,
-                    "rentDiscounts": widget.house.lease.rentDiscounts
-                        .map((rentDiscount) => rentDiscount.toJson())
-                        .toList()
-                  });
-                }
-             })
+              Container(
+                 margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                child: SecondaryActionButton(text: "Update Rent Discounts", onClick: () {
+                  if (validate()) {
+                    runMutation({
+                      "houseId": widget.house.houseId,
+                      "rentDiscounts": widget.house.lease.rentDiscounts
+                          .map((rentDiscount) => rentDiscount.toJson())
+                          .toList()
+                    });
+                  }
+             }),
+              )
           ],
         );
       }

@@ -5,6 +5,7 @@ import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/TenancyTermsForm.dart';
 
 import '../../business_logic/house.dart';
+import '../../widgets/Buttons/SecondaryActionButton.dart';
 
 class UpdateTenancyTermsPage extends StatefulWidget {
   final House house;
@@ -37,15 +38,19 @@ class _UpdateTenancyTermsPageState extends State<UpdateTenancyTermsPage> {
                   formKey: formKey,
                 ),
               )),
-              SecondaryButton(Icons.update, "Update Tenancy Terms", (context) {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  runMutation({
-                    "houseId": widget.house.houseId,
-                    "tenancyTerms": widget.house.lease.tenancyTerms.toJson()
-                  });
-                }
-              })
+               Container(
+                 margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                 child: SecondaryActionButton(text: "Update Tenancy Terms", onClick: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    runMutation({
+                      "houseId": widget.house.houseId,
+                      "tenancyTerms": widget.house.lease.tenancyTerms.toJson()
+                    });
+                  }
+              }),
+               )
             ],
           );
         });

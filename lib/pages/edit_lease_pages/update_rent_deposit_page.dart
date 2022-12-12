@@ -6,6 +6,7 @@ import 'package:notification_app/widgets/Wrappers/ItemLists/DepositsList.dart';
 
 import '../../business_logic/house.dart';
 import '../../graphql/mutation_helper.dart';
+import '../../widgets/Buttons/SecondaryActionButton.dart';
 
 class UpdateRentDepositPage extends StatefulWidget {
   final House house;
@@ -73,17 +74,21 @@ class _UpdateRentDepositPageState extends State<UpdateRentDepositPage> {
               margin: const EdgeInsets.only(left: 8, bottom: 8),
               alignment: Alignment.centerLeft,
               child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
-              SecondaryButton(Icons.update, "Update Rent Deposit", (context) {
-                
-                if (validate()) {
-                  runMutation({
-                    "houseId": widget.house.houseId,
-                    "rentDeposits": widget.house.lease.rentDeposits
-                        .map((rentDeposit) => rentDeposit.toJson())
-                        .toList()
-                  });
-                }
-              })
+               Container(
+                 margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                 child: SecondaryActionButton(text: "Update Rent Deposits", onClick: () {
+                  
+                  if (validate()) {
+                    runMutation({
+                      "houseId": widget.house.houseId,
+                      "rentDeposits": widget.house.lease.rentDeposits
+                          .map((rentDeposit) => rentDeposit.toJson())
+                          .toList()
+                    });
+                  }
+              }),
+               )
           ],
         );
       }

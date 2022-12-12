@@ -21,10 +21,49 @@ class TenantRow extends StatefulWidget {
 
 class _TenantRowState extends State<TenantRow> {
   List<Tenant> tenants = [];
+  List<Widget> tenantWidgets = [];
   bool lock = true;
 
-  void addTenantButton(List<Widget> tenantWidgets) {
-    tenantWidgets.add(IconTextColumn(
+  void showTenantDialog(Tenant tenant) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: AddTenantCard(
+                houseKey: widget.house.houseKey,
+                tenant: tenant,
+                onDeleteTenant: (tenantToBeDeleted) {
+                  setState(() {
+            
+                    tenants.remove(tenantToBeDeleted);
+                  });
+                }),
+          );
+        });
+  }
+
+  List<Widget> objectsToWidgets(List<Tenant> tenants) {
+    for (Tenant tenant in tenants) {
+      tenantWidgets.add(IconTextColumn(
+        profileSize: 40,
+        iconSize: 60,
+        profileColor: Colors.blueGrey,
+        textColor: Colors.black,
+        icon: Icons.account_circle,
+        profileURL: tenant.profileURL,
+        text: tenant.getFullName(),
+        onClick: () {
+          showTenantDialog(tenant);
+        },
+      ));
+    }
+    //Add tenant button
+
+    return tenantWidgets;
+  }
+
+  void appendAddTenantButton() {
+     tenantWidgets.add(IconTextColumn(
         icon: Icons.add,
         text: "Add Tenant",
         profileSize: 40,
@@ -38,7 +77,6 @@ class _TenantRowState extends State<TenantRow> {
           if (tenant == null) {
             return;
           }
-
           setState(() {
             tenants.add(tenant);
           });
@@ -52,41 +90,17 @@ class _TenantRowState extends State<TenantRow> {
         variables: {"houseId": widget.house.houseId},
         queryName: "getTenants",
         onComplete: (json) {
-          
-          tenants = json
-              .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
-              .toList();
-       
-          List<Widget> tenantWidgets = [];
-          tenantWidgets = tenants.map<Widget>((tenant) {
-            return IconTextColumn(
-              profileSize: 40,
-              iconSize: 60,
-              profileColor: Colors.blueGrey,
-              textColor: Colors.black,
-              icon: Icons.account_circle,
-              profileURL: tenant.profileURL,
-              text: tenant.getFullName(),
-              onClick: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: AddTenantCard(
-                            houseKey: widget.house.houseKey,
-                            tenant: tenant,
-                            onDeleteTenant: (tenant) {
-                              setState(() {
-                                tenants.remove(tenant);
-                              });
-                            }),
-                      );
-                    });
-              },
-            );
-          }).toList();
-          addTenantButton(tenantWidgets);
-          return Container (
+          if (lock) {
+            tenants = json
+                .map<Tenant>((tenantJson) => Tenant.fromJson(tenantJson))
+                .toList();
+            lock = false;
+          }
+          tenantWidgets = [];
+          objectsToWidgets(tenants);
+          appendAddTenantButton();
+
+          return Container(
             margin: const EdgeInsets.all(8),
             child: Wrap(
               children: tenantWidgets,

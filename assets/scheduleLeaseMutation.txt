@@ -15,15 +15,7 @@ mutation scheduleLease($houseKey: String!, $signature: String!){
                 contact
                 }
             },
-        landlordAddress{
-            streetNumber,
-            streetName,
-            city,
-            province,
-            postalCode,
-            unitNumber,
-            poBox
-        },
+     
         rentalAddress {
             streetNumber,
             streetName,

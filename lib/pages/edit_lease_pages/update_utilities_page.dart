@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/list_items/utility.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/UtilitiesList.dart';
+
+import '../../widgets/Buttons/SecondaryActionButton.dart';
 
 class UpdateUtilityPage extends StatefulWidget {
   final House house;
@@ -71,16 +72,20 @@ class _UpdateUtilityPageState extends State<UpdateUtilityPage> {
               margin: const EdgeInsets.only(left: 8, bottom: 8),
               alignment: Alignment.centerLeft,
               child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
-            SecondaryButton(Icons.update, "Update Utilities", (context) {
-              if (validate()) {
-                  runMutation({
-                    "houseId": widget.house.houseId,
-                    "utilities": widget.house.lease.utilities
-                        .map((utility) => utility.toJson())
-                        .toList()
-                  });
-              }
-            })
+             Container(
+               margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+               child: SecondaryActionButton(text: "Update Utilities", onClick: (){
+                if (validate()) {
+                    runMutation({
+                      "houseId": widget.house.houseId,
+                      "utilities": widget.house.lease.utilities
+                          .map((utility) => utility.toJson())
+                          .toList()
+                    });
+                }
+            }),
+             )
           ],
         );
       }

@@ -5,6 +5,8 @@ import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
 import 'package:notification_app/widgets/Listviews/CardSliverGenerator.dart';
 import 'package:notification_app/widgets/Listviews/CardSliverListView.dart';
 
+import '../Buttons/SecondaryActionButton.dart';
+
 class SliverAddItemGeneratorWrapper<T> extends StatefulWidget {
   final List<T> items;
   final List<String> suggestedNames;
@@ -42,8 +44,11 @@ class _SliverAddItemGeneratorWrapperState extends State<SliverAddItemGeneratorWr
       children: [
         getCardSliverListView(widget.shirnkWrap),
        Container(
-          margin: const EdgeInsets.only(top: 8),
-          child: HalfRow(child: SecondaryButton(Icons.add, widget.addButtonTitle, addItem)))
+          margin: const EdgeInsets.only(top: 8, left: 8),
+          alignment: Alignment.centerLeft,
+          child: SecondaryActionButton(text:widget.addButtonTitle, onClick: () {
+            addItem(context);
+          }))
       ],
     );
   }

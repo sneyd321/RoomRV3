@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/lease.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
+import 'package:notification_app/widgets/Buttons/SecondaryActionButton.dart';
 import 'package:notification_app/widgets/Forms/Form/LandlordInfoForm.dart';
 
 import '../../business_logic/house.dart';
@@ -35,15 +34,19 @@ class _UpdateLandlordInfoPageState extends State<UpdateLandlordInfoPage> {
                   ),
                 ]),
               ),
-              SecondaryButton(Icons.update, "Update Landlord Info", (context) {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  runMutation({
-                    "houseId": widget.house.houseId,
-                    "landlordInfo": widget.house.lease.landlordInfo.toJson()
-                  });
-                }
-              })
+              Container(
+                 margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                child: SecondaryActionButton(text: "Update Landlord Info", onClick: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    runMutation({
+                      "houseId": widget.house.houseId,
+                      "landlordInfo": widget.house.lease.landlordInfo.toJson()
+                    });
+                  }
+                }),
+              )
             ],
           );
         }),

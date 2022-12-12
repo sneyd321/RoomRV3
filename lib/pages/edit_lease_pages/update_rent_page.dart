@@ -4,6 +4,7 @@ import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/RentForm.dart';
 
 import '../../business_logic/house.dart';
+import '../../widgets/Buttons/SecondaryActionButton.dart';
 
 class UpdateRentPage extends StatefulWidget {
   final House house;
@@ -32,15 +33,19 @@ class _UpdateRentPageState extends State<UpdateRentPage> {
                   formKey: formKey,
                 ),
               )),
-              SecondaryButton(Icons.update, "Update Rent", (context) {
-                if (formKey.currentState!.validate()) {
-                  formKey.currentState!.save();
-                  runMutation({
-                    "houseId": widget.house.houseId,
-                    "rent": widget.house.lease.rent.toJson()
-                  });
-                }
-              })
+               Container(
+                 margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                 child: SecondaryActionButton(text: "Update Rent", onClick: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    runMutation({
+                      "houseId": widget.house.houseId,
+                      "rent": widget.house.lease.rent.toJson()
+                    });
+                  }
+              }),
+               )
             ],
           );
         });

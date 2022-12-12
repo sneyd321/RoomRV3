@@ -3,9 +3,10 @@ mutation ($tenant: TenantInput!) {
     firstName,
     lastName,
     email,
-    tenantState,
     houseId,
-    tenantPosition,
-    deviceId
+    phoneNumber,
+    profileURL,
+    state,
+    houseId
   }
 }

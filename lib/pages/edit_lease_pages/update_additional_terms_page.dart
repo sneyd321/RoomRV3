@@ -7,6 +7,7 @@ import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/AdditionalTermsList.dart';
 
 import '../../business_logic/house.dart';
+import '../../widgets/Buttons/SecondaryActionButton.dart';
 
 class UpdateAdditionalTermsPage extends StatefulWidget {
   final House house;
@@ -72,17 +73,20 @@ class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
                     errorText,
                     style: const TextStyle(color: Colors.red, fontSize: 18),
                   )),
-              SecondaryButton(Icons.update, "Update Additional Terms",
-                  (context) {
-                if (validate()) {
-                  runMutation({
-                    "houseId": widget.house.houseId,
-                    "additionalTerms": widget.house.lease.additionalTerms
-                        .map((additionalTerm) => additionalTerm.toJson())
-                        .toList()
-                  });
-                }
-              })
+               Container(
+                margin: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                 child: SecondaryActionButton(text: "Update Additional Terms", onClick: () {
+                  if (validate()) {
+                    runMutation({
+                      "houseId": widget.house.houseId,
+                      "additionalTerms": widget.house.lease.additionalTerms
+                          .map((additionalTerm) => additionalTerm.toJson())
+                          .toList()
+                    });
+                  }
+                             }),
+               )
             ],
           );
         });
