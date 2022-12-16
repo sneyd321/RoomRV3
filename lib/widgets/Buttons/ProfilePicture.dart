@@ -31,7 +31,6 @@ class ProfilePicture extends StatelessWidget {
       : super(key: key);
 
   Image getImage(Response response) {
-    print("content length: ${response.contentLength!}");
     if (response.contentLength! > 4273) {
       return Image.network(
         

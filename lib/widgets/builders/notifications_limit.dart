@@ -18,13 +18,13 @@ class NotificationLimit extends StatefulWidget {
 class _NotificationLimitState extends State<NotificationLimit> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-      future: FirebaseFirestore.instance
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
           .collection('House')
           .doc(widget.house.firebaseId)
           .collection("Landlord")
           .orderBy("dateCreated", descending: true)
-          .get(),
+          .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');

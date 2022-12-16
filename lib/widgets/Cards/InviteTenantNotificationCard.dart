@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:notification_app/business_logic/tenant.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/UpdateTenantEmailForm.dart';
 import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
+import 'package:universal_html/html.dart';
+
+import 'AddTenantCard.dart';
 
 class InviteTenantNotificationCard extends StatefulWidget {
   final QueryDocumentSnapshot document;
@@ -26,6 +30,26 @@ class _InviteTenantNotificationCardState
     path = widget.document.reference.path;
   }
 
+  void showTenantDialog() {
+    Tenant tenant = Tenant();
+    tenant.firstName = widget.document["sender"]["firstName"];
+    tenant.lastName = widget.document["sender"]["lastName"];
+    tenant.email = widget.document["sender"]["email"];
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: AddTenantCard(
+                houseKey: widget.document["houseKey"],
+                tenant: tenant,
+                isDeleteVisible: false,
+                onDeleteTenant: (tenantToBeDeleted) {
+                  
+                }),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,49 +57,29 @@ class _InviteTenantNotificationCardState
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Colors.white,
       child: Column(mainAxisSize: MainAxisSize.min, children: [
-        ListTile(
-          visualDensity: VisualDensity(vertical: 0.5),
-          isThreeLine: true,
-          leading: const CircleAvatar(child: Icon(Icons.account_circle)),
-          title: Text("${data['firstName']} ${data['lastName']}"),
-          subtitle: const Text("Has signed the lease"),
-          trailing: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-            child: ElevatedButton(
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        const EdgeInsets.all(25)),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.black),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            side: const BorderSide(color: Colors.black)))),
-                onPressed: () async {
-                  showDialog(
-                      barrierDismissible: true,
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Container(
-                            constraints: const BoxConstraints(maxWidth: 400),
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [Text("data")],
-                            ),
-                          ),
-                        );
-                      });
-                },
-                child: const Text(
-                  "View Details",
-                  style: TextStyle(fontSize: 16),
-                )),
+        GestureDetector(
+          onTap: () {
+            showTenantDialog();
+          },
+          child: ListTile(
+            visualDensity: VisualDensity(vertical: 0.5),
+            leading: const CircleAvatar(
+              child: Icon(
+                Icons.account_circle,
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.amber,
+            ),
+            title: Text("${widget.document["title"]}"),
+            subtitle: Text("${widget.document["body"]}"),
+            trailing: IconButton(
+              icon: const Icon(Icons.chevron_right_rounded),
+              onPressed: (() {
+                showTenantDialog();
+              }),
+            ),
           ),
-        )
+        ),
       ]),
     );
   }

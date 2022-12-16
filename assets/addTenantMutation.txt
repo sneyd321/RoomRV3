@@ -1,11 +1,10 @@
 mutation addTenant($houseKey: String!, $tenant: AddTenantEmailInput!){
 	addTenant(houseKey: $houseKey, tenant: $tenant) {
         firstName,
-        lastName,
-        email,
-        tenantState,
-        houseId,
-        tenantPosition,
-        deviceId
+    lastName,
+    email,
+    phoneNumber,
+    profileURL,
+    state,
     }
 }

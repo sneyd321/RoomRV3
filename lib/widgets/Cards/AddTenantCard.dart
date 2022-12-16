@@ -15,11 +15,12 @@ class AddTenantCard extends StatelessWidget {
   final String houseKey;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final void Function(Tenant tenant) onDeleteTenant;
+  final bool isDeleteVisible;
   AddTenantCard(
       {Key? key,
       required this.tenant,
       required this.houseKey,
-      required this.onDeleteTenant})
+      required this.onDeleteTenant, this.isDeleteVisible = true})
       : super(key: key);
 
   @override
@@ -44,34 +45,37 @@ class AddTenantCard extends StatelessWidget {
                       text: tenant.getFullName(),
                       profileURL: tenant.profileURL,
                       onClick: () {}),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    child: ElevatedButton(
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                const EdgeInsets.all(20)),
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.red),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(45),
-                                    side:
-                                        const BorderSide(color: Colors.red)))),
-                        onPressed: () async {
-                          runMutation({
-                            "tenant": tenant.toJson()
-                          });
-                          onDeleteTenant(tenant);
-                          Navigator.pop(context);
-                          
-                          
-                        },
-                        child: const Text(
-                          "Remove Tenant",
-                        )),
+                  Visibility(
+                    visible: isDeleteVisible,
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  const EdgeInsets.all(20)),
+                              foregroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.red),
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.white),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(45),
+                                      side:
+                                          const BorderSide(color: Colors.red)))),
+                          onPressed: () async {
+                            runMutation({
+                              "tenant": tenant.toJson()
+                            });
+                            onDeleteTenant(tenant);
+                            Navigator.pop(context);
+                            
+                            
+                          },
+                          child: const Text(
+                            "Remove Tenant",
+                          )),
+                    ),
                   ),
                   Container(
                       margin: const EdgeInsets.only(top: 16),
@@ -190,7 +194,7 @@ class AddTenantCard extends StatelessWidget {
                                                         ),
                                                         Flexible(
                                                           child: Text(
-                                                            "This will send an email to this tenant with:\n- A copy of the lease agreement\n- The house key\n- Access to the tenant version of the app.\n\nFor the tenant to get access you will need to approve the tenant in the notification feed after the tenant signs the lease agreement.\n\nWould you like to continue?",
+                                                            "This will send an email to this tenant with:\n- A copy of the lease agreement\n- The house key\n- Access to the tenant version of the app.\n\nWould you like to continue?",
                                                             softWrap: true,
                                                           ),
                                                         ),

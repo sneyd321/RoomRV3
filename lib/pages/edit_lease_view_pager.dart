@@ -34,7 +34,14 @@ class _EditLeaseStatePagerState extends State<EditLeaseStatePager> {
       child: DefaultTabController(
           length: 9,
           child: MutationHelper(
-              onComplete: (json) {},
+              onComplete: (json) {
+                const snackBar = SnackBar(
+                  content: Text('Lease Revision Creating... You will recieve a notification when complete'),
+                );
+
+
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
               mutationName: "scheduleLease",
               builder: (runMutation) {
                 return Scaffold(
