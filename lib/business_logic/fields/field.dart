@@ -252,3 +252,31 @@ class CommentField extends Field {
   }
 
 }
+
+
+class TitleField extends Field {
+  TitleField(String value) : super(value);
+
+  @override
+  String? validate() {
+    if (value.isEmpty) {
+      return "Please enter a comment";
+    }
+    return null;
+  }
+
+}
+
+
+class BodyField extends Field {
+  BodyField(String value) : super(value);
+
+  @override
+  String? validate() {
+    if (value.isEmpty) {
+      return "Please enter a comment";
+    }
+    return null;
+  }
+
+}

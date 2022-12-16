@@ -9,6 +9,7 @@ import 'package:notification_app/services/notification/lease_connection_notifica
 import 'package:notification_app/services/notification/lease_upload_notification.dart';
 
 import '../business_logic/comment.dart';
+import '../business_logic/house.dart';
 
 class FirebaseConfiguration {
   static final FirebaseConfiguration _singleton =
@@ -72,6 +73,35 @@ class FirebaseConfiguration {
         .collection("Comment")
         .doc();
     documentReference.set(comment.toJson());
+  }
+
+  Future<void> setCustomNotification(House house, Landlord landlord, String title, String body) async {
+      DocumentReference landlordReference = FirebaseFirestore.instance
+        .collection("House")
+        .doc(house.firebaseId)
+        .collection("Landlord")
+        .doc();
+      DocumentReference tenantReference = FirebaseFirestore.instance
+        .collection("House")
+        .doc(house.firebaseId)
+        .collection("Tenant")
+        .doc();
+      Map<String, dynamic> content = {
+        "name": "Custom",
+        "title": title,
+        "body": body,
+        "sender": {
+          "firstName": landlord.firstName,
+          "lastName": landlord.lastName,
+          "email": landlord.email, 
+          "profileURL": landlord.profileURL
+        },
+        "houseKey": house.houseKey,
+        "dateCreated": DateTime.now(),
+        "data": {}
+      };
+      landlordReference.set(content);
+      tenantReference.set(content);
   }
 
   Future<String?> getToken() async {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/maintenance_ticket.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Buttons/TenantRow.dart';
 import 'package:notification_app/widgets/Dialogs/loading_dialog.dart';
+import 'package:notification_app/widgets/builders/notifications_limit.dart';
 
 import '../business_logic/house.dart';
 import '../graphql/mutation_helper.dart';
@@ -25,25 +27,13 @@ class _TestPageState extends State<TestPage> {
     // TODO: implement initState
     super.initState();
     house.houseId = 5;
-    for (int i = 0; i < 10; i++) {
-      widgets.add( IconTextColumn(
-                profileSize: 40,
-                iconSize: 60,
-                profileColor: Colors.blueGrey,
-                textColor: Colors.black,
-                icon: Icons.account_circle,
-                text: "FDFDAFDASFDSAFDSAFAS",
-                onClick: () {
-                  
-                },
-              ),);
-    }
+   house.firebaseId = "TwIeQHeMqZMia0FAV7vm";
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Wrap(children: widgets),
+      body: NotificationLimit(house: house, landlord: Landlord())
     );
   }
 }

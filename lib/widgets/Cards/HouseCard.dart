@@ -41,11 +41,12 @@ class HouseCard extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               onHouse(house, landlord);
-              
             },
             child: Hero(
               tag: house.houseKey,
               child: Card(
+                margin: const EdgeInsets.all(4),
+                  elevation: 25,
                   shape: RoundedRectangleBorder(
                     side: const BorderSide(color: Colors.white70, width: 1),
                     borderRadius: BorderRadius.circular(15),
@@ -69,13 +70,7 @@ class HouseCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: const [
-                                Icon(Icons.brightness_1,
-                                      size: 16.0, color: Colors.redAccent),
-                              ],
-                            ),
+                            
                             const Spacer(),
                             Container(
                                 margin: const EdgeInsets.only(bottom: 4),

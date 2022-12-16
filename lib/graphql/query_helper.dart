@@ -53,8 +53,8 @@ class _QueryHelperState extends State<QueryHelper> {
           }
           return Query(
               options: QueryOptions(
-                cacheRereadPolicy: CacheRereadPolicy.mergeOptimistic,
-                  fetchPolicy: FetchPolicy.networkOnly,
+                cacheRereadPolicy: CacheRereadPolicy.ignoreOptimisitic,
+                  fetchPolicy: FetchPolicy.cacheAndNetwork,
                   document: gql(snapshot.data!),
                   variables: widget.variables),
               builder: (result, {fetchMore, refetch}) {

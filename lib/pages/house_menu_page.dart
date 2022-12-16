@@ -1,15 +1,19 @@
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
-import 'package:notification_app/widgets/Navigation/navigation.dart';
+import 'package:notification_app/main.dart';
+import 'package:notification_app/services/FirebaseConfig.dart';
 import 'package:notification_app/widgets/Buttons/TenantRow.dart';
 import 'package:notification_app/widgets/Cards/HouseMenuCard.dart';
-import 'package:notification_app/widgets/Navigation/bottom_nav_bar.dart';
+import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNotificationForm.dart';
+import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
 import 'package:notification_app/widgets/builders/notifications_limit.dart';
 
 import '../business_logic/address.dart';
 import '../graphql/graphql_client.dart';
+import '../widgets/Navigation/navigation.dart';
 
 class HouseMenuPage extends StatefulWidget {
   final House house;
@@ -23,6 +27,10 @@ class HouseMenuPage extends StatefulWidget {
 
 class _HouseMenuPageState extends State<HouseMenuPage> {
   List<Widget> tenantWidgets = [];
+  final List<String> items = const [
+    "Edit Lease",
+    "Purchase Apps"
+  ];
 
   String parsePrimaryAddress(House house) {
     RentalAddress rentalAddress = house.lease.rentalAddress;
@@ -39,47 +47,132 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
     return "$city, $province $postalCode";
   }
 
+  Widget leftPanel() {
+    return Column(
+      children: [
+        Expanded(
+          child:
+              NotificationLimit(house: widget.house, landlord: widget.landlord),
+        ),
+        Container(
+            padding: const EdgeInsets.all(16),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            alignment: Alignment.topRight,
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                BottomSheetHelper(AddNotificationForm(names: const ["24 Hours Notice"], onSave: ((context, title, body) {
+                  FirebaseConfiguration().setCustomNotification(widget.house, widget.landlord, title, body);
+                  setState(() {
+                    
+                  });
+                }))).show(context);
+              },
+              label: const Text("Compose Notification"),
+              icon: const Icon(Icons.draw),
+            ))
+      ],
+    );
+  }
+
+  Widget rightPanel() {
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TenantRow(house: widget.house),
+        Container(
+            margin: const EdgeInsets.all(8),
+            alignment: Alignment.centerLeft,
+            child: const Text(
+              "My Apps",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            )),
+        Container(
+          margin: const EdgeInsets.all(8),
+          child: ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: ((context, index) {
+                return GestureDetector(
+                  onTap: () async {
+                    switch (index) {
+                      case 0:
+                        Navigation().navigateToEditLeasePage(context, widget.house);
+                        break;
+                      case 1:
+                      Navigation().navigateToStore(context, widget.landlord);
+                        break;
+                    }
+                  },
+                  child: ListTile(
+                    title: Text(
+                      items[index],
+                      style: const TextStyle(color: Color(primaryColour)),
+                    ),
+                    trailing: const Icon(
+                      Icons.chevron_right_rounded,
+                      color: Color(primaryColour),
+                    ),
+                  ),
+                );
+              }),
+              separatorBuilder: (context, index) {
+                 Color color = const Color(primaryColour);
+                return Divider(
+                  color: color,
+                );
+              },
+              itemCount: items.length),
+        ),
+       
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
-        client: GQLClient().getClient(),
-        child: SafeArea(
-            child: Scaffold(
-          bottomNavigationBar: BottomNavBar(
-            landlord: widget.landlord,
-          ),
-          appBar: AppBar(
-            backgroundColor: Colors.black,
-          ),
-          body: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Hero(
-                  tag: widget.house.houseKey,
-                  child: HouseMenuCard(
-                    house: widget.house,
-                    landlord: widget.landlord,
-                  )),
-              TenantRow(house: widget.house),
-              NotificationLimit(house: widget.house, landlord: widget.landlord),
-              GestureDetector(
-                onTap: (() {
-                  Navigation().navigateToNotificationsPage(
-                      context, widget.house, widget.landlord);
-                }),
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8),
-                  color: Colors.black,
-                  height: 40,
-                  child: const Center(
-                      child: Text(
-                    "View More Notifications",
-                    style: TextStyle(color: Colors.white),
-                  )),
+      client: GQLClient().getClient(),
+      child: SafeArea(
+        child: DefaultTabController(
+          
+          length: 2,
+          child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(200),
+              child: AppBar(
+                flexibleSpace: HouseMenuCard(
+                    house: widget.house, landlord: widget.landlord),
+              ),
+            ),
+           
+            body: Column(
+              children: [
+                const ColoredBox(
+                  color: Color(primaryColour),
+                  child: TabBar(
+                    tabs: [
+                      Tab(
+                        icon: Icon(Icons.notifications),
+                        text: "Notifications",
+                      ),
+                      Tab(
+                        icon: Icon(Icons.home),
+                        text: "Manage",
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ]),
+                Expanded(
+                  child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [leftPanel(), rightPanel()],
+                  ),
+                ),
+              ],
+            ),
           ),
-        )));
+        ),
+      ),
+    );
   }
 }

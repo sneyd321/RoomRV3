@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/IconTextColumn.dart';
+import 'package:notification_app/widgets/Buttons/ProfilePicture.dart';
 
 import '../../business_logic/house.dart';
 import '../../business_logic/tenant.dart';
@@ -55,7 +56,7 @@ class _TenantRowState extends State<TenantRow> {
 
   List<Widget> objectsToWidgets(List<Tenant> tenants) {
     for (Tenant tenant in tenants) {
-      tenantWidgets.add(IconTextColumn(
+      tenantWidgets.add(ProfilePicture(
         profileSize: 40,
         iconSize: 60,
         profileColor: Colors.blueGrey,

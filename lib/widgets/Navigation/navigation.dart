@@ -7,6 +7,7 @@ import 'package:notification_app/pages/edit_profile_page.dart';
 import 'package:notification_app/pages/house_page.dart';
 import 'package:notification_app/pages/profile_page.dart';
 import 'package:notification_app/pages/sign_up_page.dart';
+import 'package:notification_app/pages/store_page.dart';
 
 import '../../pages/add_lease_view_pager.dart';
 import '../../pages/house_menu_page.dart';
@@ -96,6 +97,17 @@ class Navigation {
       context,
       MaterialPageRoute(
           builder: (context) => const SignUpPage()),
+    );
+  }
+
+  void navigateToStore(BuildContext context, Landlord landlord) {
+    Navigator.push<House>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StorePage(
+          landlord: landlord,
+        ),
+      ),
     );
   }
 }

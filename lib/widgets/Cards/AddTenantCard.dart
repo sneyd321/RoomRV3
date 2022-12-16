@@ -7,6 +7,7 @@ import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 
+import '../Buttons/ProfilePicture.dart';
 import '../Forms/FormRow/TwoColumnRow.dart';
 
 class AddTenantCard extends StatelessWidget {
@@ -36,18 +37,13 @@ class AddTenantCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 16),
-                    child: const CircleAvatar(
-                      radius: 80.0,
-                      backgroundColor: Colors.blue,
-                      child: Icon(
-                        Icons.account_circle,
-                        color: Colors.white,
-                        size: 150,
-                      ),
-                    ),
-                  ),
+                   ProfilePicture(
+                      icon: Icons.account_circle,
+                      profileSize: 80,
+                      iconSize: 150,
+                      text: tenant.getFullName(),
+                      profileURL: tenant.profileURL,
+                      onClick: () {}),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: ElevatedButton(
@@ -204,7 +200,7 @@ class AddTenantCard extends StatelessWidget {
                                     });
                               },
                               child: const Text(
-                                "Invite Tenant",
+                                "Invite",
                                 style: TextStyle(fontSize: 16),
                               )),
                         ),

@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/builders/notification_search.dart';
-
 
 class NotificationLimit extends StatefulWidget {
   final House house;
@@ -18,35 +16,31 @@ class NotificationLimit extends StatefulWidget {
 }
 
 class _NotificationLimitState extends State<NotificationLimit> {
- 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          future: FirebaseFirestore.instance
-              .collection('House')
-              .doc(widget.house.firebaseId)
-              .collection("Landlord")
-              .orderBy("dateCreated", descending: true)
-              .limit(3)
-              .get(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Text('Something went wrong');
-            }
-            if (snapshot.connectionState == ConnectionState.waiting ||
-                !snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            List<QueryDocumentSnapshot> queryDocumentSnapshots = snapshot.data!.docs;
-            
-            return NotificationSearch(landlord: widget.landlord, documents: queryDocumentSnapshots);
-          },
-        )
-      ],
+    return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      future: FirebaseFirestore.instance
+          .collection('House')
+          .doc(widget.house.firebaseId)
+          .collection("Landlord")
+          .orderBy("dateCreated", descending: true)
+          .get(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            !snapshot.hasData) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        List<QueryDocumentSnapshot> queryDocumentSnapshots =
+            snapshot.data!.docs;
+    
+        return NotificationSearch(
+            landlord: widget.landlord, documents: queryDocumentSnapshots);
+      },
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/landlord.dart';
+import 'package:notification_app/widgets/Cards/custom_notification_card.dart';
 
 import '../../business_logic/maintenance_ticket_notification.dart';
 import '../Cards/ApproveTenantNotification.dart';
@@ -33,64 +34,48 @@ class _NotificationSearchState extends State<NotificationSearch> {
     super.initState();
     queryDocumentSnapshots = widget.documents;
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Flexible(
-                child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: const Text(
-                "Notifications",
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              ),
-            )),
-            Flexible(
-              flex: 3,
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                child: TextField(
-                  controller: searchTextEditingController,
-                  onChanged: (value) {
-                    setState(() {
-                      queryDocumentSnapshots =
-                          widget.documents.where((element) {
-
-                        return element
-                            .data()
-                            .toString()
-                            .toLowerCase()
-                            .contains(value.toLowerCase());
-                      }).toList();
-                    });
-                  },
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(45.0),
-                      ),
-                      filled: true,
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: (() {
-                          setState(() {
-                            searchTextEditingController.text = "";
-                            queryDocumentSnapshots = widget.documents;
-                          });
-                        }),
-                      ),
-                      hintStyle: TextStyle(color: Colors.grey[800]),
-                      hintText: "Search Keywords",
-                      fillColor: Colors.white70),
-                ),
-              ),
-            ),
-          ],
-        ),
         Container(
-          height: 300,
+          margin: const EdgeInsets.all(8),
+          width: MediaQuery.of(context).size.width,
+          child: TextField(
+            controller: searchTextEditingController,
+            onChanged: (value) {
+              setState(() {
+                queryDocumentSnapshots = widget.documents.where((element) {
+                  return element
+                      .data()
+                      .toString()
+                      .toLowerCase()
+                      .contains(value.toLowerCase());
+                }).toList();
+              });
+            },
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(45.0),
+                ),
+                filled: true,
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: (() {
+                    setState(() {
+                      searchTextEditingController.text = "";
+                      queryDocumentSnapshots = widget.documents;
+                    });
+                  }),
+                ),
+                hintStyle: TextStyle(color: Colors.grey[800]),
+                hintText: "Search Keywords",
+                fillColor: Colors.white70),
+          ),
+        ),
+        Expanded(
           child: CardSliverListView(
             items: queryDocumentSnapshots,
             builder: (context, index) {
@@ -113,6 +98,8 @@ class _NotificationSearchState extends State<NotificationSearch> {
                   return TenantAccountCreatedNotification(document: document);
                 case "ApproveTenant":
                   return ApproveTenantNotificationCard(document: document);
+                case "Custom":
+                  return CustomNotificationCard(document: document);
                 default:
                   return Text(
                       "TODO: Make notification for event: ${document.get("Name")}");
@@ -120,7 +107,7 @@ class _NotificationSearchState extends State<NotificationSearch> {
             },
             controller: ScrollController(),
           ),
-        )
+        ),
       ],
     );
   }
