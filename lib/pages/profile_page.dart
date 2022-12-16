@@ -27,7 +27,6 @@ import '../widgets/Forms/FormRow/TwoColumnRow.dart';
 class ProfilePage extends StatefulWidget {
   final Landlord landlord;
 
-
   const ProfilePage({Key? key, required this.landlord}) : super(key: key);
 
   @override
@@ -188,6 +187,25 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Future<void> openGallery(
+      MultiSourceResult<Object?> Function(Map<String, dynamic>,
+              {Object? optimisticResult})
+          runMutation) async {
+    image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      runMutation({
+        "houseKey": "",
+        "landlordProfile": {
+          "firstName": landlord.firstName,
+          "lastName": landlord.lastName,
+          "imageURL": landlord.profileURL
+        },
+        "image": base64Encode(await image!.readAsBytes())
+      });
+    }
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
@@ -206,49 +224,36 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   MutationHelper(
                     builder: (runMutation) {
-                      return Visibility(
-                        visible: image == null,
-                        replacement: MemoryPhoto(
-                          bytes: image?.readAsBytes(),
-                          text: widget.landlord.getFullName(),
-                          profileColor: Colors.blueGrey,
-                          profileSize: 60,
-                          iconSize: 80,
-                          textSize: 18,
-                          textColor: Color(primaryColour),
-                          onClick: () {},
-                        ),
-                        child: ProfilePicture(
+                      return Center(
+                        child: Visibility(
+                          visible: image == null,
+                          replacement: MemoryPhoto(
+                            bytes: image?.readAsBytes(),
+                            text: widget.landlord.getFullName(),
                             profileColor: Colors.blueGrey,
                             profileSize: 60,
-                            icon: Icons.add_a_photo,
                             iconSize: 80,
                             textSize: 18,
                             textColor: Color(primaryColour),
-                            text: widget.landlord.getFullName(),
-                            onClick: () async {
-                              image = await picker.pickImage(
-                                  source: ImageSource.gallery);
-                              if (image != null) {
-                                runMutation({
-                                "houseKey": "",
-                                "landlordProfile": {
-                                  "firstName": landlord.firstName,
-                                  "lastName": landlord.lastName,
-                                  "imageURL": landlord.profileURL
-                                },
-                                "image": base64Encode(await image!.readAsBytes())
-                              });
-                              }
-                              setState(() {});
-                             
-                            }),
+                            onClick: () async {await openGallery(runMutation);},
+                          ),
+                          child: ProfilePicture(
+                              profileColor: Colors.blueGrey,
+                              profileSize: 60,
+                              icon: Icons.add_a_photo,
+                              iconSize: 80,
+                              textSize: 18,
+                              profileURL: landlord.profileURL,
+                              textColor: Color(primaryColour),
+                              text: widget.landlord.getFullName(),
+                              onClick: () async {
+                                await openGallery(runMutation);
+                              }),
+                        ),
                       );
                     },
                     mutationName: 'scheduleLandlordProfile',
-                    onComplete: (json) {
-                      
-                    },
+                    onComplete: (json) {},
                   ),
                   Form(
                       key: formKey,
