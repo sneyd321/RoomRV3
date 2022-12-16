@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 
 import 'navigation.dart';

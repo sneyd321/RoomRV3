@@ -12,9 +12,7 @@ class Landlord {
   String deviceId = "";
   LandlordAddress landlordAddress = LandlordAddress();
 
-
   Landlord();
-
 
   void setFirstName(String firstName) {
     this.firstName = firstName;
@@ -56,7 +54,7 @@ class Landlord {
     landlordAddress = LandlordAddress.fromJson(json["landlordAddress"]);
   }
 
-  Map<String, dynamic> toCreateLandlordJson(){ 
+  Map<String, dynamic> toCreateLandlordJson() {
     return {
       "firstName": firstName,
       "lastName": lastName,
@@ -67,7 +65,15 @@ class Landlord {
     };
   }
 
-  Map<String, dynamic> toLandlordJson(){ 
+  Map<String, dynamic> toLandlordProfileJson() {
+    return {
+      "firstName": firstName,
+      "lastName": lastName,
+      "profileURL": profileURL,
+    };
+  }
+
+  Map<String, dynamic> toLandlordJson() {
     return {
       "id": id,
       "firstName": firstName,
@@ -81,6 +87,4 @@ class Landlord {
       "landlordAddress": landlordAddress.toJson()
     };
   }
-
-
 }

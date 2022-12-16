@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -11,6 +13,7 @@ import 'package:notification_app/widgets/Buttons/ProfilePicture.dart';
 
 import '../business_logic/address.dart';
 import '../business_logic/fields/field.dart';
+import '../business_logic/house.dart';
 import '../business_logic/suggested_address.dart';
 import '../graphql/mutation_helper.dart';
 import '../services/network.dart';
@@ -23,6 +26,7 @@ import '../widgets/Forms/FormRow/TwoColumnRow.dart';
 
 class ProfilePage extends StatefulWidget {
   final Landlord landlord;
+
 
   const ProfilePage({Key? key, required this.landlord}) : super(key: key);
 
@@ -200,31 +204,51 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(
                     height: 8,
                   ),
-                  Visibility(
-                    visible: image == null,
-                    replacement: MemoryPhoto(
-                      bytes: image?.readAsBytes(),
-                      text: widget.landlord.getFullName(),
-                      profileColor: Colors.blueGrey,
-                      profileSize: 60,
-                      iconSize: 80,
-                      textSize: 18,
-                      textColor: Color(primaryColour),
-                      onClick: () {},
-                    ),
-                    child: ProfilePicture(
-                        profileColor: Colors.blueGrey,
-                        profileSize: 60,
-                        icon: Icons.add_a_photo,
-                        iconSize: 80,
-                        textSize: 18,
-                        textColor: Color(primaryColour),
-                        text: widget.landlord.getFullName(),
-                        onClick: () async {
-                          image = await picker.pickImage(
-                              source: ImageSource.gallery);
-                          setState(() {});
-                        }),
+                  MutationHelper(
+                    builder: (runMutation) {
+                      return Visibility(
+                        visible: image == null,
+                        replacement: MemoryPhoto(
+                          bytes: image?.readAsBytes(),
+                          text: widget.landlord.getFullName(),
+                          profileColor: Colors.blueGrey,
+                          profileSize: 60,
+                          iconSize: 80,
+                          textSize: 18,
+                          textColor: Color(primaryColour),
+                          onClick: () {},
+                        ),
+                        child: ProfilePicture(
+                            profileColor: Colors.blueGrey,
+                            profileSize: 60,
+                            icon: Icons.add_a_photo,
+                            iconSize: 80,
+                            textSize: 18,
+                            textColor: Color(primaryColour),
+                            text: widget.landlord.getFullName(),
+                            onClick: () async {
+                              image = await picker.pickImage(
+                                  source: ImageSource.gallery);
+                              if (image != null) {
+                                runMutation({
+                                "houseKey": "",
+                                "landlordProfile": {
+                                  "firstName": landlord.firstName,
+                                  "lastName": landlord.lastName,
+                                  "imageURL": landlord.profileURL
+                                },
+                                "image": base64Encode(await image!.readAsBytes())
+                              });
+                              }
+                              setState(() {});
+                             
+                            }),
+                      );
+                    },
+                    mutationName: 'scheduleLandlordProfile',
+                    onComplete: (json) {
+                      
+                    },
                   ),
                   Form(
                       key: formKey,

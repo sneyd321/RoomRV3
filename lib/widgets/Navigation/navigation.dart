@@ -30,6 +30,7 @@ class Navigation {
       MaterialPageRoute(
           builder: (context) => ProfilePage(
                 landlord: landlord,
+      
               )),
     );
   }

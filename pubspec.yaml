@@ -111,6 +111,7 @@ flutter:
     - assets/deleteLandlordMutation.txt
     - assets/updateLandlordMutation.txt
     - assets/profile1.jpg
+    - assets/scheduleLandlordProfileMutation.txt
 
   #   - images/a_dot_ham.jpeg
 

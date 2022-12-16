@@ -1,0 +1,7 @@
+mutation scheduleLandlordProfile($houseKey: String!, $landlordProfile: LandlordProfileInput!, $image: String!){
+	scheduleLandlordProfile(houseKey: $houseKey, landlordProfile: $landlordProfile, image: $image) {
+        imageURL,
+        firstName,
+        lastName
+    }
+}

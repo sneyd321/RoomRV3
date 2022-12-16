@@ -115,7 +115,7 @@ class _DownloadLeaseNotificationCardState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    height: 75,
+                    height: 100,
                     margin: const EdgeInsets.only(bottom: 8),
                     padding: const EdgeInsets.only(left: 8, right: 8),
                     decoration: BoxDecoration(
