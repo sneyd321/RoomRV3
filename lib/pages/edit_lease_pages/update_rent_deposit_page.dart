@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/deposit.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/DepositsList.dart';
 
 import '../../business_logic/house.dart';
 import '../../graphql/mutation_helper.dart';
-import '../../widgets/Buttons/SecondaryActionButton.dart';
+import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class UpdateRentDepositPage extends StatefulWidget {
   final House house;

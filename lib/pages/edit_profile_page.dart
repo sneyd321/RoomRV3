@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/business_logic/landlord.dart';
-import 'package:notification_app/pages/login_page.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/services/stream_socket.dart';
-import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
 import 'package:notification_app/widgets/FormFields/EmailFormField.dart';
-import 'package:notification_app/widgets/FormFields/PasswordFormField.dart';
 import 'package:notification_app/widgets/FormFields/SimpleFormField.dart';
 
 import '../business_logic/address.dart';
@@ -18,6 +15,7 @@ import '../graphql/mutation_helper.dart';
 import '../services/web_network.dart';
 import '../widgets/FormFields/AddressFormField.dart';
 import '../widgets/Forms/FormRow/TwoColumnRow.dart';
+import '../widgets/buttons/CallToActionButton.dart';
 
 class EditProfilePage extends StatefulWidget {
   final Landlord landlord;

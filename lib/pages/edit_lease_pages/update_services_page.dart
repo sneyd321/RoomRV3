@@ -4,7 +4,7 @@ import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/ServicesList.dart';
 
 import '../../business_logic/house.dart';
-import '../../widgets/Buttons/SecondaryActionButton.dart';
+import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class UpdateServicesPage extends StatefulWidget {
   final House house;

@@ -6,8 +6,9 @@ import 'package:notification_app/widgets/Forms/Form/TenancyTermsForm.dart';
 
 import '../../graphql/mutation_helper.dart';
 import '../../graphql/graphql_client.dart';
-import '../../widgets/Buttons/CallToActionButton.dart';
-import '../../widgets/Buttons/SecondaryActionButton.dart';
+import '../../widgets/buttons/CallToActionButton.dart';
+import '../../widgets/buttons/SecondaryActionButton.dart';
+
 
 class AddTenancyTermsPage extends StatefulWidget {
   final Lease lease;

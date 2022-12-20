@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/lease.dart';
-import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryActionButton.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/RentalAddressForm.dart';
-import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
+
+import '../../widgets/buttons/CallToActionButton.dart';
+import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class AddRentalAddressPage extends StatefulWidget {
   final Lease lease;

@@ -2,15 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/business_logic/list_items/deposit.dart';
-import 'package:notification_app/business_logic/rent.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
-import 'package:notification_app/widgets/Forms/Form/CreateHouseRentForm.dart';
-import 'package:notification_app/widgets/Forms/Form/RentForm.dart';
-import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 
-import '../../widgets/Buttons/CallToActionButton.dart';
-import '../../widgets/Buttons/SecondaryActionButton.dart';
+import 'package:notification_app/widgets/Forms/Form/CreateHouseRentForm.dart';
+
+import '../../widgets/buttons/CallToActionButton.dart';
+import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class AddRentPage extends StatefulWidget {
   final Lease lease;

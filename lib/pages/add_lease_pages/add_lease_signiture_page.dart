@@ -5,12 +5,12 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 import 'package:signature/signature.dart';
 
 import '../../graphql/mutation_helper.dart';
-import '../../widgets/Buttons/SecondaryButton.dart';
+import '../../widgets/buttons/PrimaryButton.dart';
+import '../../widgets/buttons/SecondaryButton.dart';
 
 class AddLeaseSigniturePage extends StatefulWidget {
   final Function(BuildContext context) onBack;

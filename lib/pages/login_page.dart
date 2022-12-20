@@ -6,16 +6,16 @@ import 'package:notification_app/business_logic/login_landlord.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/main.dart';
 import 'package:notification_app/widgets/Navigation/navigation.dart';
-import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../business_logic/fields/field.dart';
 import '../business_logic/landlord.dart';
 import '../services/FirebaseConfig.dart';
 import '../graphql/graphql_client.dart';
-import '../widgets/Buttons/SecondaryActionButton.dart';
 import '../widgets/FormFields/EmailFormField.dart';
 import '../widgets/FormFields/PasswordFormField.dart';
+import '../widgets/buttons/CallToActionButton.dart';
+import '../widgets/buttons/SecondaryActionButton.dart';
 
 class LoginPage extends StatefulWidget {
   final String email;

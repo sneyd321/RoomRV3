@@ -12,11 +12,11 @@ import 'package:notification_app/pages/edit_lease_pages/update_rental_address_pa
 import 'package:notification_app/pages/edit_lease_pages/update_services_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_tenancy_terms_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_utilities_page.dart';
-import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
+
 
 import '../graphql/mutation_helper.dart';
 import '../graphql/graphql_client.dart';
+import '../widgets/buttons/CallToActionButton.dart';
 
 class EditLeaseStatePager extends StatefulWidget {
   final House house;

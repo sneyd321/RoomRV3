@@ -87,7 +87,7 @@ class FirebaseConfiguration {
         .collection("Tenant")
         .doc();
       Map<String, dynamic> content = {
-        "name": "Custom",
+        "Name": "Custom",
         "title": title,
         "body": body,
         "sender": {

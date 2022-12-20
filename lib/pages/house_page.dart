@@ -5,12 +5,12 @@ import 'package:notification_app/business_logic/landlord.dart';
 
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Navigation/navigation.dart';
-import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
 import 'package:notification_app/widgets/Cards/HouseCard.dart';
 import 'package:notification_app/widgets/Listviews/CardSliverListView.dart';
 
 import '../graphql/query_helper.dart';
 import '../widgets/Navigation/bottom_nav_bar.dart';
+import '../widgets/buttons/CallToActionButton.dart';
 
 class HousesPage extends StatefulWidget {
   final Landlord landlord;

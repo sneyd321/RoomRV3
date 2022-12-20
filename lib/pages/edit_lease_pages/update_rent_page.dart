@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Forms/Form/RentForm.dart';
 
 import '../../business_logic/house.dart';
-import '../../widgets/Buttons/SecondaryActionButton.dart';
+import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class UpdateRentPage extends StatefulWidget {
   final House house;
