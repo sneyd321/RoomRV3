@@ -37,6 +37,28 @@ class Tenant {
     };
   }
 
+  Map<String, dynamic> toAddEmailInput() {
+    return {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "password": password,
+      "phoneNumber": phoneNumber
+    };
+  }
+
+
+
+  Map<String, dynamic> toTenantInput() {
+    return {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "phoneNumber": phoneNumber,
+      "profileURL": profileURL
+    };
+  }
+
 
 
   void setFirstName(String value) {

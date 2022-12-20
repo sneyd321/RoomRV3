@@ -62,7 +62,7 @@ class AddTenantCard extends StatelessWidget {
                                           const BorderSide(color: Colors.red)))),
                           onPressed: () async {
                             runMutation({
-                              "tenant": tenant.toJson()
+                              "tenant": tenant.toTenantInput()
                             });
                             onDeleteTenant(tenant);
                             Navigator.pop(context);
@@ -171,7 +171,7 @@ class AddTenantCard extends StatelessWidget {
                                                             "houseKey":
                                                                 houseKey,
                                                             "tenant":
-                                                                tenant.toJson()
+                                                                tenant.toAddEmailInput()
                                                           });
                                                         },
                                                       ),
