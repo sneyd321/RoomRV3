@@ -1,6 +1,4 @@
-import 'dart:async';
 
-import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/landlord.dart';
@@ -9,7 +7,6 @@ import 'package:notification_app/widgets/Cards/InviteTenantNotificationCard.dart
 import 'package:notification_app/widgets/Cards/TenantAccountCreatedNotification.dart';
 
 import '../../../business_logic/house.dart';
-import '../../business_logic/maintenance_ticket_notification.dart';
 import '../Cards/download_lease_notification.dart';
 import '../Cards/maintenance_ticket_card.dart';
 import '../Listviews/CardSliverListView.dart';
@@ -89,6 +86,7 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
               switch (document.get("Name")) {
                 case "MaintenanceTicket":
                   return MaintenanceTicketNotificationCard(
+                    house: widget.house,
                     landlord: widget.landlord,
                     document: document);
                   

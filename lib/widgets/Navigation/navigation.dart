@@ -12,7 +12,6 @@ import 'package:notification_app/pages/store_page.dart';
 import '../../pages/add_lease_view_pager.dart';
 import '../../pages/comments_page.dart';
 import '../../pages/house_menu_page.dart';
-import '../../pages/notification_page.dart';
 
 class Navigation {
   void navigateToEditLeasePage(BuildContext context, House house) {
@@ -48,17 +47,7 @@ class Navigation {
     );
   }
 
-  void navigateToNotificationsPage(
-      BuildContext context, House house, Landlord landlord) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => NotificationPage(
-                house: house,
-                landlord: landlord,
-              )),
-    );
-  }
+ 
 
   Future<bool?> navigateToHousesPage(
       BuildContext context, Landlord landlord) async {

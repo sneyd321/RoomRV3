@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Button.dart';
+import 'package:notification_app/widgets/buttons/Button.dart';
 
 class SecondaryButton extends StatelessWidget {
 

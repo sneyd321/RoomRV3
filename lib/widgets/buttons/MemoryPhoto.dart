@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/landlord.dart';
-import 'package:notification_app/widgets/Buttons/ProfilePicture.dart';
+
 
 class MemoryPhoto extends StatelessWidget {
   final String text;

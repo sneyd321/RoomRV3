@@ -11,10 +11,11 @@ import '../../../business_logic/fields/field.dart';
 import '../../../business_logic/maintenance_ticket.dart';
 import '../../../pages/maintenance_ticket_pages/additional_terms_page.dart';
 import '../../../services/FirebaseConfig.dart';
-import '../../Buttons/CallToActionButton.dart';
-import '../../Buttons/SecondaryActionButton.dart';
+
 import '../../FormFields/SimpleFormField.dart';
 import '../../Helper/BottomSheetHelper.dart';
+import '../../buttons/CallToActionButton.dart';
+import '../../buttons/SecondaryActionButton.dart';
 
 
 class CommentForm extends StatefulWidget {

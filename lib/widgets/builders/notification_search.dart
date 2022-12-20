@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/Cards/custom_notification_card.dart';
 
+import '../../business_logic/house.dart';
 import '../../business_logic/maintenance_ticket_notification.dart';
 import '../Cards/ApproveTenantNotification.dart';
 import '../Cards/InviteTenantNotificationCard.dart';
@@ -14,9 +15,10 @@ import '../Listviews/CardSliverListView.dart';
 
 class NotificationSearch extends StatefulWidget {
   final Landlord landlord;
+  final House house;
   final List<QueryDocumentSnapshot> documents;
   const NotificationSearch(
-      {Key? key, required this.landlord, required this.documents})
+      {Key? key, required this.landlord, required this.documents, required this.house})
       : super(key: key);
 
   @override
@@ -83,6 +85,7 @@ class _NotificationSearchState extends State<NotificationSearch> {
               switch (document.get("Name")) {
                 case "MaintenanceTicket":
                   return MaintenanceTicketNotificationCard(
+                    house: widget.house,
                     landlord: widget.landlord,
                     document: document,);
  

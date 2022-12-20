@@ -7,14 +7,13 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
-import 'package:notification_app/main.dart';
-import 'package:notification_app/widgets/Buttons/CallToActionButton.dart';
 
 import 'package:signature/signature.dart';
 
 import '../../services/network.dart';
 import '../../services/notification/download_lease_notification.dart';
 import '../../services/web_network.dart';
+import '../buttons/CallToActionButton.dart';
 
 class DownloadLeaseNotificationCard extends StatefulWidget {
   final QueryDocumentSnapshot document;

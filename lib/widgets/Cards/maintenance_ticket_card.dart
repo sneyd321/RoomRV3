@@ -1,17 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 
-import '../Buttons/IconTextColumn.dart';
 import '../Navigation/navigation.dart';
+import '../buttons/IconTextColumn.dart';
 
 class MaintenanceTicketNotificationCard extends StatefulWidget {
   final Landlord landlord;
+  final House house;
   final QueryDocumentSnapshot document;
 
   const MaintenanceTicketNotificationCard(
-      {Key? key, required this.document, required this.landlord})
+      {Key? key, required this.document, required this.landlord, required this.house})
       : super(key: key);
 
   @override
@@ -50,7 +52,7 @@ class _MaintenanceTicketNotificationCardState
                       image: DecorationImage(
                         fit: BoxFit.fill,
                         image: Image.network(
-                          "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_4.jpg",
+                          widget.document.get("data")['imageURL'],
                         ).image,
                       )),
                 ),
@@ -69,7 +71,7 @@ class _MaintenanceTicketNotificationCardState
                         text: "Comment",
                         onClick: () {
                           Navigation().navigateToCommentsPage(
-                              context, widget.landlord, "UEWUV6", 1);
+                              context, widget.landlord, widget.house.houseKey, widget.document.get("data")["maintenanceTicketId"]);
                         }),
                     IconTextColumn(
                         profileColor: Colors.blueGrey,

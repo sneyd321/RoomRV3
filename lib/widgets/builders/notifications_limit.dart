@@ -39,7 +39,7 @@ class _NotificationLimitState extends State<NotificationLimit> {
             snapshot.data!.docs;
     
         return NotificationSearch(
-            landlord: widget.landlord, documents: queryDocumentSnapshots);
+            landlord: widget.landlord, documents: queryDocumentSnapshots, house: widget.house,);
       },
     );
   }
