@@ -44,7 +44,6 @@ class LeaseCompleteCard extends StatelessWidget {
               child: Text(
                   "Created on: ${parseTimestamp(notification["dateCreated"])}"),
             ),
-            isThreeLine: true,
           ),
           SecondaryButton(Icons.open_in_browser, "Open Lease", (context) async {
             Network network = Network();

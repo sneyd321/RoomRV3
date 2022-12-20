@@ -47,14 +47,15 @@ class _NotificationSearchState extends State<NotificationSearch> {
           child: TextField(
             controller: searchTextEditingController,
             onChanged: (value) {
-              setState(() {
-                queryDocumentSnapshots = widget.documents.where((element) {
+              queryDocumentSnapshots = widget.documents.where((element) {
                   return element
                       .data()
                       .toString()
                       .toLowerCase()
                       .contains(value.toLowerCase());
                 }).toList();
+              setState(() {
+                
               });
             },
             decoration: InputDecoration(
@@ -73,7 +74,7 @@ class _NotificationSearchState extends State<NotificationSearch> {
                   }),
                 ),
                 hintStyle: TextStyle(color: Colors.grey[800]),
-                hintText: "Search Keywords",
+                hintText: "Search Notifications",
                 fillColor: Colors.white70),
           ),
         ),
@@ -81,7 +82,7 @@ class _NotificationSearchState extends State<NotificationSearch> {
           child: CardSliverListView(
             items: queryDocumentSnapshots,
             builder: (context, index) {
-              QueryDocumentSnapshot document = widget.documents[index];
+              QueryDocumentSnapshot document = queryDocumentSnapshots[index];
               switch (document.get("Name")) {
                 case "MaintenanceTicket":
                   return MaintenanceTicketNotificationCard(

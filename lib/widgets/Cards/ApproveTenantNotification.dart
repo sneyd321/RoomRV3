@@ -91,7 +91,11 @@ class _ApproveTenantNotificationCardState
               style: const TextStyle(fontSize: 16),
             ),
             subtitle: const Text("Has signed the lease"),
-            trailing: const Icon(Icons.chevron_right_rounded)),
+            trailing: IconButton(
+              onPressed: () {
+                showNotificationDialog();
+              },
+              icon: const Icon(Icons.chevron_right_rounded))),
       ),
     );
   }

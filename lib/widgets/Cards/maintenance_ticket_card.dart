@@ -128,7 +128,11 @@ class _MaintenanceTicketNotificationCardState
               title: const Text("Maintenance Ticket Reported"),
               subtitle: Text(
                   "Reported on: ${parseTimestamp(widget.document.get("dateCreated"))}"),
-              trailing: const Icon(Icons.chevron_right_rounded)),
+              trailing: IconButton(
+                onPressed: () {
+                  showMaintenanceTicketDialog();
+                },
+                icon: const Icon(Icons.chevron_right_rounded))),
         ]),
       ),
     );
