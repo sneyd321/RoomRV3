@@ -29,7 +29,7 @@ class _CardSliverListViewState extends State<CardSliverListView> {
         shrinkWrap: widget.shrinkWrap,
         semanticChildCount: widget.items.length,
         cacheExtent: 1000,
-        physics: const BouncingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         slivers: [
           SliverList(
             delegate: SliverChildBuilderDelegate(widget.builder, childCount: widget.items.length))

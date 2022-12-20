@@ -194,7 +194,7 @@ class Password extends Field {
   @override
   String? validate() {
     if (value.isEmpty) {
-      return "Please enter a password";
+      return "Please enter a password.";
     }
     return null;
   }
@@ -206,7 +206,7 @@ class ReTypePassword extends Field {
   @override
   String? validate() {
     if (value.isEmpty) {
-      return "Please enter your password again";
+      return "Please enter your password again.";
     }
     return null;
   }
@@ -214,7 +214,7 @@ class ReTypePassword extends Field {
   @override
   String? validatePassword(String password) {
     if (value.isEmpty) {
-      return "Please enter your password again";
+      return "Please enter your password again.";
     }
     if (value != password) {
       return "Please enter the same password";
@@ -246,7 +246,7 @@ class CommentField extends Field {
   @override
   String? validate() {
     if (value.isEmpty) {
-      return "Please enter a comment";
+      return "Please enter a comment.";
     }
     return null;
   }
@@ -260,7 +260,7 @@ class TitleField extends Field {
   @override
   String? validate() {
     if (value.isEmpty) {
-      return "Please enter a comment";
+      return "Please enter a subject.";
     }
     return null;
   }
@@ -274,7 +274,7 @@ class BodyField extends Field {
   @override
   String? validate() {
     if (value.isEmpty) {
-      return "Please enter a comment";
+      return "Please enter content";
     }
     return null;
   }

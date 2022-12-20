@@ -34,7 +34,7 @@ class _AddNotificationFormState extends State<AddNotificationForm> {
               margin: const EdgeInsets.only(bottom: 8),
               child: SuggestedFormField(
                 textEditingController: textEditingController,
-                label: "Title",
+                label: "Subject",
                 icon: Icons.label,
                 onSaved: (String? value) {
                   title = TitleField(value!);
@@ -48,14 +48,14 @@ class _AddNotificationFormState extends State<AddNotificationForm> {
             Container(
               margin: const EdgeInsets.all(8),
               child: TextFormField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   maxLines: null,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.red)),
-                    prefixIcon: Icon(Icons.monetization_on),
-                    labelText: "Body",
+                    prefixIcon: Icon(Icons.subject),
+                    labelText: "Content",
                   ),
                   onSaved: (String? value) {
                     body = BodyField(value!);

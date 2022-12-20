@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:notification_app/main.dart';
 
 import '../../business_logic/comment.dart';
+import '../buttons/ProfilePicture.dart';
 
 class FromCommentCard extends StatelessWidget {
   final Comment comment;
@@ -41,21 +43,20 @@ class FromCommentCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const CircleAvatar(
-              child: Icon(
-                Icons.account_circle,
-              ),
-            ),
-            
+            ProfilePicture(
+              icon: Icons.abc,
+                profileURL: comment.profileURL,
+                text: comment.getFullName(),
+                profileColor: Colors.blueGrey,
+                textColor: Color(primaryColour),
+                onClick: () {
+               
+                }),
             Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 4),
-                    padding: const EdgeInsets.all(8),
-                    child: Text(comment.getFullName())),
                   Container(
                     margin: const EdgeInsets.only(left: 8),
                     padding: const EdgeInsets.all(8),
@@ -65,18 +66,16 @@ class FromCommentCard extends StatelessWidget {
                     child: getCommentType(comment),
                   ),
                   Container(
-                      margin: const EdgeInsets.only(bottom: 4, left: 4, top: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(comment.timestamp.getCurrentTimestamp()),
-                    ),
-                
+                    margin: const EdgeInsets.only(bottom: 4, left: 4, top: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(comment.timestamp.getCurrentTimestamp()),
+                  ),
                 ],
               ),
             ),
             const Spacer(
               flex: 1,
             ),
-            
           ],
         ),
       ),

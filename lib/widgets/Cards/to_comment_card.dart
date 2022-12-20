@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:notification_app/main.dart';
 
 import '../../business_logic/comment.dart';
+import '../buttons/ProfilePicture.dart';
 
 class ToCommentCard extends StatelessWidget {
   final Comment comment;
@@ -50,10 +52,6 @@ class ToCommentCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(right: 4),
-                    padding: const EdgeInsets.all(8),
-                    child: Text(comment.getFullName())),
-                  Container(
                     margin: const EdgeInsets.only(right: 8),
                     padding: const EdgeInsets.all(8),
                     decoration: const BoxDecoration(
@@ -62,19 +60,25 @@ class ToCommentCard extends StatelessWidget {
                     child: getCommentType(comment),
                   ),
                   Container(
-                      margin: const EdgeInsets.only(bottom: 4, right: 4, top: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(comment.timestamp.getCurrentTimestamp()),
-                    ),
-                
+                    margin: const EdgeInsets.only(bottom: 4, right: 4, top: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(comment.timestamp.getCurrentTimestamp()),
+                  ),
                 ],
               ),
             ),
-            const CircleAvatar(
-              child: Icon(
-                Icons.account_circle,
-              ),
-            ),
+            ProfilePicture(
+              icon: Icons.account_circle,
+                profileURL: comment.profileURL,
+                text: comment.getFullName(),
+                profileColor: Colors.blueGrey,
+                textColor: Color(primaryColour),
+                onClick: () {
+                  const snackBar = SnackBar(
+                    content: Text('To add photo go to more > edit profile'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }),
           ],
         ),
       ),

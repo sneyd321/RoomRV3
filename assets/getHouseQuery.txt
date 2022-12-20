@@ -20,15 +20,7 @@ query getHouse($houseKey: String!){
                 contact
                 }
             },
-        landlordAddress{
-            streetNumber,
-            streetName,
-            city,
-            province,
-            postalCode,
-            unitNumber,
-            poBox
-        },
+        
         rentalAddress {
             streetNumber,
             streetName,

@@ -10,6 +10,7 @@ import 'package:notification_app/pages/sign_up_page.dart';
 import 'package:notification_app/pages/store_page.dart';
 
 import '../../pages/add_lease_view_pager.dart';
+import '../../pages/comments_page.dart';
 import '../../pages/house_menu_page.dart';
 import '../../pages/notification_page.dart';
 
@@ -24,13 +25,25 @@ class Navigation {
     );
   }
 
+  void navigateToCommentsPage(BuildContext context, Landlord landlord,
+      String houseKey, int maintenanceTicketId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => CommentsPage(
+                houseKey: houseKey,
+                maintenanceTicketId: maintenanceTicketId,
+                landlord: landlord,
+              )),
+    );
+  }
+
   void navigateToProfilePage(BuildContext context, Landlord landlord) {
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => ProfilePage(
                 landlord: landlord,
-      
               )),
     );
   }
@@ -47,7 +60,8 @@ class Navigation {
     );
   }
 
-  Future<bool?> navigateToHousesPage(BuildContext context, Landlord landlord) async {
+  Future<bool?> navigateToHousesPage(
+      BuildContext context, Landlord landlord) async {
     return await Navigator.push<bool>(
         context,
         MaterialPageRoute(
@@ -65,7 +79,8 @@ class Navigation {
     );
   }
 
-  Future<Landlord?> navigateToEditProfilePage(BuildContext context, Landlord landlord) async {
+  Future<Landlord?> navigateToEditProfilePage(
+      BuildContext context, Landlord landlord) async {
     return await Navigator.push<Landlord>(
       context,
       MaterialPageRoute(
@@ -76,28 +91,25 @@ class Navigation {
     );
   }
 
-
   void navigateToHouseMenuPage(
       BuildContext context, House house, Landlord landlord) {
-        Navigator.of(context).push(PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => HouseMenuPage(house: house, landlord: landlord,),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-   
-
-      final tween = Tween(begin: 0, end: 1);
-      final offsetAnimation = animation.drive(tween);
-      return child;
-    },)
-  );
-  
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => HouseMenuPage(
+        house: house,
+        landlord: landlord,
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        final tween = Tween(begin: 0, end: 1);
+        final offsetAnimation = animation.drive(tween);
+        return child;
+      },
+    ));
   }
-
 
   Future<LoginLandlord?> navigateToSignUpPage(BuildContext context) async {
     return await Navigator.push<LoginLandlord>(
       context,
-      MaterialPageRoute(
-          builder: (context) => const SignUpPage()),
+      MaterialPageRoute(builder: (context) => const SignUpPage()),
     );
   }
 

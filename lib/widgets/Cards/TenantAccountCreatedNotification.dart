@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
+import 'package:notification_app/business_logic/tenant.dart';
 
-import '../../services/network.dart';
-import '../../services/web_network.dart';
+import 'AddTenantCard.dart';
+
 
 class TenantAccountCreatedNotification extends StatefulWidget {
   final QueryDocumentSnapshot document;
@@ -18,30 +17,48 @@ class TenantAccountCreatedNotification extends StatefulWidget {
 
 class _TenantAccountCreatedNotificationState
     extends State<TenantAccountCreatedNotification> {
-  late Map<String, dynamic> data;
-  late String path;
-  @override
-  void initState() {
-    super.initState();
-    data = widget.document.data() as Map<String, dynamic>;
-    path = widget.document.reference.path;
+
+      void showTenantDialog() {
+    Tenant tenant = Tenant();
+    tenant.firstName = widget.document["data"]["firstName"];
+    tenant.lastName = widget.document["data"]["lastName"];
+    tenant.email = widget.document["data"]["email"];
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: AddTenantCard(
+                houseKey: widget.document["houseKey"],
+                tenant: tenant,
+                isDeleteVisible: false,
+                onDeleteTenant: (tenantToBeDeleted) {
+                  
+                }),
+          );
+        });
   }
+  
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      color: Colors.white,
-      child: ListTile(
-        visualDensity: VisualDensity(vertical: 0.5),
-        isThreeLine: true,
-        leading: const CircleAvatar(child: Icon(Icons.account_circle)),
-        title: Text(
-          "${data["data"]["firstName"]} ${data["data"]["lastName"]}",
-          style: const TextStyle(fontSize: 16),
+    return GestureDetector(
+      onTap: () {
+        showTenantDialog();
+      },
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: Colors.white,
+        child: ListTile(
+          visualDensity: VisualDensity(vertical: 0.5),
+          leading: const CircleAvatar(child: Icon(Icons.account_circle, color: Colors.white,), backgroundColor: Colors.amber,),
+          title: Text(
+            "${widget.document.get("data")["firstName"]} ${widget.document.get("data")["lastName"]}",
+            style: const TextStyle(fontSize: 16),
+          ),
+          subtitle: const Text("Has created an account"),
+          trailing: const Icon(Icons.chevron_right_rounded),
         ),
-        subtitle: const Text("Has created an account"),
       ),
     );
   }

@@ -10,6 +10,7 @@ class Comment  {
   String email = "";
   String firstName = "";
   String lastName = "";
+  String profileURL = "";
   final Timestamp timestamp = Timestamp();
 
   String getFullName() {
@@ -68,6 +69,7 @@ class Comment  {
     email = json["email"];
     firstName = json["firstName"];
     lastName = json["lastName"];
+    profileURL = json["profileURL"];
   }
 
   Map<String, dynamic> toJson() => {
@@ -76,6 +78,7 @@ class Comment  {
       'email': email,
       'firstName': firstName,
       'lastName': lastName,
+      "profileURL": profileURL,
       "timestamp": timestamp.getCurrentDateTime()
   };
 }
@@ -91,6 +94,7 @@ class TextComment extends Comment {
     firstName = landlord.firstName;
     lastName = landlord.lastName;
     email = landlord.email;
+    profileURL = landlord.profileURL;
     name = "text";
   }
 
@@ -110,6 +114,7 @@ class ImageComment extends Comment {
     firstName = landlord.firstName;
     lastName = landlord.lastName;
     email = landlord.email;
+    profileURL = landlord.profileURL;
     name = "image";
   }
 

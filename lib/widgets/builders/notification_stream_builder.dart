@@ -90,10 +90,8 @@ class _NotificationStreamBuilderState extends State<NotificationStreamBuilder> {
                 case "MaintenanceTicket":
                   return MaintenanceTicketNotificationCard(
                     landlord: widget.landlord,
-                    maintenanceTicketNotification:
-                        MaintenanceTicketNotification.fromJson(
-                            document.data() as Map<String, dynamic>),
-                  );
+                    document: document);
+                  
                 case "DownloadLease":
                   return DownloadLeaseNotificationCard(
                     document: document,

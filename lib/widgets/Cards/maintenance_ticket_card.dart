@@ -1,79 +1,134 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 
-import '../../business_logic/maintenance_ticket_notification.dart';
-import '../../pages/maintenance_ticket_pages/comments_page.dart';
-import '../Buttons/SecondaryButton.dart';
+import '../Buttons/IconTextColumn.dart';
+import '../Navigation/navigation.dart';
 
-class MaintenanceTicketNotificationCard extends StatelessWidget {
+class MaintenanceTicketNotificationCard extends StatefulWidget {
   final Landlord landlord;
-  final MaintenanceTicketNotification maintenanceTicketNotification;
+  final QueryDocumentSnapshot document;
 
   const MaintenanceTicketNotificationCard(
-      {Key? key, required this.maintenanceTicketNotification, required this.landlord})
+      {Key? key, required this.document, required this.landlord})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      color: Colors.white,
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-          ListTile(
-           visualDensity: VisualDensity(vertical: 0.5),
-                isThreeLine: true,
-            leading: const CircleAvatar(child: Icon(Icons.build)),
-            title: const Text("New Maintenance Ticket Reported"),
-            subtitle: Text("Reported by: ${maintenanceTicketNotification.getFullName()}"),
-            trailing: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              child: ElevatedButton(
-                  style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                          const EdgeInsets.all(25)),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              side: const BorderSide(color: Colors.black)))),
-                  onPressed: () async {
-                    
-                    showDialog(
-                        barrierDismissible: true,
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                          
-                            content: Container(
-                              constraints: const BoxConstraints(maxWidth: 400),
-                              width: MediaQuery.of(context).size.width,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text("data")
-                                 
-                                 
-                                ],
-                              ),
-                            ),
+  State<MaintenanceTicketNotificationCard> createState() =>
+      _MaintenanceTicketNotificationCardState();
+}
+
+class _MaintenanceTicketNotificationCardState
+    extends State<MaintenanceTicketNotificationCard> {
+  String parseTimestamp(Timestamp timestamp) {
+    return DateFormat('dd/MM/yyyy').format(timestamp.toDate());
+  }
+
+  void showMaintenanceTicketDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Maintenance Ticket #${widget.document.get("data")["maintenanceTicketId"]}",
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Text("Date Issued: ${parseTimestamp(widget.document.get("dateCreated"))}",
+                    style:
+                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  height: 200,
+                  decoration: BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: Image.network(
+                          "https://storage.googleapis.com/roomr-222721.appspot.com/MaintenanceTicket/MaintenanceTicket_4.jpg",
+                        ).image,
+                      )),
+                ),
+                Container(
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(widget.document.get("data")["description"])),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconTextColumn(
+                        profileColor: Colors.blueGrey,
+                        iconColor: Colors.white,
+                        textColor: Colors.black,
+                        icon: Icons.comment,
+                        text: "Comment",
+                        onClick: () {
+                          Navigation().navigateToCommentsPage(
+                              context, widget.landlord, "UEWUV6", 1);
+                        }),
+                    IconTextColumn(
+                        profileColor: Colors.blueGrey,
+                        iconColor: Colors.white,
+                        textColor: Colors.black,
+                        icon: Icons.date_range,
+                        text: "Schedule",
+                        onClick: () {
+                          const snackBar = SnackBar(
+                            content: Text('Feature Coming Soon'),
                           );
-                        });
-                  },
-                  child: const Text(
-                    "View Details",
-                    style: TextStyle(fontSize: 16),
-                  )),
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }),
+                    IconTextColumn(
+                        profileColor: Colors.blueGrey,
+                        iconColor: Colors.white,
+                        textColor: Colors.black,
+                        icon: Icons.call,
+                        text: "Call Tenant",
+                        onClick: () {
+                          const snackBar = SnackBar(
+                            content: Text('Feature Coming Soon'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }),
+                  ],
+                )
+              ],
             ),
-          )
-        
-         
-        
-      ]),
+          );
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        showMaintenanceTicketDialog();
+      },
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: Colors.white,
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          ListTile(
+              visualDensity: VisualDensity(vertical: 0.5),
+              leading: const CircleAvatar(
+                child: Icon(
+                  Icons.build,
+                  color: Colors.white,
+                ),
+                backgroundColor: Colors.red,
+              ),
+              title: const Text("Maintenance Ticket Reported"),
+              subtitle: Text(
+                  "Reported on: ${parseTimestamp(widget.document.get("dateCreated"))}"),
+              trailing: const Icon(Icons.chevron_right_rounded)),
+        ]),
+      ),
     );
   }
 }
