@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/widgets/Buttons/ProfilePicture.dart';
+import 'package:notification_app/widgets/buttons/ProfilePicture.dart';
 import 'package:notification_app/widgets/buttons/IconTextColumn.dart';
 
 import '../../business_logic/house.dart';

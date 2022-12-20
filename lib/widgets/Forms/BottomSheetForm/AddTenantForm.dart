@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/tenant.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
+import 'package:notification_app/widgets/buttons/PrimaryButton.dart';
 
 import '../../../business_logic/fields/field.dart';
 import '../../../graphql/mutation_helper.dart';
 import '../../../graphql/graphql_client.dart';
-import '../../Buttons/SecondaryButton.dart';
+import '../../buttons/SecondaryButton.dart';
 import '../../FormFields/SimpleFormField.dart';
 import '../FormRow/TwoColumnRow.dart';
 
