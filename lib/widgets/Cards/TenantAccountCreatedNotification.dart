@@ -57,7 +57,11 @@ class _TenantAccountCreatedNotificationState
             style: const TextStyle(fontSize: 16),
           ),
           subtitle: const Text("Has created an account"),
-          trailing: const Icon(Icons.chevron_right_rounded),
+          trailing: IconButton(
+            onPressed: () {
+              showTenantDialog();
+            },
+            icon: const Icon(Icons.chevron_right_rounded)),
         ),
       ),
     );
