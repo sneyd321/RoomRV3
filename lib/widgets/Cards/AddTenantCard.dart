@@ -1,14 +1,11 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/tenant.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 
-import '../Buttons/ProfilePicture.dart';
-import '../Forms/FormRow/TwoColumnRow.dart';
+import '../buttons/ProfilePicture.dart';
 
 class AddTenantCard extends StatelessWidget {
   final Tenant tenant;

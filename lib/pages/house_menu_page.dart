@@ -5,7 +5,7 @@ import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/main.dart';
 import 'package:notification_app/services/FirebaseConfig.dart';
-import 'package:notification_app/widgets/Buttons/TenantRow.dart';
+import 'package:notification_app/widgets/buttons/TenantRow.dart';
 import 'package:notification_app/widgets/Cards/HouseMenuCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNotificationForm.dart';
 import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';

@@ -3,12 +3,10 @@ import 'package:notification_app/business_logic/fields/date.dart';
 import 'package:notification_app/business_logic/partial_period.dart';
 import 'package:notification_app/business_logic/rental_period.dart';
 import 'package:notification_app/business_logic/tenancy_terms.dart';
-import 'package:notification_app/widgets/Buttons/PrimaryButton.dart';
 import 'package:notification_app/widgets/Forms/FormRow/HalfRow.dart';
-import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
-import 'package:provider/provider.dart';
 
-import '../../Buttons/SecondaryButton.dart';
+
+import '../../buttons/SecondaryButton.dart';
 import '../../Cards/PartialPeriodCard.dart';
 import '../../FormFields/SimpleDatePicker.dart';
 import '../../FormFields/SimpleRadioGroup.dart';

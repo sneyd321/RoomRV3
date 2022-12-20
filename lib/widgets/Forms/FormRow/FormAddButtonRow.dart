@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 
-import '../../Buttons/SecondaryButton.dart';
+import '../../buttons/SecondaryButton.dart';
 import '../../buttons/Button.dart';
 
 class FormAddButtonRow extends StatefulWidget {

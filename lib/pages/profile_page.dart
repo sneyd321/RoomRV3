@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/main.dart';
-import 'package:notification_app/widgets/Buttons/ProfilePicture.dart';
 
 import '../business_logic/address.dart';
 import '../business_logic/fields/field.dart';
@@ -22,6 +21,7 @@ import '../widgets/FormFields/SimpleFormField.dart';
 import '../widgets/Forms/FormRow/TwoColumnRow.dart';
 import '../widgets/buttons/CallToActionButton.dart';
 import '../widgets/buttons/MemoryPhoto.dart';
+import '../widgets/buttons/ProfilePicture.dart';
 
 class ProfilePage extends StatefulWidget {
   final Landlord landlord;

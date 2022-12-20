@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/tenant.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
-import 'package:notification_app/widgets/Forms/BottomSheetForm/UpdateTenantEmailForm.dart';
-import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
-import 'package:universal_html/html.dart';
 
 import 'AddTenantCard.dart';
 
