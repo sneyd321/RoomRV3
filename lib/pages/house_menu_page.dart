@@ -27,6 +27,7 @@ class HouseMenuPage extends StatefulWidget {
 
 class _HouseMenuPageState extends State<HouseMenuPage> {
   List<Widget> tenantWidgets = [];
+  FocusNode inputNode = FocusNode();
 
   final ScrollController scrollController = ScrollController();
 
@@ -53,7 +54,6 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
             house: widget.house,
             landlord: widget.landlord,
             onSearchFocus: () {
-              FocusNode inputNode = FocusNode();
               FocusScope.of(context).requestFocus(inputNode);
               scrollController.animateTo(
                 scrollController.position.maxScrollExtent,
@@ -85,9 +85,8 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
   }
 
   void closeKeyboard(BuildContext context) {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
+    if (!inputNode.hasPrimaryFocus) {
+      inputNode.unfocus();
     }
   }
 
@@ -242,7 +241,12 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
                     color: const Color(primaryColour),
                     child: TabBar(
                       onTap: (value) {
-                        closeKeyboard(context);
+                        if (value == 0) {
+                          FocusScope.of(context).requestFocus(inputNode);
+                        }
+                        if (value == 1) {
+                          closeKeyboard(context);
+                        }
                       },
                       tabs: const [
                         Tab(
