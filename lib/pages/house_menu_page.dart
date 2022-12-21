@@ -212,6 +212,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
         child: DefaultTabController(
           length: 2,
           child: Scaffold(
+            resizeToAvoidBottomInset: true,
             body: NestedScrollView(
               controller: scrollController,
               headerSliverBuilder:
