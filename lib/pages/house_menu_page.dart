@@ -239,8 +239,11 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
                   ColoredBox(
                     color: const Color(primaryColour),
                     child: TabBar(
-                      onTap: (value) {
-                        closeKeyboard(context);
+                      onTap: (pageIndex) {
+                        if (pageIndex == 1) {
+                          closeKeyboard(context);
+                        }
+                        
                       },
                       tabs: const [
                         Tab(
