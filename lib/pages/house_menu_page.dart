@@ -12,6 +12,7 @@ import 'package:notification_app/widgets/builders/notifications_limit.dart';
 
 import '../business_logic/address.dart';
 import '../graphql/graphql_client.dart';
+import '../graphql/mutation_helper.dart';
 import '../widgets/Navigation/navigation.dart';
 
 class HouseMenuPage extends StatefulWidget {
@@ -26,7 +27,7 @@ class HouseMenuPage extends StatefulWidget {
 
 class _HouseMenuPageState extends State<HouseMenuPage> {
   List<Widget> tenantWidgets = [];
-  final List<String> items = const ["Edit Lease", "Purchase Apps"];
+
   final ScrollController scrollController = ScrollController();
 
   String parsePrimaryAddress(House house) {
@@ -61,7 +62,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
           ),
         ),
         Container(
-          color: Colors.transparent,
+            color: Colors.transparent,
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
             alignment: Alignment.topRight,
             child: FloatingActionButton.extended(
@@ -81,56 +82,130 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
     );
   }
 
+  void closeKeyboard(BuildContext context) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   Widget rightPanel() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TenantRow(house: widget.house),
-        Container(
-            margin: const EdgeInsets.all(8),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              "My Apps",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            )),
-        Container(
-          margin: const EdgeInsets.all(8),
-          child: ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: ((context, index) {
-                return GestureDetector(
-                  onTap: () async {
-                    switch (index) {
-                      case 0:
-                        Navigation()
-                            .navigateToEditLeasePage(context, widget.house);
-                        break;
-                      case 1:
-                        Navigation().navigateToStore(context, widget.landlord);
-                        break;
-                    }
-                  },
-                  child: ListTile(
-                    title: Text(
-                      items[index],
-                      style: const TextStyle(color: Color(primaryColour)),
+    return Container(
+        margin: const EdgeInsets.all(8),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          TenantRow(house: widget.house),
+          Container(
+              margin: const EdgeInsets.all(8),
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                "My Apps",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              )),
+          GestureDetector(
+            onTap: () {
+              Navigation().navigateToEditLeasePage(context, widget.house);
+            },
+            child: const ListTile(
+              title: Text(
+                "Edit Lease",
+                style: TextStyle(color: Color(primaryColour)),
+              ),
+              trailing: Icon(
+                Icons.chevron_right_rounded,
+                color: Color(primaryColour),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Color(primaryColour),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigation().navigateToStore(context, widget.landlord);
+            },
+            child: const ListTile(
+              title: Text(
+                "Purchase Apps",
+                style: TextStyle(color: Color(primaryColour)),
+              ),
+              trailing: Icon(
+                Icons.chevron_right_rounded,
+                color: Color(primaryColour),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.red,
+          ),
+          GestureDetector(
+            onTap: () {
+              showDeleteDialog();
+            },
+            child: const ListTile(
+              title: Text(
+                "Delete House",
+                style: TextStyle(color: Colors.red),
+              ),
+              trailing: Icon(
+                Icons.chevron_right_rounded,
+                color: Colors.red,
+              ),
+            ),
+          )
+        ]));
+  }
+
+  void showDeleteDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return GraphQLProvider(
+          client: GQLClient().getClient(),
+          child: MutationHelper(
+            builder: (runMutation) {
+              return AlertDialog(
+                  actions: [
+                    TextButton(
+                      child: const Text('No'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
-                    trailing: const Icon(
-                      Icons.chevron_right_rounded,
-                      color: Color(primaryColour),
+                    TextButton(
+                      child: const Text('Yes'),
+                      onPressed: () {
+                        runMutation({"houseId": widget.house.houseId});
+                      },
                     ),
-                  ),
-                );
-              }),
-              separatorBuilder: (context, index) {
-                Color color = const Color(primaryColour);
-                return Divider(
-                  color: color,
-                );
-              },
-              itemCount: items.length),
-        ),
-      ],
+                  ],
+                  content: Row(
+                    children: const [
+                      CircleAvatar(
+                        backgroundColor: Colors.red,
+                        child: Icon(
+                          Icons.warning,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Flexible(
+                        child: Text(
+                          "This will delete your property and all of your tenants.\nThis means tenants will NOT have access to your property.\nDo you still want to delete your property?",
+                          softWrap: true,
+                        ),
+                      ),
+                    ],
+                  ));
+            },
+            mutationName: 'deleteHouse',
+            onComplete: (json) {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -161,10 +236,13 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
               },
               body: Column(
                 children: [
-                  const ColoredBox(
-                    color: Color(primaryColour),
+                  ColoredBox(
+                    color: const Color(primaryColour),
                     child: TabBar(
-                      tabs: [
+                      onTap: (value) {
+                        closeKeyboard(context);
+                      },
+                      tabs: const [
                         Tab(
                           icon: Icon(Icons.notifications),
                           text: "Notifications",
