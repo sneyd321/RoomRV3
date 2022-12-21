@@ -232,11 +232,13 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
               },
               body: Column(
                 children: [
-                  const ColoredBox(
-                    color: Color(primaryColour),
+                  ColoredBox(
+                    color: const Color(primaryColour),
                     child: TabBar(
-                    
-                      tabs: [
+                    onTap: (value) {
+                      FocusScope.of(context).requestFocus(FocusNode()); 
+                    },
+                      tabs: const [
                         Tab(
                           icon: Icon(Icons.notifications),
                           text: "Notifications",
