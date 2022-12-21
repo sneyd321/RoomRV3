@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/house.dart';
@@ -27,10 +26,7 @@ class HouseMenuPage extends StatefulWidget {
 
 class _HouseMenuPageState extends State<HouseMenuPage> {
   List<Widget> tenantWidgets = [];
-  final List<String> items = const [
-    "Edit Lease",
-    "Purchase Apps"
-  ];
+  final List<String> items = const ["Edit Lease", "Purchase Apps"];
 
   String parsePrimaryAddress(House house) {
     RentalAddress rentalAddress = house.lease.rentalAddress;
@@ -60,12 +56,13 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
             alignment: Alignment.topRight,
             child: FloatingActionButton.extended(
               onPressed: () {
-                BottomSheetHelper(AddNotificationForm(names: const ["24 Hours Notice"], onSave: ((context, title, body) {
-                  FirebaseConfiguration().setCustomNotification(widget.house, widget.landlord, title, body);
-                  setState(() {
-                    
-                  });
-                }))).show(context);
+                BottomSheetHelper(AddNotificationForm(
+                    names: const ["24 Hours Notice"],
+                    onSave: ((context, title, body) {
+                      FirebaseConfiguration().setCustomNotification(
+                          widget.house, widget.landlord, title, body);
+                      setState(() {});
+                    }))).show(context);
               },
               label: const Text("Compose Notification"),
               icon: const Icon(Icons.draw),
@@ -75,7 +72,6 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
   }
 
   Widget rightPanel() {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -96,10 +92,11 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
                   onTap: () async {
                     switch (index) {
                       case 0:
-                        Navigation().navigateToEditLeasePage(context, widget.house);
+                        Navigation()
+                            .navigateToEditLeasePage(context, widget.house);
                         break;
                       case 1:
-                      Navigation().navigateToStore(context, widget.landlord);
+                        Navigation().navigateToStore(context, widget.landlord);
                         break;
                     }
                   },
@@ -116,14 +113,13 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
                 );
               }),
               separatorBuilder: (context, index) {
-                 Color color = const Color(primaryColour);
+                Color color = const Color(primaryColour);
                 return Divider(
                   color: color,
                 );
               },
               itemCount: items.length),
         ),
-       
       ],
     );
   }
@@ -134,41 +130,49 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
       client: GQLClient().getClient(),
       child: SafeArea(
         child: DefaultTabController(
-          
           length: 2,
           child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(200),
-              child: AppBar(
-                flexibleSpace: HouseMenuCard(
-                    house: widget.house, landlord: widget.landlord),
+            body: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  SliverAppBar(
+                    pinned: true,
+                    snap: false,
+                    floating: false,
+                    expandedHeight: 200.0,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background:  HouseMenuCard(
+                      house: widget.house, landlord: widget.landlord),
+                    ),
+                  )
+                ];
+              },
+              body: Column(
+                children: [
+                  const ColoredBox(
+                    color: Color(primaryColour),
+                    child: TabBar(
+                      tabs: [
+                        Tab(
+                          icon: Icon(Icons.notifications),
+                          text: "Notifications",
+                        ),
+                        Tab(
+                          icon: Icon(Icons.home),
+                          text: "Manage",
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [leftPanel(), rightPanel()],
+                    ),
+                  ),
+                ],
               ),
-            ),
-           
-            body: Column(
-              children: [
-                const ColoredBox(
-                  color: Color(primaryColour),
-                  child: TabBar(
-                    tabs: [
-                      Tab(
-                        icon: Icon(Icons.notifications),
-                        text: "Notifications",
-                      ),
-                      Tab(
-                        icon: Icon(Icons.home),
-                        text: "Manage",
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [leftPanel(), rightPanel()],
-                  ),
-                ),
-              ],
             ),
           ),
         ),

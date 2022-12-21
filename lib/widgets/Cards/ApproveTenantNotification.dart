@@ -1,6 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:notification_app/services/network.dart';
+import 'package:notification_app/widgets/buttons/CallToActionButton.dart';
 import 'package:universal_html/html.dart';
+
+import '../../services/web_network.dart';
 
 class ApproveTenantNotificationCard extends StatefulWidget {
   final QueryDocumentSnapshot document;
@@ -15,6 +20,26 @@ class ApproveTenantNotificationCard extends StatefulWidget {
 class _ApproveTenantNotificationCardState
     extends State<ApproveTenantNotificationCard> {
   String errorText = "";
+  
+
+  void onDownloadLease() async {
+    if (widget.document.get("data")["documentURL"] == "") {
+      setState(() {
+        errorText =
+            "Download link is missing. Please tell landlord to re generate lease and invite again.";
+      });
+    }
+    if (kIsWeb) {
+      WebNetwork webNetwork = WebNetwork();
+      String filePath = webNetwork.downloadFromURL(widget.document.get("data")["documentURL"]);
+      webNetwork.openFile(filePath);
+    } else {
+      Network network = Network();
+      String filePath =
+          await network.downloadFromURL(widget.document.get("data")["documentURL"], "Standard_Lease_Agreement.pdf");
+      network.openFile(filePath);
+    }
+  }
 
   void showNotificationDialog() {
     showDialog(
@@ -22,15 +47,16 @@ class _ApproveTenantNotificationCardState
         context: context,
         builder: (context) {
           return AlertDialog(
+           
+              
             content: Container(
               constraints: const BoxConstraints(maxWidth: 400),
-              width: MediaQuery.of(context).size.width,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    height: 75,
-                    margin: const EdgeInsets.all(8),
+                    height: 100,
+                    margin: const EdgeInsets.only(bottom: 8),
                     padding: const EdgeInsets.only(left: 8, right: 8),
                     decoration: BoxDecoration(
                         color: Colors.blueGrey,
@@ -49,11 +75,14 @@ class _ApproveTenantNotificationCardState
                               )),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(
-                              top: 16, bottom: 16, right: 8),
-                          child: ElevatedButton(
-                              onPressed: () {}, child: const Text("Download")),
-                        ),
+                            margin: const EdgeInsets.only(
+                                top: 16, bottom: 16, right: 8),
+                            child: CallToActionButton(
+                              text: "Download",
+                              onClick: () {
+                                onDownloadLease();
+                              },
+                            )),
                         Text(
                           errorText,
                           style: const TextStyle(color: Colors.red),
@@ -61,6 +90,8 @@ class _ApproveTenantNotificationCardState
                       ],
                     ),
                   ),
+                 
+                
                 ],
               ),
             ),
