@@ -216,230 +216,232 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           body: MutationHelper(
             builder: (runMutation) {
-              return ListView(
-                children: [
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  MutationHelper(
-                    builder: (runMutation) {
-                      return Center(
-                        child: Visibility(
-                          visible: image == null,
-                          replacement: MemoryPhoto(
-                            bytes: image?.readAsBytes(),
-                            text: widget.landlord.getFullName(),
-                            profileColor: Colors.blueGrey,
-                            profileSize: 60,
-                            iconSize: 80,
-                            textSize: 18,
-                            textColor: Color(primaryColour),
-                            onClick: () async {await openGallery(runMutation);},
-                          ),
-                          child: ProfilePicture(
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    MutationHelper(
+                      builder: (runMutation) {
+                        return Center(
+                          child: Visibility(
+                            visible: image == null,
+                            replacement: MemoryPhoto(
+                              bytes: image?.readAsBytes(),
+                              text: widget.landlord.getFullName(),
                               profileColor: Colors.blueGrey,
                               profileSize: 60,
-                              icon: Icons.add_a_photo,
                               iconSize: 80,
                               textSize: 18,
-                              profileURL: landlord.profileURL,
                               textColor: Color(primaryColour),
-                              text: widget.landlord.getFullName(),
-                              onClick: () async {
-                                await openGallery(runMutation);
-                              }),
-                        ),
-                      );
-                    },
-                    mutationName: 'scheduleLandlordProfile',
-                    onComplete: (json) {},
-                  ),
-                  Form(
-                      key: formKey,
-                      child: Column(
-                        children: [
-                          TwoColumnRow(
-                              left: SimpleFormField(
-                                label: "First Name",
-                                icon: Icons.account_circle,
-                                textEditingController:
-                                    firstNameTextEditingController,
-                                onSaved: (value) {
-                                  landlord.setFirstName(value!.trim());
-                                },
-                                field: Name(""),
-                              ),
-                              right: SimpleFormField(
-                                label: "Last Name",
-                                icon: Icons.account_circle,
-                                textEditingController:
-                                    lastNameTextEditingController,
-                                onSaved: (value) {
-                                  landlord.setLastName(value!.trim());
-                                },
-                                field: Name(""),
-                              )),
-                          SimpleFormField(
-                              label: "Phone Number",
-                              icon: Icons.phone,
-                              textEditingController:
-                                  phoneNumberTextEditingController,
-                              onSaved: (value) {
-                                landlord.setPhoneNumber(value!.trim());
-                              },
-                              field: Name("")),
-                          EmailFormField(
-                            textEditingController: emailTextEditingController,
-                            onSaved: (value) {
-                              landlord.setEmail(value.trim());
-                            },
-                          ),
-                          Container(
-                            margin: const EdgeInsets.all(8),
-                            child: Row(
-                              children: const [
-                                Icon(
-                                  Icons.lightbulb,
-                                  color: Colors.amber,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Flexible(
-                                    child: Text(
-                                  "This is the address for recieving notices or documents from your tenants",
-                                  softWrap: true,
-                                ))
-                              ],
+                              onClick: () async {await openGallery(runMutation);},
                             ),
+                            child: ProfilePicture(
+                                profileColor: Colors.blueGrey,
+                                profileSize: 60,
+                                icon: Icons.add_a_photo,
+                                iconSize: 80,
+                                textSize: 18,
+                                profileURL: landlord.profileURL,
+                                textColor: Color(primaryColour),
+                                text: widget.landlord.getFullName(),
+                                onClick: () async {
+                                  await openGallery(runMutation);
+                                }),
                           ),
-                          AddressFormField(onSuggestedAddress, streamSocket),
-                          TwoColumnRow(
-                              left: SimpleFormField(
-                                label: "Street Number",
-                                icon: Icons.numbers,
+                        );
+                      },
+                      mutationName: 'scheduleLandlordProfile',
+                      onComplete: (json) {},
+                    ),
+                    Form(
+                        key: formKey,
+                        child: Column(
+                          children: [
+                            TwoColumnRow(
+                                left: SimpleFormField(
+                                  label: "First Name",
+                                  icon: Icons.account_circle,
+                                  textEditingController:
+                                      firstNameTextEditingController,
+                                  onSaved: (value) {
+                                    landlord.setFirstName(value!.trim());
+                                  },
+                                  field: Name(""),
+                                ),
+                                right: SimpleFormField(
+                                  label: "Last Name",
+                                  icon: Icons.account_circle,
+                                  textEditingController:
+                                      lastNameTextEditingController,
+                                  onSaved: (value) {
+                                    landlord.setLastName(value!.trim());
+                                  },
+                                  field: Name(""),
+                                )),
+                            SimpleFormField(
+                                label: "Phone Number",
+                                icon: Icons.phone,
                                 textEditingController:
-                                    streetNumberTextEditingController,
-                                onSaved: (String? value) {
-                                  landlord.landlordAddress
-                                      .setStreetNumber(value!.trim());
+                                    phoneNumberTextEditingController,
+                                onSaved: (value) {
+                                  landlord.setPhoneNumber(value!.trim());
                                 },
-                                field: StreetNumber(""),
+                                field: Name("")),
+                            EmailFormField(
+                              textEditingController: emailTextEditingController,
+                              onSaved: (value) {
+                                landlord.setEmail(value.trim());
+                              },
+                            ),
+                            Container(
+                              margin: const EdgeInsets.all(8),
+                              child: Row(
+                                children: const [
+                                  Icon(
+                                    Icons.lightbulb,
+                                    color: Colors.amber,
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Flexible(
+                                      child: Text(
+                                    "This is the address for recieving notices or documents from your tenants",
+                                    softWrap: true,
+                                  ))
+                                ],
                               ),
-                              right: SimpleFormField(
-                                label: "Street Name",
-                                textEditingController:
-                                    streetNameTextEditingController,
-                                icon: Icons.route,
-                                onSaved: (String? value) {
-                                  landlord.landlordAddress
-                                      .setStreetName(value!.trim());
-                                },
-                                field: StreetName(""),
-                              )),
-                          TwoColumnRow(
-                              left: SimpleFormField(
-                                label: "City",
-                                icon: Icons.location_city,
-                                textEditingController:
-                                    cityTextEditingController,
-                                onSaved: (String? value) {
-                                  landlord.landlordAddress
-                                      .setCity(value!.trim());
-                                },
-                                field: City(""),
-                              ),
-                              right: SimpleFormField(
-                                label: "Province",
-                                icon: Icons.location_on,
-                                textEditingController:
-                                    provinceTextEditingController,
-                                onSaved: (String? value) {
-                                  landlord.landlordAddress
-                                      .setProvince(value!.trim());
-                                },
-                                field: Province(""),
-                              )),
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: SizedBox(
-                                  width:
-                                      (MediaQuery.of(context).size.width / 3) *
-                                          2,
-                                  child: SimpleFormField(
-                                      label: "Postal Code",
-                                      icon: Icons.markunread_mailbox,
-                                      textEditingController:
-                                          postalCodeTextEditingController,
-                                      onSaved: (String? value) {
-                                        landlord.landlordAddress
-                                            .setPostalCode(value!.trim());
-                                      },
-                                      field: PostalCode("")))),
-                          TwoColumnRow(
-                              left: SimpleFormField(
-                                label: "Unit Number",
-                                icon: Icons.numbers,
-                                textEditingController:
-                                    unitNumberTextEditingController,
-                                onSaved: (String? value) {
-                                  landlord.landlordAddress
-                                      .setUnitNumber(value!.trim());
-                                },
-                                field: UnitNumber(""),
-                              ),
-                              right: SimpleFormField(
-                                label: "P.O. Box",
-                                icon: Icons.markunread_mailbox,
-                                textEditingController:
-                                    poBoxTextEditingController,
-                                onSaved: (String? value) {
-                                  landlord.landlordAddress
-                                      .setPOBox(value!.trim());
-                                },
-                                field: POBox(""),
-                              ))
-                        ],
-                      )),
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    width: MediaQuery.of(context).size.width,
-                    child: CallToActionButton(
-                        text: "Update",
-                        onClick: () {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            runMutation(
-                                {"landlord": landlord.toLandlordJson()});
-                          }
-                        }),
-                  ),
-                  const Divider(
-                    height: 1,
-                    thickness: 1,
-                    color: Colors.red,
-                    indent: 8,
-                    endIndent: 8,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showDeleteProfileDialog();
-                    },
-                    child: Container(
+                            ),
+                            AddressFormField(onSuggestedAddress, streamSocket),
+                            TwoColumnRow(
+                                left: SimpleFormField(
+                                  label: "Street Number",
+                                  icon: Icons.numbers,
+                                  textEditingController:
+                                      streetNumberTextEditingController,
+                                  onSaved: (String? value) {
+                                    landlord.landlordAddress
+                                        .setStreetNumber(value!.trim());
+                                  },
+                                  field: StreetNumber(""),
+                                ),
+                                right: SimpleFormField(
+                                  label: "Street Name",
+                                  textEditingController:
+                                      streetNameTextEditingController,
+                                  icon: Icons.route,
+                                  onSaved: (String? value) {
+                                    landlord.landlordAddress
+                                        .setStreetName(value!.trim());
+                                  },
+                                  field: StreetName(""),
+                                )),
+                            TwoColumnRow(
+                                left: SimpleFormField(
+                                  label: "City",
+                                  icon: Icons.location_city,
+                                  textEditingController:
+                                      cityTextEditingController,
+                                  onSaved: (String? value) {
+                                    landlord.landlordAddress
+                                        .setCity(value!.trim());
+                                  },
+                                  field: City(""),
+                                ),
+                                right: SimpleFormField(
+                                  label: "Province",
+                                  icon: Icons.location_on,
+                                  textEditingController:
+                                      provinceTextEditingController,
+                                  onSaved: (String? value) {
+                                    landlord.landlordAddress
+                                        .setProvince(value!.trim());
+                                  },
+                                  field: Province(""),
+                                )),
+                            Align(
+                                alignment: Alignment.centerLeft,
+                                child: SizedBox(
+                                    width:
+                                        (MediaQuery.of(context).size.width / 3) *
+                                            2,
+                                    child: SimpleFormField(
+                                        label: "Postal Code",
+                                        icon: Icons.markunread_mailbox,
+                                        textEditingController:
+                                            postalCodeTextEditingController,
+                                        onSaved: (String? value) {
+                                          landlord.landlordAddress
+                                              .setPostalCode(value!.trim());
+                                        },
+                                        field: PostalCode("")))),
+                            TwoColumnRow(
+                                left: SimpleFormField(
+                                  label: "Unit Number",
+                                  icon: Icons.numbers,
+                                  textEditingController:
+                                      unitNumberTextEditingController,
+                                  onSaved: (String? value) {
+                                    landlord.landlordAddress
+                                        .setUnitNumber(value!.trim());
+                                  },
+                                  field: UnitNumber(""),
+                                ),
+                                right: SimpleFormField(
+                                  label: "P.O. Box",
+                                  icon: Icons.markunread_mailbox,
+                                  textEditingController:
+                                      poBoxTextEditingController,
+                                  onSaved: (String? value) {
+                                    landlord.landlordAddress
+                                        .setPOBox(value!.trim());
+                                  },
+                                  field: POBox(""),
+                                ))
+                          ],
+                        )),
+                    Container(
                       margin: const EdgeInsets.all(8),
-                      child: const ListTile(
-                        title: Text(
-                          "Delete Profile",
-                          style: TextStyle(color: Colors.red),
-                        ),
-                        trailing: Icon(
-                          Icons.chevron_right_rounded,
-                          color: Colors.red,
+                      width: MediaQuery.of(context).size.width,
+                      child: CallToActionButton(
+                          text: "Update",
+                          onClick: () {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              runMutation(
+                                  {"landlord": landlord.toLandlordJson()});
+                            }
+                          }),
+                    ),
+                    const Divider(
+                      height: 1,
+                      thickness: 1,
+                      color: Colors.red,
+                      indent: 8,
+                      endIndent: 8,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showDeleteProfileDialog();
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(8),
+                        child: const ListTile(
+                          title: Text(
+                            "Delete Profile",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          trailing: Icon(
+                            Icons.chevron_right_rounded,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             },
             mutationName: 'updateLandlord',
