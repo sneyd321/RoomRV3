@@ -53,7 +53,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
             landlord: widget.landlord,
             onSearchFocus: () {
               scrollController.animateTo(
-                0,
+                scrollController.position.maxScrollExtent,
                 duration: Duration(seconds: 2),
                 curve: Curves.fastOutSlowIn,
               );
@@ -61,7 +61,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
           ),
         ),
         Container(
-            padding: const EdgeInsets.all(16),
+          color: Colors.transparent,
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
             alignment: Alignment.topRight,
             child: FloatingActionButton.extended(
