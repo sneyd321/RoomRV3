@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/tenant.dart';
-import 'package:notification_app/widgets/buttons/PrimaryButton.dart';
+import 'package:notification_app/widgets/buttons/CallToActionButton.dart';
+import 'package:notification_app/widgets/buttons/SecondaryActionButton.dart';
 
 import '../../../business_logic/fields/field.dart';
 import '../../../graphql/mutation_helper.dart';
 import '../../../graphql/graphql_client.dart';
-import '../../buttons/SecondaryButton.dart';
 import '../../FormFields/SimpleFormField.dart';
 import '../FormRow/TwoColumnRow.dart';
 
@@ -51,21 +51,28 @@ class _AddTenantEmailFormState extends State<AddTenantEmailForm> {
                     SimpleFormField(label: "Email", icon: Icons.email, textEditingController: TextEditingController(), onSaved: (value) {
                       tenant.email = value!;
                     },field: Email(""),),
-                    TwoColumnRow(
-                        left: SecondaryButton(Icons.arrow_downward, "Back",
-                            (context) {
-                          Navigator.pop(context);
-                        }),
-                        right: PrimaryButton(Icons.add, "Add", ((context) {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            runMutation({
-                              'houseId': widget.houseId,
-                              'tenant': tenant.toJson()
-                            });
-                            
-                          }
-                        })))
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: CallToActionButton(text: "Add", onClick: () {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+                              runMutation({
+                                'houseId': widget.houseId,
+                                'tenant': tenant.toJson()
+                              });
+                              
+                            }
+                          }),
+                    ),
+                    const SizedBox(height: 8,),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: SecondaryActionButton(text: "Back", onClick: 
+                              () {
+                            Navigator.pop(context);
+                          }),
+                    ),
+                        
                   ],
                 ));
           }),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
-import 'package:notification_app/widgets/Forms/FormRow/FormAddButtonRow.dart';
 
 import '../../FormFields/SuggestedFormField.dart';
+import '../../buttons/CallToActionButton.dart';
+import '../../buttons/SecondaryActionButton.dart';
 
 class AddNameForm extends StatefulWidget {
   final Function(BuildContext context, String name) onSave;
   final List<String> names;
-  final label;
+  final String label;
   
 
   const AddNameForm({
@@ -46,9 +47,26 @@ class _AddNameFormState extends State<AddNameForm> {
                 suggestedNames: widget.names
               ),
             ),
-            FormAddButtonRow(formKey: formKey, onAdd: (BuildContext context) {
-              widget.onSave(context, name);
-            })
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: CallToActionButton(
+                  text: "Add",
+                  onClick: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      widget.onSave(context, name);
+                    }
+                  }),
+            ),
+            const SizedBox(height: 8,),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: SecondaryActionButton(
+                  text: "Back",
+                  onClick: () {
+                    Navigator.pop(context);
+                  }),
+            ),
             
           ]),
     );

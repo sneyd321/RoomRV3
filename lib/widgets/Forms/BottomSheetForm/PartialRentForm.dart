@@ -3,12 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:notification_app/business_logic/fields/date.dart';
 import 'package:notification_app/business_logic/fields/number_field.dart';
 import 'package:notification_app/business_logic/partial_period.dart';
-import 'package:notification_app/widgets/Forms/FormRow/FormAddButtonRow.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
-import 'package:provider/provider.dart';
 
 import '../../FormFields/SimpleDatePicker.dart';
 import '../../Helper/TextHelper.dart';
+import '../../buttons/CallToActionButton.dart';
+import '../../buttons/SecondaryActionButton.dart';
 
 class PartialRentForm extends StatefulWidget {
   final void Function(BuildContext context, PartialPeriod partialPeriod) onSave;
@@ -90,11 +90,27 @@ class _PartialRentFormState extends State<PartialRentForm> {
                         return EndDate(value!).validate();
                       },
                     ))),
-            FormAddButtonRow(
-                formKey: formKey,
-                onAdd: (BuildContext context) {
-                  widget.onSave(context, partialPeriod);
-                }),
+                     SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: CallToActionButton(
+                  text: "Add",
+                  onClick: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                     widget.onSave(context, partialPeriod);
+                    }
+                  }),
+            ),
+            const SizedBox(height: 8,),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: SecondaryActionButton(
+                  text: "Back",
+                  onClick: () {
+                    Navigator.pop(context);
+                  }),
+            ),
+           
           ],
         ),
       );

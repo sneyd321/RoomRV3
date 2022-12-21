@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
-import 'package:notification_app/widgets/Forms/FormRow/FormAddButtonRow.dart';
 
 
 import '../../FormFields/SuggestedFormField.dart';
+import '../../buttons/CallToActionButton.dart';
+import '../../buttons/SecondaryActionButton.dart';
 
 class AddNotificationForm extends StatefulWidget {
   final List<String> names;
@@ -68,9 +68,27 @@ class _AddNotificationFormState extends State<AddNotificationForm> {
                   },
                  ),
             ),
-            FormAddButtonRow(formKey: formKey, onAdd: (BuildContext context) { 
-              widget.onSave(context, title.value, body.value);
-             }, ),
+             Container(
+              width: MediaQuery.of(context).size.width,
+              child: CallToActionButton(
+                  text: "Add",
+                  onClick: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      widget.onSave(context, title.value, body.value);
+                    }
+                  }),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: SecondaryActionButton(
+                  text: "Back",
+                  onClick: () {
+                    Navigator.pop(context);
+                  }),
+            ),
+            
+            
           ]),
     );
   }

@@ -42,7 +42,8 @@ class _SliverAddItemStateWrapperState extends State<SliverAddItemStateWrapper> {
       children: [
         getCardSliverListView(widget.shirnkWrap),
        Container(
-          margin: const EdgeInsets.only(top: 8),
+          margin: const EdgeInsets.all( 8),
+          alignment: Alignment.centerLeft,
           child: SecondaryActionButton(text:widget.addButtonTitle, onClick: () {
             addItem(context);
           }))

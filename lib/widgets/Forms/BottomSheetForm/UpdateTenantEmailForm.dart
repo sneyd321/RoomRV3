@@ -3,9 +3,10 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
-import 'package:notification_app/widgets/Forms/FormRow/FormAddButtonRow.dart';
 
 import '../../FormFields/SuggestedFormField.dart';
+import '../../buttons/CallToActionButton.dart';
+import '../../buttons/SecondaryActionButton.dart';
 
 class UpdateTenantEmailForm extends StatefulWidget {
   final Function(BuildContext context, String email) onSave;
@@ -57,28 +58,38 @@ class _UpdateTenantEmailFormState extends State<UpdateTenantEmailForm> {
                         },
                         suggestedNames: widget.names),
                   ),
-                  FormAddButtonRow(
-                      formKey: formKey,
-                      onAdd: (BuildContext context) {
-                        if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
-                          runMutation({
-                            "houseKey": widget.houseKey,
-                            "tenant": {
-                              "firstName": widget.firstName,
-                              "lastName": widget.lastName,
-                              "email": email
-                            }
-                          });
-                          widget.onSave(context, email);
-                        }
-                      })
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: CallToActionButton(
+                        text: "Add",
+                        onClick: () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            runMutation({
+                              "houseKey": widget.houseKey,
+                              "tenant": {
+                                "firstName": widget.firstName,
+                                "lastName": widget.lastName,
+                                "email": email
+                              }
+                            });
+                            widget.onSave(context, email);
+                          }
+                        }),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: SecondaryActionButton(
+                        text: "Back",
+                        onClick: () {
+                          Navigator.pop(context);
+                        }),
+                  ),
                 ]),
           );
         },
         mutationName: 'addTenant',
-        onComplete: (json) {
-        },
+        onComplete: (json) {},
       ),
     );
   }

@@ -4,9 +4,8 @@ import 'package:notification_app/business_logic/partial_period.dart';
 import 'package:notification_app/business_logic/rental_period.dart';
 import 'package:notification_app/business_logic/tenancy_terms.dart';
 import 'package:notification_app/widgets/Forms/FormRow/HalfRow.dart';
+import 'package:notification_app/widgets/buttons/SecondaryActionButton.dart';
 
-
-import '../../buttons/SecondaryButton.dart';
 import '../../Cards/PartialPeriodCard.dart';
 import '../../FormFields/SimpleDatePicker.dart';
 import '../../FormFields/SimpleRadioGroup.dart';
@@ -157,15 +156,18 @@ class _TenancyTermsFormState extends State<TenancyTermsForm> {
         ),
         PartialPeriodCard(partialPeriod: widget.tenancyTerms.partialPeriod),
         HalfRow(
-          child: SecondaryButton(Icons.add, "Partial Period", (context) {
-            BottomSheetHelper(PartialRentForm(
-                onSave: (BuildContext context, PartialPeriod partialPeriod) {
-              setState(() {
-                partialPeriod.setEnabled(true);
-                widget.tenancyTerms.setPartialPeriod(partialPeriod);
-              });
-            })).show(context);
-          }),
+          child: Container (
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            child: SecondaryActionButton(text: "Partial Period", onClick: () {
+              BottomSheetHelper(PartialRentForm(
+                  onSave: (BuildContext context, PartialPeriod partialPeriod) {
+                setState(() {
+                  partialPeriod.setEnabled(true);
+                  widget.tenancyTerms.setPartialPeriod(partialPeriod);
+                });
+              })).show(context);
+            }),
+          ),
         ),
       ]),
     );

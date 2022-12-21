@@ -102,7 +102,7 @@ class _StorePageState extends State<StorePage> {
                     GestureDetector(
                       onTap: () {
                         const snackBar = SnackBar(
-                          content: Text('Comming Soon'),
+                          content: Text('Coming Soon'),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },

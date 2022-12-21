@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/business_logic/fields/number_field.dart';
-import 'package:notification_app/widgets/Forms/FormRow/FormAddButtonRow.dart';
 
 
 import '../../FormFields/SuggestedFormField.dart';
+import '../../buttons/CallToActionButton.dart';
+import '../../buttons/SecondaryActionButton.dart';
 
 class AddNameAmountForm extends StatefulWidget {
   final List<String> names;
@@ -72,9 +73,26 @@ class _AddNameAmountFormState extends State<AddNameAmountForm> {
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9\.,]')),
                   ]),
             ),
-            FormAddButtonRow(formKey: formKey, onAdd: (BuildContext context) { 
-              widget.onSave(context, name, amount);
-             }, ),
+             SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: CallToActionButton(
+                  text: "Add",
+                  onClick: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      widget.onSave(context, name, amount);
+                    }
+                  }),
+            ),
+            const SizedBox(height: 8,),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: SecondaryActionButton(
+                  text: "Back",
+                  onClick: () {
+                    Navigator.pop(context);
+                  }),
+            ),
           ]),
     );
   }
