@@ -83,7 +83,7 @@ class _UpdateServicesPageState extends State<UpdateServicesPage> {
                Container(
                  margin: const EdgeInsets.all(8),
                 width: MediaQuery.of(context).size.width,
-                 child: SecondaryActionButton(text: "Update Rental Address", onClick: () {
+                 child: SecondaryActionButton(text: "Update Services", onClick: () {
                   if (validate()) {
                     runMutation({
                       "houseId": widget.house.houseId,
