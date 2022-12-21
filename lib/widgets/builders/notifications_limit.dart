@@ -7,8 +7,9 @@ import 'package:notification_app/widgets/builders/notification_search.dart';
 class NotificationLimit extends StatefulWidget {
   final House house;
   final Landlord landlord;
+  final void Function() onSearchFocus;
   const NotificationLimit(
-      {Key? key, required this.house, required this.landlord})
+      {Key? key, required this.house, required this.landlord, required this.onSearchFocus})
       : super(key: key);
 
   @override
@@ -37,9 +38,13 @@ class _NotificationLimitState extends State<NotificationLimit> {
         }
         List<QueryDocumentSnapshot> queryDocumentSnapshots =
             snapshot.data!.docs;
-    
+
         return NotificationSearch(
-            landlord: widget.landlord, documents: queryDocumentSnapshots, house: widget.house,);
+          landlord: widget.landlord,
+          documents: queryDocumentSnapshots,
+          house: widget.house,
+          onSearchFocus: widget.onSearchFocus,
+        );
       },
     );
   }

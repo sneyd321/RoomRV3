@@ -27,6 +27,7 @@ class HouseMenuPage extends StatefulWidget {
 class _HouseMenuPageState extends State<HouseMenuPage> {
   List<Widget> tenantWidgets = [];
   final List<String> items = const ["Edit Lease", "Purchase Apps"];
+  final ScrollController scrollController = ScrollController();
 
   String parsePrimaryAddress(House house) {
     RentalAddress rentalAddress = house.lease.rentalAddress;
@@ -47,8 +48,17 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
     return Column(
       children: [
         Expanded(
-          child:
-              NotificationLimit(house: widget.house, landlord: widget.landlord),
+          child: NotificationLimit(
+            house: widget.house,
+            landlord: widget.landlord,
+            onSearchFocus: () {
+              scrollController.animateTo(
+                0,
+                duration: Duration(seconds: 2),
+                curve: Curves.fastOutSlowIn,
+              );
+            },
+          ),
         ),
         Container(
             padding: const EdgeInsets.all(16),
@@ -133,6 +143,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
           length: 2,
           child: Scaffold(
             body: NestedScrollView(
+              controller: scrollController,
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return [
@@ -142,8 +153,8 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
                     floating: false,
                     expandedHeight: 200.0,
                     flexibleSpace: FlexibleSpaceBar(
-                      background:  HouseMenuCard(
-                      house: widget.house, landlord: widget.landlord),
+                      background: HouseMenuCard(
+                          house: widget.house, landlord: widget.landlord),
                     ),
                   )
                 ];

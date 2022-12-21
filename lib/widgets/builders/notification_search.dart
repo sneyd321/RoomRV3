@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/Cards/custom_notification_card.dart';
 
 import '../../business_logic/house.dart';
-import '../../business_logic/maintenance_ticket_notification.dart';
 import '../Cards/ApproveTenantNotification.dart';
 import '../Cards/InviteTenantNotificationCard.dart';
 import '../Cards/TenantAccountCreatedNotification.dart';
@@ -17,8 +15,10 @@ class NotificationSearch extends StatefulWidget {
   final Landlord landlord;
   final House house;
   final List<QueryDocumentSnapshot> documents;
+  final void Function() onSearchFocus;
+  
   const NotificationSearch(
-      {Key? key, required this.landlord, required this.documents, required this.house})
+      {Key? key, required this.landlord, required this.documents, required this.house, required this.onSearchFocus})
       : super(key: key);
 
   @override
@@ -44,38 +44,45 @@ class _NotificationSearchState extends State<NotificationSearch> {
         Container(
           margin: const EdgeInsets.all(8),
           width: MediaQuery.of(context).size.width,
-          child: TextField(
-            controller: searchTextEditingController,
-            onChanged: (value) {
-              queryDocumentSnapshots = widget.documents.where((element) {
-                  return element
-                      .data()
-                      .toString()
-                      .toLowerCase()
-                      .contains(value.toLowerCase());
-                }).toList();
-              setState(() {
-                
-              });
-            },
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(45.0),
-                ),
-                filled: true,
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: (() {
-                    setState(() {
-                      searchTextEditingController.text = "";
-                      queryDocumentSnapshots = widget.documents;
-                    });
-                  }),
-                ),
-                hintStyle: TextStyle(color: Colors.grey[800]),
-                hintText: "Search Notifications",
-                fillColor: Colors.white70),
+          child: Focus(
+            onFocusChange: ((value) {
+              if (value) {
+                widget.onSearchFocus();
+              }
+            }),
+            child: TextField(
+              controller: searchTextEditingController,
+              onChanged: (value) {
+                queryDocumentSnapshots = widget.documents.where((element) {
+                    return element
+                        .data()
+                        .toString()
+                        .toLowerCase()
+                        .contains(value.toLowerCase());
+                  }).toList();
+                setState(() {
+                  
+                });
+              },
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(45.0),
+                  ),
+                  filled: true,
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: (() {
+                      setState(() {
+                        searchTextEditingController.text = "";
+                        queryDocumentSnapshots = widget.documents;
+                      });
+                    }),
+                  ),
+                  hintStyle: TextStyle(color: Colors.grey[800]),
+                  hintText: "Search Notifications",
+                  fillColor: Colors.white70),
+            ),
           ),
         ),
         Expanded(
