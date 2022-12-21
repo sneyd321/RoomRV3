@@ -53,6 +53,8 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
             house: widget.house,
             landlord: widget.landlord,
             onSearchFocus: () {
+              FocusNode inputNode = FocusNode();
+              FocusScope.of(context).requestFocus(inputNode);
               scrollController.animateTo(
                 scrollController.position.maxScrollExtent,
                 duration: Duration(seconds: 2),
@@ -239,11 +241,8 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
                   ColoredBox(
                     color: const Color(primaryColour),
                     child: TabBar(
-                      onTap: (pageIndex) {
-                        if (pageIndex == 1) {
-                          closeKeyboard(context);
-                        }
-                        
+                      onTap: (value) {
+                        closeKeyboard(context);
                       },
                       tabs: const [
                         Tab(
