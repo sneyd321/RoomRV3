@@ -217,6 +217,7 @@ class _ProfilePageState extends State<ProfilePage> {
           body: MutationHelper(
             builder: (runMutation) {
               return SingleChildScrollView(
+                
                 child: Column(
                   children: [
                     const SizedBox(

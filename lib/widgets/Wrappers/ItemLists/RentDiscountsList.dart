@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:notification_app/business_logic/list_items/payment_option.dart';
 import 'package:notification_app/business_logic/list_items/rent_discount.dart';
-import 'package:notification_app/widgets/Cards/PaymentOptionCard.dart';
 import 'package:notification_app/widgets/Cards/RentDiscoutCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameAmountForm.dart';
-import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemStateWrapper.dart';
 
 class RentDiscountsList extends StatefulWidget {

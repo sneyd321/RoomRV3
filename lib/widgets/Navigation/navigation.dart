@@ -57,6 +57,15 @@ class Navigation {
             builder: (context) => HousesPage(landlord: landlord)));
   }
 
+  void navigateToHousesPageReplacement(
+      BuildContext context, Landlord landlord) async {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HousesPage(landlord: landlord)));
+  }
+
+
   void navigateToAddHousePage(BuildContext context, Landlord landlord) {
     Navigator.push<House>(
       context,

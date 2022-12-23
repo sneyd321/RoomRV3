@@ -20,13 +20,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
       _selectedIndex = index;
       switch (_selectedIndex) {
         case 0:
-          Navigation().navigateToHousesPage(context, widget.landlord);
+          Navigation().navigateToHousesPageReplacement(context, widget.landlord);
           break;
         case 1:
           Navigation().navigateToProfilePage(context, widget.landlord);
           break;
         default:
-          Navigation().navigateToHousesPage(context, widget.landlord);
+          Navigation().navigateToHousesPageReplacement(context, widget.landlord);
           break;
       }
     });

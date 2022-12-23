@@ -31,7 +31,7 @@ class _TenantAccountCreatedNotificationState
                 houseKey: widget.document["houseKey"],
                 tenant: tenant,
                 isDeleteVisible: false,
-                onDeleteTenant: (tenantToBeDeleted) {
+                onDeleteTenant: () {
                   
                 }),
           );

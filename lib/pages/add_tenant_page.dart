@@ -74,7 +74,7 @@ class _AddTenantPageState extends State<AddTenantPage> {
                               return AddTenantCard(
                                 tenant: tenant,
                                 houseKey: widget.house.houseKey,
-                                onDeleteTenant: (Tenant tenant) {
+                                onDeleteTenant: () {
                                   setState(() {
                                     Tenant tenantToBeDeleted = tenants
                                         .where((element) =>

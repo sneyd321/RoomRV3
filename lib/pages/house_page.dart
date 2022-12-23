@@ -33,12 +33,17 @@ class _HousesPageState extends State<HousesPage>  {
         child: SafeArea(
             child: Scaffold(
                 appBar: AppBar(
+                  actions: [
+                    IconButton(
+                    icon: const Icon(Icons.account_circle),
+                    onPressed: () => Navigation().navigateToEditProfilePage(context, widget.landlord),
+                  ),
+                  ],
                   leading: IconButton(
                     icon: const Icon(Icons.logout),
                     onPressed: () => Navigator.pop(context, false),
                   ),
                 ),
-                bottomNavigationBar: BottomNavBar(landlord: widget.landlord),
                 body: QueryHelper(
                     isList: true,
                     queryName: 'getHouses',

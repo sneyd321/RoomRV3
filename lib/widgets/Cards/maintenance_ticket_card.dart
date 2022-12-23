@@ -24,7 +24,7 @@ class MaintenanceTicketNotificationCard extends StatefulWidget {
 class _MaintenanceTicketNotificationCardState
     extends State<MaintenanceTicketNotificationCard> {
   String parseTimestamp(Timestamp timestamp) {
-    return DateFormat('dd/MM/yyyy').format(timestamp.toDate());
+    return DateFormat('dd/MM/yyyy HH:mm').format(timestamp.toDate());
   }
 
   void showMaintenanceTicketDialog() {

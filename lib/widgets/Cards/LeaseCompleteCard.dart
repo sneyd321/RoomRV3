@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/services/notification/download_lease_notification.dart';
-import 'package:notification_app/widgets/Buttons/SecondaryButton.dart';
 import 'package:notification_app/widgets/Helper/TextHelper.dart';
+import 'package:notification_app/widgets/buttons/SecondaryActionButton.dart';
 
 class LeaseCompleteCard extends StatelessWidget {
   final Map<String, dynamic> notification;
@@ -45,7 +44,7 @@ class LeaseCompleteCard extends StatelessWidget {
                   "Created on: ${parseTimestamp(notification["dateCreated"])}"),
             ),
           ),
-          SecondaryButton(Icons.open_in_browser, "Open Lease", (context) async {
+          SecondaryActionButton(text: "Open Lease", onClick: () async {
             Network network = Network();
             DownloadLeaseNotification downloadLeaseNotification =
                 DownloadLeaseNotification();

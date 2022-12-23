@@ -87,7 +87,9 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
   Widget rightPanel() {
     return Container(
         margin: const EdgeInsets.all(8),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child: ListView(
+          shrinkWrap: true,
+          children: [
           TenantRow(house: widget.house),
           Container(
               margin: const EdgeInsets.all(8),

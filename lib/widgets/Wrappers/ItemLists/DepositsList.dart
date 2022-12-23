@@ -21,6 +21,8 @@ class _DepositsListState extends State<DepositsList> {
   Widget build(BuildContext context) {
     return SliverAddItemStateWrapper(
         items: widget.deposits,
+        noItemsText: "No Deposits",
+      addButtonTitle: "Add Deposit",
         scrollController: scrollController,
         builder: (context, index) {
           Deposit deposit = widget.deposits[index];
