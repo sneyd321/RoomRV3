@@ -36,19 +36,22 @@ class _TenantRowState extends State<TenantRow> {
                   tenants.removeAt(index);
                   listKey.currentState!.removeItem(index,
                       ((context, animation) {
-                    return FadeTransition(
-                        opacity:
-                            animation.drive(CurveTween(curve: Curves.easeOut)),
-                        child: ProfilePicture(
-                          profileSize: 40,
-                          iconSize: 60,
-                          profileColor: Colors.blueGrey,
-                          textColor: Colors.black,
-                          icon: Icons.account_circle,
-                          profileURL: "",
-                          text: "Removing...",
-                          onClick: () {},
-                        ));
+                    return Align(
+                      alignment: Alignment.topCenter,
+                      child: FadeTransition(
+                          opacity:
+                              animation.drive(CurveTween(curve: Curves.easeOut)),
+                          child: ProfilePicture(
+                            profileSize: 40,
+                            iconSize: 60,
+                            profileColor: Colors.blueGrey,
+                            textColor: Colors.black,
+                            icon: Icons.account_circle,
+                            profileURL: "",
+                            text: "Removing...",
+                            onClick: () {},
+                          )),
+                    );
                   }), duration: const Duration(milliseconds: 1000));
                   Navigator.of(context).pop();
                 }),
