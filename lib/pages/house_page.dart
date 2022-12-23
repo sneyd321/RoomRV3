@@ -35,7 +35,7 @@ class _HousesPageState extends State<HousesPage>  {
                   actions: [
                     IconButton(
                     icon: const Icon(Icons.account_circle),
-                    onPressed: () => Navigation().navigateToEditProfilePage(context, widget.landlord),
+                    onPressed: () => Navigation().navigateToProfilePage(context, widget.landlord),
                   ),
                   ],
                   leading: IconButton(
