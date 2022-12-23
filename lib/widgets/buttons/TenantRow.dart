@@ -49,7 +49,7 @@ class _TenantRowState extends State<TenantRow> {
                           text: "Removing...",
                           onClick: () {},
                         ));
-                  }), duration: const Duration(milliseconds: 500));
+                  }), duration: const Duration(milliseconds: 1000));
                   Navigator.of(context).pop();
                 }),
           );
@@ -153,7 +153,7 @@ class _TenantRowState extends State<TenantRow> {
                     tenants.add(tenant);
                     listKey.currentState!.insertItem(tenants.length - 1);
                     
-                  Future.delayed(Duration(seconds: 2), (() {
+                  Future.delayed(Duration(seconds: 1), (() {
                     scrollController.animateTo(
                         scrollController.position.maxScrollExtent,
                         duration: Duration(milliseconds: 500),
