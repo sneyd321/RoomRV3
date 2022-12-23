@@ -88,10 +88,7 @@ class _TenantRowState extends State<TenantRow> {
 
                     tenants.add(tenant);
                     listKey.currentState!.insertItem(tenants.length - 1);
-                    scrollController.animateTo(
-                          scrollController.position.maxScrollExtent,
-                          duration: Duration(milliseconds: 500),
-                          curve: Curves.easeIn);
+                   
 
                     
                   }),
@@ -99,40 +96,41 @@ class _TenantRowState extends State<TenantRow> {
           }
           counter = tenants.length;
           lock = false;
-          return Row(children: [
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             Flexible(
               child: SizedBox(
                 height: 120,
-                child: Scrollbar(
-                  thumbVisibility: true,
-                  scrollbarOrientation: ScrollbarOrientation.bottom,
-                  controller: scrollController,
-                  thickness: 10,
-                  child: AnimatedList(
+                child: AnimatedList(
                     controller: scrollController,
                     shrinkWrap: true,
                     key: listKey,
                     initialItemCount: counter,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index, animation) {
-                      return FadeTransition(
-                          opacity:
-                              animation.drive(CurveTween(curve: Curves.easeIn)),
-                          child: ProfilePicture(
-                              profileSize: 40,
-                              iconSize: 60,
-                              profileColor: Colors.blueGrey,
-                              textColor: Colors.black,
-                              icon: Icons.account_circle,
-                              profileURL: tenants[index].profileURL,
-                              text: tenants[index].getFullName(),
-                              onClick: () {
-                                showTenantDialog(index);
-                              }));
+                      return Align(
+                        alignment: Alignment.topCenter,
+                        child: FadeTransition(
+                            opacity:
+                                animation.drive(CurveTween(curve: Curves.easeIn)),
+                            child: ProfilePicture(
+                                profileSize: 40,
+                                iconSize: 60,
+                                profileColor: Colors.blueGrey,
+                                textColor: Colors.black,
+                                icon: Icons.account_circle,
+                                profileURL: tenants[index].profileURL,
+                                text: tenants[index].getFullName(),
+                                onClick: () {
+                                  showTenantDialog(index);
+                                })),
+                      );
                     },
                   ),
                 ),
-              ),
+              
             ),
             IconTextColumn(
                 icon: Icons.add,
