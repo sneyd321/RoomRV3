@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:notification_app/main.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/comment.dart';
 import '../buttons/ProfilePicture.dart';
 
 class ToCommentCard extends StatelessWidget {

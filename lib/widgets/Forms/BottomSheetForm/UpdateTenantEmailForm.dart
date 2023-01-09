@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../../FormFields/SuggestedFormField.dart';
 import '../../buttons/CallToActionButton.dart';

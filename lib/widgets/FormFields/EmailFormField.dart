@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/fields/field.dart';
 
 
 class EmailFormField extends StatefulWidget {

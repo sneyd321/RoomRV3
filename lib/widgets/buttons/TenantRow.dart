@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notification_app/widgets/buttons/ProfilePicture.dart';
 import 'package:notification_app/widgets/buttons/IconTextColumn.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/house.dart';
-import '../../business_logic/tenant.dart';
 import '../../graphql/query_helper.dart';
 import '../Cards/AddTenantCard.dart';
 import '../Forms/BottomSheetForm/AddTenantForm.dart';

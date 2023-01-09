@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/widgets/Cards/AddTenantCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameForm.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemStateWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../../business_logic/tenant.dart';
 
 class TenantList extends StatefulWidget {
   final List<Tenant> tenants;

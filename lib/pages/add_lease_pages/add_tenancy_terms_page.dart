@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/landlord.dart';
-import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/widgets/Forms/Form/TenancyTermsForm.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../../graphql/mutation_helper.dart';
 import '../../graphql/graphql_client.dart';

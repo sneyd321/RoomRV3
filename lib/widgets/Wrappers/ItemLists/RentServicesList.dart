@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:notification_app/business_logic/list_items/rent_services.dart';
-import 'package:notification_app/business_logic/rent.dart';
 import 'package:notification_app/widgets/Cards/RentServiceCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameAmountForm.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class RentServicesList extends StatefulWidget {
   final Rent rent;

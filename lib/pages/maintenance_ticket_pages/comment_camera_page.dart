@@ -6,10 +6,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:notification_app/business_logic/landlord.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/comment.dart';
-import '../../business_logic/maintenance_ticket.dart';
 import '../../services/FirebaseConfig.dart';
 
 class CommentCameraPage extends StatefulWidget {

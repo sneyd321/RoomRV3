@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/landlord.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 
 class StorePage extends StatefulWidget {

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/landlord_info.dart';
 import 'package:notification_app/widgets/FormFields/SimpleFormField.dart';
 import 'package:notification_app/widgets/Helper/TextHelper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/ContactsList.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/EmailsList.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../../business_logic/fields/field.dart';
 
 class LandlordInfoForm extends StatefulWidget {
   final LandlordInfo landlordInfo;

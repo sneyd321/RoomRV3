@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:notification_app/business_logic/fields/field.dart';
-import 'package:notification_app/business_logic/fields/number_field.dart';
-import 'package:notification_app/business_logic/rent.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/RentServicesList.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../../FormFields/SimpleFormField.dart';
 import '../../Helper/TextHelper.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:notification_app/business_logic/list_items/utility.dart';
 import 'package:notification_app/widgets/Cards/UtilityCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameForm.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemStateWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class UtilitiesList extends StatefulWidget {
   final List<Utility> utilities;

@@ -2,14 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/login_landlord.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/main.dart';
 import 'package:notification_app/widgets/Navigation/navigation.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../business_logic/fields/field.dart';
-import '../business_logic/landlord.dart';
 import '../services/FirebaseConfig.dart';
 import '../graphql/graphql_client.dart';
 import '../widgets/FormFields/EmailFormField.dart';

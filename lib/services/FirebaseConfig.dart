@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/services/notification.dart';
 import 'package:notification_app/services/notification/download_lease_notification.dart';
 import 'package:notification_app/services/notification/lease_complete_notification.dart';
 import 'package:notification_app/services/notification/lease_connection_notification.dart';
 import 'package:notification_app/services/notification/lease_upload_notification.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../business_logic/comment.dart';
-import '../business_logic/house.dart';
 
 class FirebaseConfiguration {
   static final FirebaseConfiguration _singleton =

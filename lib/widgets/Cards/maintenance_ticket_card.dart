@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:notification_app/business_logic/house.dart';
-import 'package:notification_app/business_logic/landlord.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart' as RoomR;
 
 import '../Navigation/navigation.dart';
 import '../buttons/IconTextColumn.dart';
 
 class MaintenanceTicketNotificationCard extends StatefulWidget {
-  final Landlord landlord;
-  final House house;
+  final RoomR.Landlord landlord;
+  final RoomR.House house;
   final QueryDocumentSnapshot document;
 
   const MaintenanceTicketNotificationCard(

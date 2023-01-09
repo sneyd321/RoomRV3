@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:notification_app/business_logic/list_items/detail.dart';
 import 'package:notification_app/widgets/Cards/DetailCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameForm.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.dart';
-import 'package:notification_app/widgets/Wrappers/SliverAddItemStateWrapper.dart';
 
 class DetailsList extends StatefulWidget {
   final List<String> details;

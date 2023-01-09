@@ -4,13 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/main.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../business_logic/address.dart';
-import '../business_logic/fields/field.dart';
-import '../business_logic/suggested_address.dart';
+
 import '../graphql/mutation_helper.dart';
 import '../services/network.dart';
 import '../services/stream_socket.dart';

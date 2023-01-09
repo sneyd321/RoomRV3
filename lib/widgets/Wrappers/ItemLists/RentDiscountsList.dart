@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:notification_app/business_logic/list_items/rent_discount.dart';
 import 'package:notification_app/widgets/Cards/RentDiscoutCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameAmountForm.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemStateWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class RentDiscountsList extends StatefulWidget {
   final List<RentDiscount> rentDiscounts;

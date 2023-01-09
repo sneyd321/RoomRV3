@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 
-import 'package:notification_app/widgets/builders/notifications_limit.dart';
-import 'package:notification_app/widgets/buttons/TenantRow.dart';
 
-import '../business_logic/house.dart';
 import '../widgets/buttons/IconTextColumn.dart';
 import '../widgets/buttons/ProfilePicture.dart';
 

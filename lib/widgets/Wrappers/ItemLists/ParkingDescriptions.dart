@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:notification_app/business_logic/address.dart';
-import 'package:notification_app/business_logic/list_items/parking_description.dart';
 import 'package:notification_app/widgets/Cards/DetailCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameForm.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class ParkingDescriptionsList extends StatefulWidget {
   final RentalAddress rentalAddress;

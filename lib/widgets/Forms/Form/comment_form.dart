@@ -4,11 +4,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:notification_app/business_logic/landlord.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../../business_logic/comment.dart';
-import '../../../business_logic/fields/field.dart';
-import '../../../business_logic/maintenance_ticket.dart';
 import '../../../pages/maintenance_ticket_pages/additional_terms_page.dart';
 import '../../../services/FirebaseConfig.dart';
 

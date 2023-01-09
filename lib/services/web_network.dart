@@ -1,12 +1,12 @@
 import 'dart:convert';
 
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:http/http.dart' as http;
 
 
 import 'package:open_file/open_file.dart';
 
-import '../business_logic/address.dart';
 
 class WebNetwork {
 

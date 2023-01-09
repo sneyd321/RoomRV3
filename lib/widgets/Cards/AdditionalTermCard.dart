@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/list_items/additional_term.dart';
-import 'package:notification_app/business_logic/list_items/detail.dart';
 import 'package:notification_app/widgets/Helper/TextHelper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/DetailsList.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 
 class AdditionalTermCard extends StatelessWidget  {

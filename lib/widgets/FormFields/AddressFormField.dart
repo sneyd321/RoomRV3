@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:notification_app/services/stream_socket.dart';
 import 'package:notification_app/widgets/Cards/SuggestedAddressCard.dart';
@@ -8,7 +9,6 @@ import 'package:socket_io_client/socket_io_client.dart';
 
 
 
-import '../../business_logic/suggested_address.dart';
 
 class AddressFormField extends StatefulWidget {
   final Function(BuildContext context, SuggestedAddress suggestedAddress, bool isTest)

@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/Cards/custom_notification_card.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/house.dart';
 import '../Cards/ApproveTenantNotification.dart';
 import '../Cards/InviteTenantNotificationCard.dart';
 import '../Cards/TenantAccountCreatedNotification.dart';

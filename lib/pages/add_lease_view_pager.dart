@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/landlord.dart';
-import 'package:notification_app/business_logic/lease.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../business_logic/list_items/payment_option.dart';
-import '../business_logic/list_items/rent_services.dart';
 import 'add_lease_pages/add_rent_page.dart';
 import 'add_lease_pages/add_rental_address_page.dart';
 import 'add_lease_pages/add_tenancy_terms_page.dart';

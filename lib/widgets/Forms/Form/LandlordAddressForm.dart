@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/fields/field.dart';
-import 'package:notification_app/business_logic/suggested_address.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/services/stream_socket.dart';
 import 'package:notification_app/services/web_network.dart';
 import 'package:notification_app/widgets/FormFields/AddressFormField.dart';
-import '../../../business_logic/address.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 import '../../FormFields/SimpleFormField.dart';
 import '../FormRow/TwoColumnRow.dart';
 

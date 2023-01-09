@@ -37,7 +37,7 @@ dependencies:
   firebase_core: ^1.20.0
   firebase_messaging: ^12.0.1
   cloud_firestore: ^3.4.2
-  intl: ^0.17.0
+  intl: ^0.18.0
   provider: ^6.0.3
   smooth_page_indicator: ^1.0.0+2
   http: ^0.13.5
@@ -52,6 +52,9 @@ dependencies:
   rxdart: ^0.27.5
   universal_html: ^2.0.8
   shared_preferences: ^2.0.15
+  roomr_business_logic:
+      hosted: https://onepub.dev/api/sudsdavuhn
+      version: ^0.0.3
 
 
 dev_dependencies:
@@ -82,36 +85,36 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/house.jpg
-    - assets/createMaintenanceTicketMutation.txt
-    - assets/createHouseMutation.txt
-    - assets/updateLandlordInfoMutation.txt
-    - assets/updateLandlordAddressMutation.txt
-    - assets/updateRentalAddressMutation.txt
-    - assets/updateRentMutation.txt
-    - assets/updateTenancyTermsMutation.txt
-    - assets/updateServicesMutation.txt
-    - assets/updateUtilitiesMutation.txt
-    - assets/updateRentDiscountsMutation.txt
-    - assets/updateRentDepositsMutation.txt
-    - assets/updateAdditionalTermsMutation.txt
-    - assets/addTenantMutation.txt
-    - assets/createTenantMutation.txt
-    - assets/createLandlordMutation.txt
-    - assets/loginTenantMutation.txt
-    - assets/loginLandlordMutation.txt
-    - assets/getMaintenanceTicketsQuery.txt
-    - assets/getMaintenanceTicketQuery.txt
-    - assets/getHousesQuery.txt
-    - assets/getHouseQuery.txt
-    - assets/scheduleLeaseMutation.txt
-    - assets/createTempTenantMutation.txt
-    - assets/getTenantsQuery.txt
-    - assets/deleteTenantMutation.txt
-    - assets/deleteHouseMutation.txt
-    - assets/deleteLandlordMutation.txt
-    - assets/updateLandlordMutation.txt
+    - assets/createMaintenanceTicketMutation.gql
+    - assets/createHouseMutation.gql
+    - assets/updateLandlordInfoMutation.gql
+    - assets/updateLandlordAddressMutation.gql
+    - assets/updateRentalAddressMutation.gql
+    - assets/updateRentMutation.gql
+    - assets/updateTenancyTermsMutation.gql
+    - assets/updateServicesMutation.gql
+    - assets/updateUtilitiesMutation.gql
+    - assets/updateRentDiscountsMutation.gql
+    - assets/updateRentDepositsMutation.gql
+    - assets/updateAdditionalTermsMutation.gql
+    - assets/addTenantMutation.gql
+    - assets/createTenantMutation.gql
+    - assets/createLandlordMutation.gql
+    - assets/loginTenantMutation.gql
+    - assets/loginLandlordMutation.gql
+    - assets/getMaintenanceTicketsQuery.gql
+    - assets/getMaintenanceTicketQuery.gql
+    - assets/getHousesQuery.gql
+    - assets/getHouseQuery.gql
+    - assets/scheduleLeaseMutation.gql
+    - assets/createTempTenantMutation.gql
+    - assets/getTenantsQuery.gql
+    - assets/deleteTenantMutation.gql
+    - assets/deleteHouseMutation.gql
+    - assets/deleteLandlordMutation.gql
+    - assets/updateLandlordMutation.gql
     - assets/profile1.jpg
-    - assets/scheduleLandlordProfileMutation.txt
+    - assets/scheduleLandlordProfileMutation.gql
 
   #   - images/a_dot_ham.jpeg
 

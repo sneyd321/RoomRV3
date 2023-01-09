@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/list_items/payment_option.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class PaymentOptionCard extends StatelessWidget {
   final PaymentOption paymentOption;

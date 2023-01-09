@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/house.dart';
-import '../../business_logic/landlord.dart';
-import '../../business_logic/list_items/additional_term.dart';
+
 import '../../graphql/query_helper.dart';
 import '../../graphql/graphql_client.dart';
 import '../../widgets/Cards/AdditionalTermCardReadOnly.dart';

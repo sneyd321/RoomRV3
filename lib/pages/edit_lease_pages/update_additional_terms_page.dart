@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/list_items/additional_term.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/AdditionalTermsList.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/house.dart';
 import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class UpdateAdditionalTermsPage extends StatefulWidget {

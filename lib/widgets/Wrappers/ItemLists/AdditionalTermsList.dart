@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:notification_app/business_logic/list_items/additional_term.dart';
 import 'package:notification_app/widgets/Cards/AdditionalTermCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameForm.dart';
-import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemStateWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class AdditonalTermsList extends StatefulWidget {
   final List<AdditionalTerm> additionalTerms;

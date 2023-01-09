@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/list_items/service.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/ServicesList.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/house.dart';
 import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class UpdateServicesPage extends StatefulWidget {

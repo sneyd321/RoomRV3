@@ -1,9 +1,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/landlord.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/comment.dart';
 import '../Cards/from_comment_card.dart';
 import '../Cards/to_comment_card.dart';
 import '../Listviews/CardSliverListView.dart';

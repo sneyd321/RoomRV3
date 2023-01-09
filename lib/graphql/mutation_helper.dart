@@ -26,7 +26,7 @@ class _MutationButtonState extends State<MutationHelper> {
   bool isVisible = true;
 
   Future<String> getMutation(String name) async {
-    return await rootBundle.loadString('assets/${name}Mutation.txt');
+    return await rootBundle.loadString('assets/${name}Mutation.gql');
   }
 
   @override

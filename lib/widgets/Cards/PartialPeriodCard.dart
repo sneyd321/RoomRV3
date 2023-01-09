@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/partial_period.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class PartialPeriodCard extends StatefulWidget {
   final PartialPeriod partialPeriod;

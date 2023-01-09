@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/house.dart';
-import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/builders/notification_search.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class NotificationLimit extends StatefulWidget {
   final House house;

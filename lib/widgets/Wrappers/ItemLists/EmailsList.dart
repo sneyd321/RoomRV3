@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:notification_app/business_logic/landlord_info.dart';
-import 'package:notification_app/business_logic/list_items/email.dart';
 import 'package:notification_app/widgets/Cards/DetailCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddEmailForm.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class EmailsList extends StatefulWidget {
   final LandlordInfo landlordInfo;

@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/list_items/deposit.dart';
 import 'package:notification_app/widgets/Cards/DepositCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameAmountForm.dart';
-import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemStateWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class DepositsList extends StatefulWidget {
   final List<Deposit> deposits;

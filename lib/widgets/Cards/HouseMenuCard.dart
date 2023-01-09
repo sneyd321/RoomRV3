@@ -1,10 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/address.dart';
-import 'package:notification_app/business_logic/house.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/landlord.dart';
 
 class HouseMenuCard extends StatelessWidget {
   final House house;

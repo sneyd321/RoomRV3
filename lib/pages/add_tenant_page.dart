@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/graphql/query_helper.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/Cards/AddTenantCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddTenantForm.dart';
 import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../business_logic/tenant.dart';
 import '../widgets/Listviews/CardSliverGridView.dart';
 
 class AddTenantPage extends StatefulWidget {

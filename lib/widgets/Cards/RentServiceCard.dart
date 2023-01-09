@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/list_items/rent_services.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddAmountForm.dart';
 import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
-import 'package:notification_app/widgets/Navigation/bottom_nav_bar.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class RentServiceCard extends StatefulWidget {
   final RentService rentService;

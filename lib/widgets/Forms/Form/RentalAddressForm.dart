@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/fields/field.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/services/stream_socket.dart';
 import 'package:notification_app/widgets/FormFields/SuggestedFormField.dart';
 import 'package:notification_app/widgets/Forms/FormRow/TwoColumnRow.dart';
 import 'package:notification_app/widgets/Helper/TextHelper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/ParkingDescriptions.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../../business_logic/address.dart';
-import '../../../business_logic/suggested_address.dart';
 import '../../FormFields/AddressFormField.dart';
 import '../../FormFields/SimpleFormField.dart';
 

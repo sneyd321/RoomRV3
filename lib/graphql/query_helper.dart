@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -27,7 +26,7 @@ class _QueryHelperState extends State<QueryHelper> {
   bool isVisible = false;
 
   Future<String> getQuery(String name) async {
-    return await rootBundle.loadString('assets/${name}Query.txt');
+    return await rootBundle.loadString('assets/${name}Query.gql');
   }
 
   @override

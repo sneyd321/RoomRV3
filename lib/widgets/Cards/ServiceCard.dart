@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/fields/field.dart';
-import 'package:notification_app/business_logic/list_items/detail.dart';
-import 'package:notification_app/business_logic/list_items/service.dart';
-import 'package:notification_app/widgets/Cards/DetailCard.dart';
-import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameForm.dart';
-import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
 import 'package:notification_app/widgets/Helper/TextHelper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/DetailsList.dart';
-import 'package:notification_app/widgets/Wrappers/SliverAddItemStateWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 class ServiceCard extends StatefulWidget {
   final Service service;

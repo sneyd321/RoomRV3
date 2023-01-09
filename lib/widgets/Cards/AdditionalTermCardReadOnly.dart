@@ -1,11 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/widgets/Cards/DetailCardReadOnly.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/comment.dart';
-import '../../business_logic/list_items/additional_term.dart';
-import '../../business_logic/list_items/detail.dart';
+
 import '../../services/FirebaseConfig.dart';
 import '../Helper/TextHelper.dart';
 import '../Listviews/CardSliverGenerator.dart';

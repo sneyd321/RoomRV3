@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/lease.dart';
 import 'package:notification_app/widgets/Forms/Form/RentalAddressForm.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../../widgets/buttons/CallToActionButton.dart';
 import '../../widgets/buttons/SecondaryActionButton.dart';

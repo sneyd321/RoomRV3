@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/house.dart';
-import 'package:notification_app/business_logic/list_items/utility.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/UtilitiesList.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../../widgets/buttons/SecondaryActionButton.dart';
 

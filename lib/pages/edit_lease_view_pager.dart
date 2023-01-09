@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/house.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_additional_terms_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_landlord_info_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_rent_deposit_page.dart';
@@ -12,6 +11,7 @@ import 'package:notification_app/pages/edit_lease_pages/update_rental_address_pa
 import 'package:notification_app/pages/edit_lease_pages/update_services_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_tenancy_terms_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_utilities_page.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 
 import '../graphql/mutation_helper.dart';

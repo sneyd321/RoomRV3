@@ -1,10 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/address.dart';
-import 'package:notification_app/business_logic/house.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../business_logic/landlord.dart';
+
 import '../../graphql/mutation_helper.dart';
 
 class HouseCard extends StatelessWidget {

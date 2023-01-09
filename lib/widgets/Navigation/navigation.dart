@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/business_logic/house.dart';
-import 'package:notification_app/business_logic/landlord.dart';
-import 'package:notification_app/business_logic/login_landlord.dart';
 import 'package:notification_app/pages/edit_lease_view_pager.dart';
 import 'package:notification_app/pages/edit_profile_page.dart';
 import 'package:notification_app/pages/house_page.dart';
 import 'package:notification_app/pages/profile_page.dart';
 import 'package:notification_app/pages/sign_up_page.dart';
 import 'package:notification_app/pages/store_page.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../../pages/add_lease_view_pager.dart';
 import '../../pages/comments_page.dart';

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/comment.dart';
-import 'package:notification_app/business_logic/landlord.dart';
-import 'package:notification_app/graphql/query_helper.dart';
 
-import '../../business_logic/maintenance_ticket.dart';
+import 'package:notification_app/graphql/query_helper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
+
 import '../../services/FirebaseConfig.dart';
 import '../../graphql/graphql_client.dart';
 import '../../widgets/Forms/Form/comment_form.dart';

@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/landlord.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../business_logic/maintenance_ticket.dart';
 import '../graphql/graphql_client.dart';
 import '../graphql/query_helper.dart';
 import '../services/FirebaseConfig.dart';

@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/widgets/buttons/CallToActionButton.dart';
-import 'package:universal_html/html.dart';
 
 import '../../services/web_network.dart';
 

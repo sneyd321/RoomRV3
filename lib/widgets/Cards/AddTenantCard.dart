@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:notification_app/business_logic/tenant.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/widgets/buttons/SecondaryActionButton.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../buttons/CallToActionButton.dart';
 import '../buttons/ProfilePicture.dart';
@@ -13,7 +13,7 @@ class AddTenantCard extends StatefulWidget {
   final String houseKey;
   final void Function() onDeleteTenant;
   final bool isDeleteVisible;
-  AddTenantCard(
+  const AddTenantCard(
       {Key? key,
       required this.tenant,
       required this.houseKey,

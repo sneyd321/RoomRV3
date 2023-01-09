@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:notification_app/widgets/Cards/PaymentOptionCard.dart';
 import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNameForm.dart';
 import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../../business_logic/list_items/payment_option.dart';
 
 class PaymentOptionsList extends StatefulWidget {
   final List<PaymentOption> paymentOptions;

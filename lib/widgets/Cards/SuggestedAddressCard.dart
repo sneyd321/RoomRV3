@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 
-import '../../business_logic/suggested_address.dart';
 
 class SuggestedAddressCard extends StatefulWidget {
   final SuggestedAddress suggestedAddress;
