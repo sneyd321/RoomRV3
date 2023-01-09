@@ -30,6 +30,8 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      - run: dart pub global activate onepub
+      - run: onepub import
       - run: flutter pub get
       - run: flutter build web 
       
