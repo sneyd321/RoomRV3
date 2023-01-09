@@ -3,6 +3,8 @@ import 'package:notification_app/business_logic/landlord.dart';
 import 'package:notification_app/business_logic/lease.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../business_logic/list_items/payment_option.dart';
+import '../business_logic/list_items/rent_services.dart';
 import 'add_lease_pages/add_rent_page.dart';
 import 'add_lease_pages/add_rental_address_page.dart';
 import 'add_lease_pages/add_tenancy_terms_page.dart';
@@ -36,6 +38,11 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
     lease.landlordInfo.addContactInfo(widget.landlord.email);
     lease.landlordInfo.addContactInfo(widget.landlord.phoneNumber);
     lease.rent.rentMadePayableTo = widget.landlord.getFullName();
+    lease.rent.paymentOptions.add(ETransferPaymentOption());
+    lease.rent.paymentOptions.add(PostDatedChequesPaymentOption());
+    lease.rent.paymentOptions.add(CashPaymentOption());
+    lease.rent.addRentService(CustomRentService("Parking", "0.00"));
+ 
   }
 
 

@@ -9,7 +9,6 @@ import '../../graphql/graphql_client.dart';
 import '../../widgets/buttons/CallToActionButton.dart';
 import '../../widgets/buttons/SecondaryActionButton.dart';
 
-
 class AddTenancyTermsPage extends StatefulWidget {
   final Lease lease;
   final Landlord landlord;
@@ -32,60 +31,70 @@ class _AddTenancyTermsPageState extends State<AddTenancyTermsPage> {
     widget.onBack(context);
   }
 
+  void showCreateHouseDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return GraphQLProvider(
+              client: GQLClient().getClient(),
+              child: MutationHelper(
+                  mutationName: 'createHouse',
+                  onComplete: (json) {
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  },
+                  builder: ((runMutation) {
+                    return AlertDialog(
+                        actions: [
+                          TextButton(
+                            child: const Text('No'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child: const Text('Yes'),
+                            onPressed: () {
+                              runMutation({
+                                "landlord": widget.landlord.toLandlordJson(),
+                                "lease": widget.lease.toJson()
+                              });
+                            },
+                          ),
+                        ],
+                        content: Row(
+                          children: const [
+                            CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              child: Icon(
+                                Icons.error,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Flexible(
+                              child: Text(
+                                "This action will:\n1. Create a lease agreement available for download and your signature in the notification feed (Please give some time for it to generate).\n2. Create a house key to invite tenants to your property.\n3.Provide the ability to edit the lease\n\nFor security purposes you will be required to log back in.\n\nWould you like to continue?",
+                                softWrap: true,
+                              ),
+                            ),
+                          ],
+                        ));
+                  })));
+        });
+  }
+
   void onNext(BuildContext context) {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      showDialog(
-          context: context,
-          builder: (context) {
-            return GraphQLProvider(
-                client: GQLClient().getClient(),
-                child: MutationHelper(
-                    mutationName: 'createHouse',
-                    onComplete: (json) {
-                      Navigator.popUntil(context, (route) => route.isFirst);
-                    },
-                    builder: ((runMutation) {
-                      return AlertDialog(
-                          actions: [
-                            TextButton(
-                              child: const Text('No'),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                            TextButton(
-                              child: const Text('Yes'),
-                              onPressed: () {
-                                runMutation({
-                                  "landlord": widget.landlord.toLandlordJson(),
-                                  "lease": widget.lease.toJson()
-                                });
-                              },
-                            ),
-                          ],
-                          content: Row(
-                            children: const [
-                              CircleAvatar(
-                                backgroundColor: Colors.blue,
-                                child: Icon(
-                                  Icons.error,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "This action will create:\n- A lease agreement available for download and your signature in notification feed\n- A house key to invite tenants\n- The ability to edit the lease\n\nFor security purposes you will be required to log back in.\n\nWould you like to continue?",
-                                  softWrap: true,
-                                ),
-                              ),
-                            ],
-                          ));
-                    })));
-          });
+      widget.lease.filterRequiredServices();
+      widget.lease.parseServicesFromRentServices();
+      widget.lease.filterRequiredUtilities();
+      widget.lease.parseUtilitiesFromRentServices();
+      showCreateHouseDialog();
+
+      
     }
   }
 

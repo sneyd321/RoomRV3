@@ -7,9 +7,15 @@ import 'package:notification_app/widgets/Wrappers/SliverAddItemGeneratorWrapper.
 
 class RentServicesList extends StatefulWidget {
   final Rent rent;
-  final Function(BuildContext context, RentService rentService) onAddRentService;
-  final Function(BuildContext context, RentService rentService) onRemoveRentService;
-  const RentServicesList({Key? key, required this.rent, required this.onAddRentService, required this.onRemoveRentService})
+  final Function(BuildContext context, RentService rentService)
+      onAddRentService;
+  final Function(BuildContext context, RentService rentService)
+      onRemoveRentService;
+  const RentServicesList(
+      {Key? key,
+      required this.rent,
+      required this.onAddRentService,
+      required this.onRemoveRentService})
       : super(key: key);
 
   @override
@@ -20,7 +26,7 @@ class _RentServicesListState extends State<RentServicesList> {
   @override
   Widget build(BuildContext context) {
     return SliverAddItemGeneratorWrapper(
-       shirnkWrap: true,
+        shirnkWrap: true,
         items: widget.rent.rentServices,
         addButtonTitle: "Add Service",
         noItemsText: "No Services",
@@ -28,17 +34,29 @@ class _RentServicesListState extends State<RentServicesList> {
           RentService rentService = widget.rent.rentServices[index];
           return RentServiceCard(
               rentService: rentService,
-              onItemRemoved: (context, rentService) {     
+              onItemRemoved: (context, rentService) {
                 widget.rent.removeRentService(rentService);
-                widget.onRemoveRentService(context, rentService);      
+                widget.onRemoveRentService(context, rentService);
               });
         },
         form: AddNameAmountForm(
-          names: const ["Parking"],
+          names: const [
+            "Parking",
+            "Gas",
+            "Air conditioning",
+            "Addtional storage space",
+            "On-site Laundry",
+            "Guest Parking",
+            "Electricity",
+            "Heat",
+            "Water",
+            "Internet"
+          ],
           onSave: (BuildContext context, name, amount) {
             RentService rentService = CustomRentService(name, amount);
             widget.rent.addRentService(rentService);
             widget.onAddRentService(context, rentService);
+            Navigator.pop(context);
           },
         ));
   }

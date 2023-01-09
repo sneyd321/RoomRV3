@@ -23,7 +23,7 @@ class _PartialPeriodCardState extends State<PartialPeriodCard> {
                   child: Card(
                     child: ListTile(
                       leading: const Icon(Icons.money),
-                      title: Text("${widget.partialPeriod.amount} due on ${widget.partialPeriod.dueDate}"),
+                      title: Text("\$${widget.partialPeriod.amount} due on ${widget.partialPeriod.dueDate}"),
                       subtitle: Text("From ${widget.partialPeriod.startDate} to ${widget.partialPeriod.endDate}"),
                       trailing: IconButton(onPressed: () {
                         setState(() {

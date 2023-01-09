@@ -6,6 +6,7 @@ import 'package:notification_app/business_logic/rent.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/PaymentOptionsList.dart';
 import 'package:notification_app/widgets/Wrappers/ItemLists/RentServicesList.dart';
 
+import '../../../business_logic/list_items/rent_services.dart';
 import '../../FormFields/SimpleFormField.dart';
 import '../../Helper/TextHelper.dart';
 
@@ -31,6 +32,9 @@ class _RentFormState extends State<RentForm> {
     super.initState();
     baseRentTextEditingController.text = widget.rent.baseRent;
     rentMadePayableToTextEditingController.text = widget.rent.rentMadePayableTo;
+  
+
+
   }
 
   @override
@@ -44,7 +48,6 @@ class _RentFormState extends State<RentForm> {
 
   @override
   Widget build(BuildContext context) {
-    
       return Form(
         key: widget.formKey,
         child: Column(children: [

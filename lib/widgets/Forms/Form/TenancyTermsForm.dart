@@ -51,16 +51,16 @@ class _TenancyTermsFormState extends State<TenancyTermsForm> {
     return Form(
       key: widget.formKey,
       child: Column(children: [
-        const TextHelper(text: "Rent is to be paid on:"),
+        const TextHelper(text: "Rent is to be paid on"),
         Container(
           margin: const EdgeInsets.all(8),
           child: SimpleRadioGroup(
-            names: const ["First", "Second", "Last"],
+            names: const ["First Day", "Last Day"],
             radioGroup: widget.tenancyTerms.rentDueDate,
             onSelected: (context, value) {
               setState(() {
-                if (widget.tenancyTerms.paymentPeriod == "Day") {
-                  widget.tenancyTerms.setRentDueDate("First");
+                if (widget.tenancyTerms.paymentPeriod == "Days") {
+                  widget.tenancyTerms.setRentDueDate("First Day");
                   return;
                 }
                 widget.tenancyTerms.setRentDueDate(value!);
@@ -69,16 +69,16 @@ class _TenancyTermsFormState extends State<TenancyTermsForm> {
             isHorizontal: true,
           ),
         ),
-        const TextHelper(text: "Day of each:"),
+        const TextHelper(text: "of the"),
         Container(
           margin: const EdgeInsets.all(8),
           child: SimpleRadioGroup(
             radioGroup: widget.tenancyTerms.paymentPeriod,
-            names: const ["Month", "Week", "Day"],
+            names: const ["Month", "Week", "Days"],
             onSelected: (context, value) {
               setState(() {
-                if (value == "Day") {
-                  widget.tenancyTerms.setRentDueDate("First");
+                if (value == "Days") {
+                  widget.tenancyTerms.setRentDueDate("First Day");
                 }
                 widget.tenancyTerms.setPaymentPeriod(value!);
               });
@@ -145,7 +145,7 @@ class _TenancyTermsFormState extends State<TenancyTermsForm> {
           margin: const EdgeInsets.all(8),
           child: SimpleRadioGroup(
               radioGroup: widget.tenancyTerms.rentalPeriod.rentalPeriod,
-              names: const ["Month to Month", "Week to Week", "Day to Day"],
+              names: const ["Monthly", "Bi-Weekly", "Weekly"],
               onSelected: (context, value) {
                 setState(() {
                   RentalPeriod rentalPeriod = RentalPeriod(value!);
@@ -165,6 +165,7 @@ class _TenancyTermsFormState extends State<TenancyTermsForm> {
                   partialPeriod.setEnabled(true);
                   widget.tenancyTerms.setPartialPeriod(partialPeriod);
                 });
+                Navigator.pop(context);
               })).show(context);
             }),
           ),
