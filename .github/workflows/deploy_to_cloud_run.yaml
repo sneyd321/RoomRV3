@@ -31,6 +31,13 @@ jobs:
         with:
           channel: 'stable'
       - run: dart pub global activate onepub
+      - shell: bash
+        env:
+          ONEPUB_TOKEN: ${{ secrets.ONEPUB_TOKEN }}
+        run: |
+        
+          onepub import
+      
       - run: onepub import
       - run: flutter pub get
       - run: flutter build web 
