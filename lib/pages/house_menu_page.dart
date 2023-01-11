@@ -71,6 +71,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
                       FirebaseConfiguration().setCustomNotification(
                           widget.house, widget.landlord, title, body);
                       setState(() {});
+                      Navigator.pop(context);
                     }))).show(context);
               },
               label: const Text("Compose Notification"),
