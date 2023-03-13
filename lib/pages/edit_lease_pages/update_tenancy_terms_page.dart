@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/lease/tenancy_terms/form/tenancy_terms_form.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
-import 'package:notification_app/widgets/Forms/Form/TenancyTermsForm.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../widgets/buttons/SecondaryActionButton.dart';
 
-class UpdateTenancyTermsPage extends StatefulWidget {
-  final House house;
-  const UpdateTenancyTermsPage(
-      {Key? key, required this.house})
+class UpdateTenancyTermsPage extends StatelessWidget {
+  final Lease lease;
+  const UpdateTenancyTermsPage({Key? key, required this.lease})
       : super(key: key);
-
-  @override
-  State<UpdateTenancyTermsPage> createState() => _UpdateTenancyTermsPageState();
-}
-
-class _UpdateTenancyTermsPageState extends State<UpdateTenancyTermsPage> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,30 +15,14 @@ class _UpdateTenancyTermsPageState extends State<UpdateTenancyTermsPage> {
         mutationName: "updateTenancyTerms",
         onComplete: ((json) {}),
         builder: (runMutation) {
-          return Column(
-            children: [
-              Expanded(
-                  child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: TenancyTermsForm(
-                  tenancyTerms: widget.house.lease.tenancyTerms,
-                  formKey: formKey,
-                ),
-              )),
-               Container(
-                 margin: const EdgeInsets.all(8),
-                width: MediaQuery.of(context).size.width,
-                 child: SecondaryActionButton(text: "Update Tenancy Terms", onClick: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    runMutation({
-                      "houseId": widget.house.houseId,
-                      "tenancyTerms": widget.house.lease.tenancyTerms.toJson()
-                    });
-                  }
-              }),
-               )
-            ],
+          return TenancyTermsForm(
+            lease: lease,
+            onUpdate: (TenancyTerms tenancyTerms) {
+              runMutation({
+                "houseId": lease.houseId,
+                "tenancyTerms": lease.tenancyTerms.toTenancyTermsInput()
+              });
+            },
           );
         });
   }

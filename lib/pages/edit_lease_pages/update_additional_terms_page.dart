@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/bloc/helper/SecondaryActionButton.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
-import 'package:notification_app/widgets/Wrappers/ItemLists/AdditionalTermsList.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class UpdateAdditionalTermsPage extends StatefulWidget {
-  final House house;
+  final Lease lease;
 
-  const UpdateAdditionalTermsPage(
-      {Key? key, required this.house})
+  const UpdateAdditionalTermsPage({Key? key, required this.lease})
       : super(key: key);
 
   @override
@@ -20,36 +18,6 @@ class UpdateAdditionalTermsPage extends StatefulWidget {
 class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
   String errorText = "";
 
-  bool validate() {
-    errorText = "";
-    List<String> additionalTermsNames = widget.house.lease.additionalTerms
-        .map<String>((AdditionalTerm additionalTerm) => additionalTerm.name)
-        .toList();
-    List<String> differences = {
-      "Tenant Insurance",
-      "Smoking",
-    }.difference(additionalTermsNames.toSet()).toList();
-    if (differences.isEmpty) {
-      setState(() {});
-      return true;
-    }
-    for (String element in differences) {
-      errorText += errorText.isEmpty ? element : ", $element";
-      switch (element) {
-        case "Tenant Insurance":
-          widget.house.lease.additionalTerms.insert(0, TenantInsuranceTerm());
-          continue;
-        case "Smoking":
-          widget.house.lease.additionalTerms.insert(0, NoSmokingTerm());
-          continue;
-      }
-    }
-    setState(() {
-      errorText += " additional term(s) required";
-    });
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return MutationHelper(
@@ -58,10 +26,7 @@ class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
         builder: (runMutation) {
           return Column(
             children: [
-              Expanded(
-                  child: AdditonalTermsList(
-                additionalTerms: widget.house.lease.additionalTerms,
-              )),
+              
               Container(
                   margin: const EdgeInsets.only(left: 8, bottom: 8),
                   alignment: Alignment.centerLeft,
@@ -69,20 +34,21 @@ class _UpdateAdditionalTermsPageState extends State<UpdateAdditionalTermsPage> {
                     errorText,
                     style: const TextStyle(color: Colors.red, fontSize: 18),
                   )),
-               Container(
+              Container(
                 margin: const EdgeInsets.all(8),
                 width: MediaQuery.of(context).size.width,
-                 child: SecondaryActionButton(text: "Update Additional Terms", onClick: () {
-                  if (validate()) {
-                    runMutation({
-                      "houseId": widget.house.houseId,
-                      "additionalTerms": widget.house.lease.additionalTerms
-                          .map((additionalTerm) => additionalTerm.toJson())
-                          .toList()
-                    });
-                  }
-                             }),
-               )
+                child: SecondaryActionButton(
+                    text: "Update Additional Terms",
+                    onClick: () {
+                      runMutation({
+                        "houseId": widget.lease.houseId,
+                        "additionalTerms": widget.lease.additionalTerms
+                            .map((additionalTerm) =>
+                                additionalTerm.toAdditionalTermInput())
+                            .toList()
+                      });
+                    }),
+              )
             ],
           );
         });

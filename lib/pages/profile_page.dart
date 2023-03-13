@@ -4,22 +4,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:notification_app/buttons/CallToActionButton.dart';
+import 'package:notification_app/buttons/MemoryPhoto.dart';
+import 'package:notification_app/buttons/ProfilePicture.dart';
+import 'package:notification_app/dialog/delete_landlord_dialog.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/main.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
-
 
 import '../graphql/mutation_helper.dart';
 import '../services/network.dart';
 import '../services/stream_socket.dart';
 import '../services/web_network.dart';
-import '../widgets/FormFields/AddressFormField.dart';
-import '../widgets/FormFields/EmailFormField.dart';
-import '../widgets/FormFields/SimpleFormField.dart';
-import '../widgets/Forms/FormRow/TwoColumnRow.dart';
-import '../widgets/buttons/CallToActionButton.dart';
-import '../widgets/buttons/MemoryPhoto.dart';
-import '../widgets/buttons/ProfilePicture.dart';
+
 
 class ProfilePage extends StatefulWidget {
   final Landlord landlord;
@@ -65,18 +62,10 @@ class _ProfilePageState extends State<ProfilePage> {
   ImagePicker picker = ImagePicker();
   XFile? image;
 
-  void onSuggestedAddress(BuildContext context,
-      SuggestedAddress suggestedAddress, bool isTest) async {
+  void onSuggestedAddress(
+      SuggestedAddress suggestedAddress) async {
     PredictedAddress address;
-    if (isTest) {
-      address = PredictedAddress.fromJson({
-        "streetNumber": "123",
-        "streetName": "Queen Street West",
-        "city": "Toronto",
-        "province": "Ontario",
-        "postalCode": "M5H 2M9"
-      });
-    } else if (kIsWeb) {
+    if (kIsWeb) {
       address =
           await WebNetwork().getPredictedAddress(suggestedAddress.placesId);
     } else {
@@ -101,14 +90,13 @@ class _ProfilePageState extends State<ProfilePage> {
     lastNameTextEditingController.text = landlord.lastName;
     emailTextEditingController.text = landlord.email;
     phoneNumberTextEditingController.text = landlord.phoneNumber;
-    streetNumberTextEditingController.text =
-        landlord.landlordAddress.streetNumber;
-    streetNameTextEditingController.text = landlord.landlordAddress.streetName;
-    cityTextEditingController.text = landlord.landlordAddress.city;
-    provinceTextEditingController.text = landlord.landlordAddress.province;
-    postalCodeTextEditingController.text = landlord.landlordAddress.postalCode;
-    unitNumberTextEditingController.text = landlord.landlordAddress.unitNumber;
-    poBoxTextEditingController.text = landlord.landlordAddress.poBox;
+    streetNumberTextEditingController.text = landlord.streetNumber;
+    streetNameTextEditingController.text = landlord.streetName;
+    cityTextEditingController.text = landlord.city;
+    provinceTextEditingController.text = landlord.province;
+    postalCodeTextEditingController.text = landlord.postalCode;
+    unitNumberTextEditingController.text = landlord.unitNumber;
+    poBoxTextEditingController.text = landlord.poBox;
   }
 
   @override
@@ -130,60 +118,6 @@ class _ProfilePageState extends State<ProfilePage> {
     poBoxTextEditingController.dispose();
   }
 
-  void showDeleteProfileDialog() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return GraphQLProvider(
-          client: GQLClient().getClient(),
-          child: MutationHelper(
-            builder: (runMutation) {
-              return AlertDialog(
-                  actions: [
-                    TextButton(
-                      child: const Text('No'),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    TextButton(
-                      child: const Text('Yes'),
-                      onPressed: () {
-                        runMutation({"landlord": landlord.toLandlordJson()});
-                      },
-                    ),
-                  ],
-                  content: Row(
-                    children: const [
-                      CircleAvatar(
-                        backgroundColor: Colors.red,
-                        child: Icon(
-                          Icons.warning,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Flexible(
-                        child: Text(
-                          "This will delete your account but but not your properties.\nThis means tenants will still have access to your properties but you will not.\nDo you still want to delete your account?",
-                          softWrap: true,
-                        ),
-                      ),
-                    ],
-                  ));
-            },
-            mutationName: 'deleteLandlord',
-            onComplete: (json) {
-              Navigator.popUntil(context, (route) => route.isFirst);
-            },
-          ),
-        );
-      },
-    );
-  }
-
   Future<void> openGallery(
       MultiSourceResult<Object?> Function(Map<String, dynamic>,
               {Object? optimisticResult})
@@ -200,7 +134,6 @@ class _ProfilePageState extends State<ProfilePage> {
         "image": base64Encode(await image!.readAsBytes())
       });
     }
-    
   }
 
   @override
@@ -215,7 +148,6 @@ class _ProfilePageState extends State<ProfilePage> {
           body: MutationHelper(
             builder: (runMutation) {
               return SingleChildScrollView(
-                
                 child: Column(
                   children: [
                     const SizedBox(
@@ -228,13 +160,15 @@ class _ProfilePageState extends State<ProfilePage> {
                             visible: image == null,
                             replacement: MemoryPhoto(
                               bytes: image?.readAsBytes(),
-                              text: widget.landlord.getFullName(),
+                              text: widget.landlord.fullName,
                               profileColor: Colors.blueGrey,
                               profileSize: 60,
                               iconSize: 80,
                               textSize: 18,
                               textColor: Color(primaryColour),
-                              onClick: () async {await openGallery(runMutation);},
+                              onClick: () async {
+                                await openGallery(runMutation);
+                              },
                             ),
                             child: ProfilePicture(
                                 profileColor: Colors.blueGrey,
@@ -244,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 textSize: 18,
                                 profileURL: landlord.profileURL,
                                 textColor: Color(primaryColour),
-                                text: widget.landlord.getFullName(),
+                                text: widget.landlord.fullName,
                                 onClick: () async {
                                   await openGallery(runMutation);
                                 }),
@@ -254,153 +188,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       mutationName: 'scheduleLandlordProfile',
                       onComplete: (json) {},
                     ),
-                    Form(
-                        key: formKey,
-                        child: Column(
-                          children: [
-                            TwoColumnRow(
-                                left: SimpleFormField(
-                                  label: "First Name",
-                                  icon: Icons.account_circle,
-                                  textEditingController:
-                                      firstNameTextEditingController,
-                                  onSaved: (value) {
-                                    landlord.setFirstName(value!.trim());
-                                  },
-                                  field: Name(""),
-                                ),
-                                right: SimpleFormField(
-                                  label: "Last Name",
-                                  icon: Icons.account_circle,
-                                  textEditingController:
-                                      lastNameTextEditingController,
-                                  onSaved: (value) {
-                                    landlord.setLastName(value!.trim());
-                                  },
-                                  field: Name(""),
-                                )),
-                            SimpleFormField(
-                                label: "Phone Number",
-                                icon: Icons.phone,
-                                textEditingController:
-                                    phoneNumberTextEditingController,
-                                onSaved: (value) {
-                                  landlord.setPhoneNumber(value!.trim());
-                                },
-                                field: Name("")),
-                            EmailFormField(
-                              textEditingController: emailTextEditingController,
-                              onSaved: (value) {
-                                landlord.setEmail(value.trim());
-                              },
-                            ),
-                            Container(
-                              margin: const EdgeInsets.all(8),
-                              child: Row(
-                                children: const [
-                                  Icon(
-                                    Icons.lightbulb,
-                                    color: Colors.amber,
-                                  ),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Flexible(
-                                      child: Text(
-                                    "This is the address for recieving notices or documents from your tenants",
-                                    softWrap: true,
-                                  ))
-                                ],
-                              ),
-                            ),
-                            AddressFormField(onSuggestedAddress, streamSocket),
-                            TwoColumnRow(
-                                left: SimpleFormField(
-                                  label: "Street Number",
-                                  icon: Icons.numbers,
-                                  textEditingController:
-                                      streetNumberTextEditingController,
-                                  onSaved: (String? value) {
-                                    landlord.landlordAddress
-                                        .setStreetNumber(value!.trim());
-                                  },
-                                  field: StreetNumber(""),
-                                ),
-                                right: SimpleFormField(
-                                  label: "Street Name",
-                                  textEditingController:
-                                      streetNameTextEditingController,
-                                  icon: Icons.route,
-                                  onSaved: (String? value) {
-                                    landlord.landlordAddress
-                                        .setStreetName(value!.trim());
-                                  },
-                                  field: StreetName(""),
-                                )),
-                            TwoColumnRow(
-                                left: SimpleFormField(
-                                  label: "City",
-                                  icon: Icons.location_city,
-                                  textEditingController:
-                                      cityTextEditingController,
-                                  onSaved: (String? value) {
-                                    landlord.landlordAddress
-                                        .setCity(value!.trim());
-                                  },
-                                  field: City(""),
-                                ),
-                                right: SimpleFormField(
-                                  label: "Province",
-                                  icon: Icons.location_on,
-                                  textEditingController:
-                                      provinceTextEditingController,
-                                  onSaved: (String? value) {
-                                    landlord.landlordAddress
-                                        .setProvince(value!.trim());
-                                  },
-                                  field: Province(""),
-                                )),
-                            Align(
-                                alignment: Alignment.centerLeft,
-                                child: SizedBox(
-                                    width:
-                                        (MediaQuery.of(context).size.width / 3) *
-                                            2,
-                                    child: SimpleFormField(
-                                        label: "Postal Code",
-                                        icon: Icons.markunread_mailbox,
-                                        textEditingController:
-                                            postalCodeTextEditingController,
-                                        onSaved: (String? value) {
-                                          landlord.landlordAddress
-                                              .setPostalCode(value!.trim());
-                                        },
-                                        field: PostalCode("")))),
-                            TwoColumnRow(
-                                left: SimpleFormField(
-                                  label: "Unit Number",
-                                  icon: Icons.numbers,
-                                  textEditingController:
-                                      unitNumberTextEditingController,
-                                  onSaved: (String? value) {
-                                    landlord.landlordAddress
-                                        .setUnitNumber(value!.trim());
-                                  },
-                                  field: UnitNumber(""),
-                                ),
-                                right: SimpleFormField(
-                                  label: "P.O. Box",
-                                  icon: Icons.markunread_mailbox,
-                                  textEditingController:
-                                      poBoxTextEditingController,
-                                  onSaved: (String? value) {
-                                    landlord.landlordAddress
-                                        .setPOBox(value!.trim());
-                                  },
-                                  field: POBox(""),
-                                ))
-                          ],
-                        )),
+                   
                     Container(
                       margin: const EdgeInsets.all(8),
                       width: MediaQuery.of(context).size.width,
@@ -410,7 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             if (formKey.currentState!.validate()) {
                               formKey.currentState!.save();
                               runMutation(
-                                  {"landlord": landlord.toLandlordJson()});
+                                  {"landlord": landlord.toLandlordInput("")});
                             }
                           }),
                     ),
@@ -423,7 +211,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        showDeleteProfileDialog();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return DeleteLandlordDialog(landlord: landlord);
+                          },
+                        );
                       },
                       child: Container(
                         margin: const EdgeInsets.all(8),

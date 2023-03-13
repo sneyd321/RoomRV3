@@ -30,16 +30,8 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
   @override
   void initState() {
     super.initState();
-    lease.landlordInfo.fullName = widget.landlord.getFullName();
-    lease.landlordInfo.addEmail(widget.landlord.email);
-    lease.landlordInfo.addContactInfo(widget.landlord.email);
-    lease.landlordInfo.addContactInfo(widget.landlord.phoneNumber);
-    lease.rent.rentMadePayableTo = widget.landlord.getFullName();
-    lease.rent.paymentOptions.add(ETransferPaymentOption());
-    lease.rent.paymentOptions.add(PostDatedChequesPaymentOption());
-    lease.rent.paymentOptions.add(CashPaymentOption());
-    lease.rent.addRentService(CustomRentService("Parking", "0.00"));
- 
+    LandlordInfo landlordInfo = LandlordInfo.fromLandlord(widget.landlord);
+    lease.updateLandlordInfo(landlordInfo);
   }
 
 
@@ -58,7 +50,6 @@ class _AddLeaseViewPagerState extends State<AddLeaseViewPager> {
     if (currentPage < MAX_PAGE) {
       currentPage += 1;
     }
-
     animateToPage(currentPage);
   }
 

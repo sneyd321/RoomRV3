@@ -20,7 +20,7 @@ import 'package:notification_app/business_logic/tenancy_terms.dart';
 import 'package:notification_app/business_logic/tenant.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
-import 'package:notification_app/widgets/Cards/RentDiscoutCard.dart';
+import 'package:notification_app/bloc_card/Cards/RentDiscoutCard.dart';
 
 void main() {
   Widget getMutation(String responseFileName, String mutationName,

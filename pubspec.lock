@@ -792,7 +792,7 @@ packages:
       name: roomr_business_logic
       url: "https://onepub.dev/api/sudsdavuhn/"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.16"
   rxdart:
     dependency: "direct main"
     description:

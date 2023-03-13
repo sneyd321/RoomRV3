@@ -54,7 +54,7 @@ dependencies:
   shared_preferences: ^2.0.15
   roomr_business_logic:
       hosted: https://onepub.dev/api/sudsdavuhn
-      version: ^0.0.3
+      version: ^0.0.16
 
 
 dev_dependencies:
@@ -115,6 +115,7 @@ flutter:
     - assets/updateLandlordMutation.gql
     - assets/profile1.jpg
     - assets/scheduleLandlordProfileMutation.gql
+    - assets/clipboard.jpg
 
   #   - images/a_dot_ham.jpeg
 

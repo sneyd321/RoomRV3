@@ -1,19 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/buttons/CallToActionButton.dart';
 
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/services/stream_socket.dart';
-import 'package:notification_app/widgets/FormFields/EmailFormField.dart';
-import 'package:notification_app/widgets/FormFields/SimpleFormField.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../graphql/mutation_helper.dart';
 import '../services/web_network.dart';
-import '../widgets/FormFields/AddressFormField.dart';
-import '../widgets/Forms/FormRow/TwoColumnRow.dart';
-import '../widgets/buttons/CallToActionButton.dart';
 
 class EditProfilePage extends StatefulWidget {
   final Landlord landlord;
@@ -55,19 +51,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   final ScrollController scrollController = ScrollController();
 
-
-  void onSuggestedAddress(BuildContext context,
-      SuggestedAddress suggestedAddress, bool isTest) async {
+  void onSuggestedAddress(
+       SuggestedAddress suggestedAddress) async {
     PredictedAddress address;
-    if (isTest) {
-      address = PredictedAddress.fromJson({
-        "streetNumber": "123",
-        "streetName": "Queen Street West",
-        "city": "Toronto",
-        "province": "Ontario",
-        "postalCode": "M5H 2M9"
-      });
-    } else if (kIsWeb) {
+    if (kIsWeb) {
       address =
           await WebNetwork().getPredictedAddress(suggestedAddress.placesId);
     } else {
@@ -78,7 +65,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     cityTextEditingController.text = address.city;
     provinceTextEditingController.text = address.province;
     postalCodeTextEditingController.text = address.postalCode;
-    
+
     setState(() {
       streamSocket.addResponse([]);
     });
@@ -92,14 +79,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
     lastNameTextEditingController.text = landlord.lastName;
     emailTextEditingController.text = landlord.email;
     phoneNumberTextEditingController.text = landlord.phoneNumber;
-    streetNumberTextEditingController.text =
-        landlord.landlordAddress.streetNumber;
-    streetNameTextEditingController.text = landlord.landlordAddress.streetName;
-    cityTextEditingController.text = landlord.landlordAddress.city;
-    provinceTextEditingController.text = landlord.landlordAddress.province;
-    postalCodeTextEditingController.text = landlord.landlordAddress.postalCode;
-    unitNumberTextEditingController.text = landlord.landlordAddress.unitNumber;
-    poBoxTextEditingController.text = landlord.landlordAddress.poBox;
+    streetNumberTextEditingController.text = landlord.streetNumber;
+    streetNameTextEditingController.text = landlord.streetName;
+    cityTextEditingController.text = landlord.city;
+    provinceTextEditingController.text = landlord.province;
+    postalCodeTextEditingController.text = landlord.postalCode;
+    unitNumberTextEditingController.text = landlord.unitNumber;
+    poBoxTextEditingController.text = landlord.poBox;
   }
 
   @override
@@ -136,40 +122,51 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 key: formKey,
                 child: Column(
                   children: [
-                    TwoColumnRow(
-                        left: SimpleFormField(
-                          label: "First Name",
-                          icon: Icons.account_circle,
-                          textEditingController: firstNameTextEditingController,
-                          onSaved: (value) {
-                            landlord.setFirstName(value!.trim());
-                          },
-                          field: Name(""),
-                        ),
-                        right: SimpleFormField(
-                          label: "Last Name",
-                          icon: Icons.account_circle,
-                          textEditingController: lastNameTextEditingController,
-                          onSaved: (value) {
-                            landlord.setLastName(value!.trim());
-                          },
-                          field: Name(""),
-                        )),
+                    /*
                     SimpleFormField(
-                        label: "Phone Number",
-                        icon: Icons.phone,
-                        textEditingController: phoneNumberTextEditingController,
-                        onSaved: (value) {
-                          landlord.setPhoneNumber(value!.trim());
-                        },
-                        field: Name("")),
-                    EmailFormField(
-                      textEditingController: emailTextEditingController,
+                      label: "First Name",
+                      icon: Icons.account_circle,
+                      textEditingController: firstNameTextEditingController,
                       onSaved: (value) {
-                        landlord.setEmail(value.trim());
+                        landlord.updateFirstName(value!);
+                      },
+                      onValidate: (String? value) {
+                        return landlord.updateFirstName(value!);
                       },
                     ),
-                   
+                    SimpleFormField(
+                      label: "Last Name",
+                      icon: Icons.account_circle,
+                      textEditingController: lastNameTextEditingController,
+                      onSaved: (value) {
+                        landlord.updateLastName(value!);
+                      },
+                      onValidate: (String? value) {
+                        return landlord.updateLastName(value!);
+                      },
+                    ),
+                    SimpleFormField(
+                      label: "Phone Number",
+                      icon: Icons.phone,
+                      textEditingController: phoneNumberTextEditingController,
+                      onSaved: (value) {
+                        landlord.updatePhoneNumber(value!);
+                      },
+                      onValidate: (value) {
+                        return landlord.updatePhoneNumber(value!);
+                      },
+                    ),
+                    SimpleFormField(
+                      textEditingController: emailTextEditingController,
+                      onSaved: (value) {
+                        landlord.updateEmail(value!);
+                      },
+                      icon: Icons.email,
+                      label: 'Email',
+                      onValidate: (String? value) {
+                        return landlord.updateEmail(value!);
+                      },
+                    ),
                     Container(
                       margin: const EdgeInsets.all(8),
                       child: Row(
@@ -190,48 +187,50 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                     AddressFormField(onSuggestedAddress, streamSocket),
-                    TwoColumnRow(
-                        left: SimpleFormField(
-                          label: "Street Number",
-                          icon: Icons.numbers,
-                          textEditingController:
-                              streetNumberTextEditingController,
-                          onSaved: (String? value) {
-                            landlord.landlordAddress
-                                .setStreetNumber(value!.trim());
-                          },
-                          field: StreetNumber(""),
-                        ),
-                        right: SimpleFormField(
-                          label: "Street Name",
-                          textEditingController:
-                              streetNameTextEditingController,
-                          icon: Icons.route,
-                          onSaved: (String? value) {
-                            landlord.landlordAddress
-                                .setStreetName(value!.trim());
-                          },
-                          field: StreetName(""),
-                        )),
-                    TwoColumnRow(
-                        left: SimpleFormField(
+                    SimpleFormField(
+                      label: "Street Number",
+                      icon: Icons.numbers,
+                      textEditingController: streetNumberTextEditingController,
+                      onSaved: (String? value) {
+                        landlord.updateStreetNumber(value!);
+                      },
+                      onValidate: (value) {
+                        return landlord.updateStreetNumber(value!);
+                      },
+                    ),
+                    SimpleFormField(
+                      label: "Street Name",
+                      textEditingController: streetNameTextEditingController,
+                      icon: Icons.route,
+                      onSaved: (String? value) {
+                        landlord.updateStreetName(value!);
+                      },
+                      onValidate: (String? value) {
+                        return landlord.updateStreetName(value!);
+                      },
+                    ),
+                    SimpleFormField(
                           label: "City",
                           icon: Icons.location_city,
                           textEditingController: cityTextEditingController,
                           onSaved: (String? value) {
-                            landlord.landlordAddress.setCity(value!.trim());
+                            landlord.updateCity(value!);
                           },
-                          field: City(""),
+                          onValidate: (value) {
+                            return landlord.updateCity(value!);
+                          },
                         ),
-                        right: SimpleFormField(
+                        SimpleFormField(
                           label: "Province",
                           icon: Icons.location_on,
                           textEditingController: provinceTextEditingController,
                           onSaved: (String? value) {
-                            landlord.landlordAddress.setProvince(value!.trim());
+                            landlord.updateProvince(value!);
                           },
-                          field: Province(""),
-                        )),
+                          onValidate: (value) {
+                            return landlord.updateProvince(value!);
+                          },
+                        ),
                     Align(
                         alignment: Alignment.centerLeft,
                         child: SizedBox(
@@ -242,31 +241,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 textEditingController:
                                     postalCodeTextEditingController,
                                 onSaved: (String? value) {
-                                  landlord.landlordAddress
-                                      .setPostalCode(value!.trim());
+                                  landlord
+                                      .updatePostalCode(value!);
                                 },
-                                field: PostalCode("")))),
-                    TwoColumnRow(
-                        left: SimpleFormField(
+                                onValidate: (value) {
+                                  return landlord
+                                      .updatePostalCode(value!);
+                                },))),
+                    SimpleFormField(
                           label: "Unit Number",
                           icon: Icons.numbers,
                           textEditingController:
                               unitNumberTextEditingController,
                           onSaved: (String? value) {
-                            landlord.landlordAddress
-                                .setUnitNumber(value!.trim());
+                            landlord.
+                                updateUnitNumber(value!);
                           },
-                          field: UnitNumber(""),
+                          onValidate: (value) {
+                            return landlord.
+                                updateUnitNumber(value!);
+                          },
                         ),
-                        right: SimpleFormField(
+                        SimpleFormField(
                           label: "P.O. Box",
                           icon: Icons.markunread_mailbox,
                           textEditingController: poBoxTextEditingController,
                           onSaved: (String? value) {
-                            landlord.landlordAddress.setPOBox(value!.trim());
+                            landlord.updatePoBox(value!);
                           },
-                          field: POBox(""),
-                        )),
+                          onValidate: (value) {
+                            return landlord.updatePoBox(value!);
+                          },
+                        ),
+                        */
                     Row(
                       children: [
                         Expanded(
@@ -278,8 +285,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   if (formKey.currentState!.validate()) {
                                     formKey.currentState!.save();
                                     runMutation({
-                                      "landlord":
-                                          landlord.toLandlordJson()
+                                      "landlord": landlord.toLandlordInput("")
                                     });
                                   }
                                 }),

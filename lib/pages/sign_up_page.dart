@@ -1,22 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/bloc/fields/PasswordFormField.dart';
+import 'package:notification_app/buttons/CallToActionButton.dart';
 
 
 import 'package:notification_app/graphql/graphql_client.dart';
 import 'package:notification_app/services/network.dart';
 import 'package:notification_app/services/stream_socket.dart';
 
-import 'package:notification_app/widgets/FormFields/EmailFormField.dart';
-import 'package:notification_app/widgets/FormFields/PasswordFormField.dart';
-import 'package:notification_app/widgets/FormFields/SimpleFormField.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../graphql/mutation_helper.dart';
 import '../services/web_network.dart';
-import '../widgets/FormFields/AddressFormField.dart';
-import '../widgets/Forms/FormRow/TwoColumnRow.dart';
-import '../widgets/buttons/CallToActionButton.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -62,18 +58,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final ScrollController scrollController = ScrollController();
 
 
-  void onSuggestedAddress(BuildContext context,
-      SuggestedAddress suggestedAddress, bool isTest) async {
+  void onSuggestedAddress(
+      SuggestedAddress suggestedAddress) async {
     PredictedAddress address;
-    if (isTest) {
-      address = PredictedAddress.fromJson({
-        "streetNumber": "123",
-        "streetName": "Queen Street West",
-        "city": "Toronto",
-        "province": "Ontario",
-        "postalCode": "M5H 2M9"
-      });
-    } else if (kIsWeb) {
+    if (kIsWeb) {
       address =
           await WebNetwork().getPredictedAddress(suggestedAddress.placesId);
     } else {
@@ -100,13 +88,13 @@ class _SignUpPageState extends State<SignUpPage> {
     passwordTextEditingController.text = landlord.password;
     reTypeTextEditingController.text = landlord.password;
     streetNumberTextEditingController.text =
-        landlord.landlordAddress.streetNumber;
-    streetNameTextEditingController.text = landlord.landlordAddress.streetName;
-    cityTextEditingController.text = landlord.landlordAddress.city;
-    provinceTextEditingController.text = landlord.landlordAddress.province;
-    postalCodeTextEditingController.text = landlord.landlordAddress.postalCode;
-    unitNumberTextEditingController.text = landlord.landlordAddress.unitNumber;
-    poBoxTextEditingController.text = landlord.landlordAddress.poBox;
+        landlord.streetNumber;
+    streetNameTextEditingController.text = landlord.streetName;
+    cityTextEditingController.text = landlord.city;
+    provinceTextEditingController.text = landlord.province;
+    postalCodeTextEditingController.text = landlord.postalCode;
+    unitNumberTextEditingController.text = landlord.unitNumber;
+    poBoxTextEditingController.text = landlord.poBox;
 
 
   }
@@ -146,156 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 key: formKey,
                 child: Column(
                   children: [
-                    TwoColumnRow(
-                        left: SimpleFormField(
-                          label: "First Name",
-                          icon: Icons.account_circle,
-                          textEditingController: firstNameTextEditingController,
-                          onSaved: (value) {
-                            landlord.setFirstName(value!.trim());
-                          },
-                          field: Name(""),
-                        ),
-                        right: SimpleFormField(
-                          label: "Last Name",
-                          icon: Icons.account_circle,
-                          textEditingController: lastNameTextEditingController,
-                          onSaved: (value) {
-                            landlord.setLastName(value!.trim());
-                          },
-                          field: Name(""),
-                        )),
-                    SimpleFormField(
-                        label: "Phone Number",
-                        icon: Icons.phone,
-                        textEditingController: phoneNumberTextEditingController,
-                        onSaved: (value) {
-                          landlord.setPhoneNumber(value!.trim());
-                        },
-                        field: Name("")),
-                    EmailFormField(
-                      textEditingController: emailTextEditingController,
-                      onSaved: (value) {
-                        landlord.setEmail(value.trim());
-                      },
-                    ),
-                    PasswordFormField(
-                        label: "Password",
-                        icon: Icons.password,
-                        textEditingController: passwordTextEditingController,
-                        onSaved: (value) {},
-                        onValidate: (value) {
-                          password = value!;
-                          return Password(value.trim()).validate();
-                        }),
-                    PasswordFormField(
-                        label: "Re Type Password",
-                        icon: Icons.password,
-                        textEditingController: reTypeTextEditingController,
-                        onSaved: (value) {
-                          landlord.setPassword(value!.trim());
-                        },
-                        onValidate: (value) {
-                          return ReTypePassword(value!.trim())
-                              .validatePassword(password);
-                        }),
-                    Container(
-                      margin: const EdgeInsets.all(8),
-                      child: Row(
-                        children: const [
-                          Icon(
-                            Icons.lightbulb,
-                            color: Colors.amber,
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Flexible(
-                              child: Text(
-                            "This is the address for recieving notices or documents from your tenants",
-                            softWrap: true,
-                          ))
-                        ],
-                      ),
-                    ),
-                    AddressFormField(onSuggestedAddress, streamSocket),
-                    TwoColumnRow(
-                        left: SimpleFormField(
-                          label: "Street Number",
-                          icon: Icons.numbers,
-                          textEditingController:
-                              streetNumberTextEditingController,
-                          onSaved: (String? value) {
-                            landlord.landlordAddress
-                                .setStreetNumber(value!.trim());
-                          },
-                          field: StreetNumber(""),
-                        ),
-                        right: SimpleFormField(
-                          label: "Street Name",
-                          textEditingController:
-                              streetNameTextEditingController,
-                          icon: Icons.route,
-                          onSaved: (String? value) {
-                            landlord.landlordAddress
-                                .setStreetName(value!.trim());
-                          },
-                          field: StreetName(""),
-                        )),
-                    TwoColumnRow(
-                        left: SimpleFormField(
-                          label: "City",
-                          icon: Icons.location_city,
-                          textEditingController: cityTextEditingController,
-                          onSaved: (String? value) {
-                            landlord.landlordAddress.setCity(value!.trim());
-                          },
-                          field: City(""),
-                        ),
-                        right: SimpleFormField(
-                          label: "Province",
-                          icon: Icons.location_on,
-                          textEditingController: provinceTextEditingController,
-                          onSaved: (String? value) {
-                            landlord.landlordAddress.setProvince(value!.trim());
-                          },
-                          field: Province(""),
-                        )),
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: SizedBox(
-                            width: (MediaQuery.of(context).size.width / 3) * 2,
-                            child: SimpleFormField(
-                                label: "Postal Code",
-                                icon: Icons.markunread_mailbox,
-                                textEditingController:
-                                    postalCodeTextEditingController,
-                                onSaved: (String? value) {
-                                  landlord.landlordAddress
-                                      .setPostalCode(value!.trim());
-                                },
-                                field: PostalCode("")))),
-                    TwoColumnRow(
-                        left: SimpleFormField(
-                          label: "Unit Number",
-                          icon: Icons.numbers,
-                          textEditingController:
-                              unitNumberTextEditingController,
-                          onSaved: (String? value) {
-                            landlord.landlordAddress
-                                .setUnitNumber(value!.trim());
-                          },
-                          field: UnitNumber(""),
-                        ),
-                        right: SimpleFormField(
-                          label: "P.O. Box",
-                          icon: Icons.markunread_mailbox,
-                          textEditingController: poBoxTextEditingController,
-                          onSaved: (String? value) {
-                            landlord.landlordAddress.setPOBox(value!.trim());
-                          },
-                          field: POBox(""),
-                        )),
+                   
                     Row(
                       children: [
                         Expanded(
@@ -308,7 +147,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     formKey.currentState!.save();
                                     runMutation({
                                       "landlord":
-                                          landlord.toCreateLandlordJson()
+                                          landlord.toCreateLandlordInput()
                                     });
                                   }
                                 }),
@@ -325,10 +164,10 @@ class _SignUpPageState extends State<SignUpPage> {
         mutationName: 'createLandlord',
         onComplete: (json) {
           Landlord landlord = Landlord.fromJson(json);
-          LoginLandlord loginLandlord = LoginLandlord();
-          loginLandlord.email = landlord.email;
-          loginLandlord.password = password;
-          Navigator.pop(context, loginLandlord);
+  
+          landlord.updateEmail(landlord.email);
+          landlord.updatePassword(password);
+          Navigator.pop(context, landlord);
         },
       )),
     );

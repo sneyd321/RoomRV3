@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/maintenance_ticket/comment_form.dart';
+import 'package:notification_app/builders/comment_stream_builder.dart';
 
 import 'package:notification_app/graphql/query_helper.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../../services/FirebaseConfig.dart';
 import '../../graphql/graphql_client.dart';
-import '../../widgets/Forms/Form/comment_form.dart';
-import '../../widgets/Forms/FormRow/table_row.dart';
-import '../../widgets/builders/comment_stream_builder.dart';
 
 class CommentsPage extends StatefulWidget {
   final int maintenanceTicketId;
@@ -68,12 +67,10 @@ class _CommentsPageState extends State<CommentsPage> {
                 child: Scaffold(
                     appBar: AppBar(),
                     body: NestedScrollView(
-                        
                         headerSliverBuilder:
                             (BuildContext context, bool innerBoxIsScrolled) {
                           return [
                             SliverList(
-                              
                                 delegate: SliverChildListDelegate([
                               GestureDetector(
                                   onTap: () {
@@ -88,18 +85,8 @@ class _CommentsPageState extends State<CommentsPage> {
                                             borderRadius:
                                                 BorderRadius.circular(8.0),
                                             child: Image.network(
-                                                maintenanceTicket.picture
-                                                    .getUrl()!))),
-                                    TablePair(
-                                        name: "Date Created: ",
-                                        value: maintenanceTicket.datePosted),
-                                    TablePair(
-                                        name: "Urgency: ",
-                                        value: maintenanceTicket.urgency.name),
-                                    TablePair(
-                                        name: "Description: ",
-                                        value: maintenanceTicket
-                                            .description.description),
+                                                maintenanceTicket.imageURL))),
+                                  
                                   ]))
                             ]))
                           ];

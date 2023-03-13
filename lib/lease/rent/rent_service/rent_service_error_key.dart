@@ -1,0 +1,1 @@
+enum RentServiceErrorKey { rentServiceName, rentServiceAmount }

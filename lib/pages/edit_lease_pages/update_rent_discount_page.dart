@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:notification_app/bloc/helper/SecondaryActionButton.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
-import 'package:notification_app/widgets/Wrappers/ItemLists/RentDiscountsList.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class UpdateRentDiscountPage extends StatefulWidget {
-  final House house;
+  final Lease lease;
 
-  const UpdateRentDiscountPage(
-      {Key? key,
-      required this.house})
+  const UpdateRentDiscountPage({Key? key, required this.lease})
       : super(key: key);
 
   @override
@@ -19,45 +16,40 @@ class UpdateRentDiscountPage extends StatefulWidget {
 
 class _UpdateRentDiscountPageState extends State<UpdateRentDiscountPage> {
   String errorText = "";
-  bool validate() {
-      return true;
-  }
-
 
   @override
   Widget build(BuildContext context) {
     return MutationHelper(
-      mutationName: "updateRentDiscounts",
-      onComplete: (json) {
-        
-      },
-      builder: (runMutation) {
-        return Column(
-          children: [
-            Expanded(child: RentDiscountsList(rentDiscounts: widget.house.lease.rentDiscounts)),
-            Container(
-              margin: const EdgeInsets.only(left: 8, bottom: 8),
-              alignment: Alignment.centerLeft,
-              child: Text(errorText, style: const TextStyle(color: Colors.red, fontSize: 18),)),
+        mutationName: "updateRentDiscounts",
+        onComplete: (json) {},
+        builder: (runMutation) {
+          return Column(
+            children: [
+             
               Container(
-                 margin: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.only(left: 8, bottom: 8),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    errorText,
+                    style: const TextStyle(color: Colors.red, fontSize: 18),
+                  )),
+              Container(
+                margin: const EdgeInsets.all(8),
                 width: MediaQuery.of(context).size.width,
-                child: SecondaryActionButton(text: "Update Rent Discounts", onClick: () {
-                  if (validate()) {
-                    runMutation({
-                      "houseId": widget.house.houseId,
-                      "rentDiscounts": widget.house.lease.rentDiscounts
-                          .map((rentDiscount) => rentDiscount.toJson())
-                          .toList()
-                    });
-                  }
-             }),
+                child: SecondaryActionButton(
+                    text: "Update Rent Discounts",
+                    onClick: () {
+                      runMutation({
+                        "houseId": widget.lease.houseId,
+                        "rentDiscounts": widget.lease.rentDiscounts
+                            .map((rentDiscount) =>
+                                rentDiscount.toRentDiscountInput())
+                            .toList()
+                      });
+                    }),
               )
-          ],
-        );
-      }
-    );
+            ],
+          );
+        });
   }
 }
-
-

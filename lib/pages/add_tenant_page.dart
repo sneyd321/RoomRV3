@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/bloc/helper/bottom_sheet_helper.dart';
 import 'package:notification_app/graphql/query_helper.dart';
 import 'package:notification_app/graphql/graphql_client.dart';
-import 'package:notification_app/widgets/Cards/AddTenantCard.dart';
-import 'package:notification_app/widgets/Forms/BottomSheetForm/AddTenantForm.dart';
-import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../widgets/Listviews/CardSliverGridView.dart';
 
 class AddTenantPage extends StatefulWidget {
   final House house;
@@ -42,8 +39,7 @@ class _AddTenantPageState extends State<AddTenantPage> {
                       label: const Text("Add Tenant"),
                       onPressed: () async {
                         Tenant? tenant = await BottomSheetHelper<Tenant?>(
-                                AddTenantEmailForm(
-                                    houseId: widget.house.houseId))
+                                Text(""))
                             .show(context);
                         if (tenant == null) {
                           return;
@@ -66,26 +62,7 @@ class _AddTenantPageState extends State<AddTenantPage> {
                       ],
                     ),
                     body: tenants.isNotEmpty
-                        ? CardSliverGridView(
-                            childAspectRatio: .5,
-                            builder: (context, index) {
-                              Tenant tenant = tenants[index];
-                              return AddTenantCard(
-                                tenant: tenant,
-                                houseKey: widget.house.houseKey,
-                                onDeleteTenant: () {
-                                  setState(() {
-                                    Tenant tenantToBeDeleted = tenants
-                                        .where((element) =>
-                                            element.email == tenant.email)
-                                        .first;
-                                    tenants.remove(tenantToBeDeleted);
-                                  });
-                                },
-                              );
-                            },
-                            items: tenants,
-                          )
+                        ? null
                         : const Card(
                             margin: EdgeInsets.all(8),
                             child: ListTile(

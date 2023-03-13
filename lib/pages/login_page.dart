@@ -1,19 +1,16 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/bloc/fields/PasswordFormField.dart';
+import 'package:notification_app/Navigation/navigation.dart';
+import 'package:notification_app/buttons/CallToActionButton.dart';
+import 'package:notification_app/bloc/helper/SecondaryActionButton.dart';
 import 'package:notification_app/graphql/mutation_helper.dart';
 import 'package:notification_app/main.dart';
-import 'package:notification_app/widgets/Navigation/navigation.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/FirebaseConfig.dart';
 import '../graphql/graphql_client.dart';
-import '../widgets/FormFields/EmailFormField.dart';
-import '../widgets/FormFields/PasswordFormField.dart';
-import '../widgets/buttons/CallToActionButton.dart';
-import '../widgets/buttons/SecondaryActionButton.dart';
 
 class LoginPage extends StatefulWidget {
   final String email;
@@ -27,16 +24,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   bool isLoggedIn = false;
 
   final TextEditingController emailTextEditingController =
       TextEditingController();
   final TextEditingController passwordTextEditingController =
       TextEditingController();
-  
-  LoginLandlord loginLandlord = LoginLandlord();
-  
+  Landlord landlord = Landlord();
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late MultiSourceResult<Object?> Function(Map<String, dynamic>,
       {Object? optimisticResult}) runMutation;
@@ -45,12 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     saveEmailPassword(widget.email, widget.password);
-    FirebaseConfiguration()
-        .getToken()
-        .then((value) => loginLandlord.deviceId = value ?? "");
   }
-
-
 
   void saveEmailPassword(String email, String password) {
     emailTextEditingController.text = email;
@@ -67,8 +57,11 @@ class _LoginPageState extends State<LoginPage> {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("email", loginLandlord.email);
-      runMutation({"login": loginLandlord.toJson()});
+      prefs.setString("email", landlord.email);
+      runMutation({
+        "login": landlord
+            .toLoginLandlordInput(await FirebaseConfiguration().getToken())
+      });
     }
   }
 
@@ -81,105 +74,53 @@ class _LoginPageState extends State<LoginPage> {
           this.runMutation = runMutation;
           return SafeArea(
               child: Scaffold(
-            body: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Form(
-                        key: formKey,
-                        child: Column(
-                          children: [
-                            Container(
-                                margin: const EdgeInsets.only(
-                                  top: 32,
-                                ),
-                                child: Center(
-                                    child: Column(
-                                  children: const [
-                                    Text(
-                                      "Room Renting",
-                                      style: TextStyle(
-                                          color: Color(primaryColour),
-                                          fontSize: 36),
-                                    ),
-                                    Text(
-                                      "Landlord",
-                                      style: TextStyle(
-                                          color: Colors.blue, fontSize: 28),
-                                    ),
-                                  ],
-                                ))),
-                            const SizedBox(
-                              height: 128,
-                            ),
-                            EmailFormField(
-                              textEditingController: emailTextEditingController,
-                              onSaved: ((email) {
-                                loginLandlord.setEmail(email);
-                              }),
-                            ),
-                            PasswordFormField(
-                                textEditingController:
-                                    passwordTextEditingController,
-                                onSaved: (value) {
-                                  loginLandlord.setPassword(value!);
-                                },
-                                label: "Password",
-                                icon: Icons.lock,
-                                onValidate: (value) {
-                                  return Password(value!).validate();
-                                }),
-                          ],
-                        )),
+                  body: Column(children: [
+            Container(
+              margin: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  Row(children: [
+                    Expanded(
+                      child: CallToActionButton(
+                          text: "Login",
+                          onClick: () async {
+                            login();
+                          }),
+                    )
+                  ]),
+                  const SizedBox(
+                    height: 16,
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(8),
-                  child: Column(
-                    children: [
-                      Row(children: [
-                        Expanded(
-                          child: CallToActionButton(
-                              text: "Login",
-                              onClick: () async {
-                                login();
-                              }),
-                        )
-                      ]),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Row(children: [
-                        Expanded(
-                          child: SecondaryActionButton(
-                              text: "Sign Up",
-                              onClick: () async {
-                                LoginLandlord? loginLandlord = await Navigation().navigateToSignUpPage(context);
-                                if (loginLandlord != null) {
-                                  this.loginLandlord.email = loginLandlord.email;
-                                  this.loginLandlord.password = loginLandlord.password;
-                                  saveEmailPassword(loginLandlord.email, loginLandlord.password);
-                                  login();
-                                }
-                              }),
-                        )
-                      ])
-                    ],
-                  ),
-                ),
-              ],
+                  Row(children: [
+                    Expanded(
+                      child: SecondaryActionButton(
+                          text: "Sign Up",
+                          onClick: () async {
+                            Landlord? landlord = await Navigation()
+                                .navigateToSignUpPage(context);
+                            if (landlord != null) {
+                              this.landlord.updateEmail(landlord.email);
+                              this.landlord.updatePassword(landlord.password);
+                              saveEmailPassword(
+                                  landlord.email, landlord.password);
+                              login();
+                            }
+                          }),
+                    )
+                  ])
+                ],
+              ),
             ),
-          ));
+          ])));
         },
         mutationName: 'loginLandlord',
         onComplete: (json) async {
-          bool? result = await Navigation().navigateToHousesPage(context, Landlord.fromJson(json));
-    
-          if (result != null) return;
-          
-          login();
-          
+          bool? result = await Navigation()
+              .navigateToHousesPage(context, Landlord.fromJson(json));
 
+          if (result != null) return;
+
+          login();
         },
       ),
     );

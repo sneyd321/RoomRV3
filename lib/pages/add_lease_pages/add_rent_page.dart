@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:notification_app/widgets/Forms/Form/CreateHouseRentForm.dart';
+import 'package:notification_app/buttons/CallToActionButton.dart';
+import 'package:notification_app/bloc/helper/SecondaryActionButton.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../widgets/buttons/CallToActionButton.dart';
-import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class AddRentPage extends StatefulWidget {
   final Lease lease;
@@ -42,14 +41,7 @@ class _AddRentPageState extends State<AddRentPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-            child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: CreateHouseRentForm(
-            rent: widget.lease.rent,
-            formKey: formKey,
-          ),
-        )),
+        
         Row(
           children: [
             Expanded(

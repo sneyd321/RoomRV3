@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/Navigation/navigation.dart';
+import 'package:notification_app/buttons/CallToActionButton.dart';
 
 import 'package:notification_app/graphql/graphql_client.dart';
-import 'package:notification_app/widgets/Navigation/navigation.dart';
-import 'package:notification_app/widgets/Cards/HouseCard.dart';
-import 'package:notification_app/widgets/Listviews/CardSliverListView.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../graphql/query_helper.dart';
-import '../widgets/buttons/CallToActionButton.dart';
 
 class HousesPage extends StatefulWidget {
   final Landlord landlord;
@@ -54,26 +52,7 @@ class _HousesPageState extends State<HousesPage>  {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              margin: const EdgeInsets.all(4),
-                              child: CardSliverListView(
-                                noItemsText: "No Properties",
-                                shrinkWrap: true,
-                                controller: ScrollController(),
-                                builder: (context, index) {
-                                  House house = houses[index];
-                                  return HouseCard(
-                                    landlord: widget.landlord,
-                                    house: house,
-                                    onHouse: (House house, Landlord landlord) {
-                                      Navigation().navigateToHouseMenuPage(
-                                          context, house, landlord);
-                                    },
-                                  );
-                                },
-                                items: houses,
-                              ),
-                            ),
+                           
                             Container(
                               margin: const EdgeInsets.all(8),
                               child: CallToActionButton(

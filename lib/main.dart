@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:notification_app/firebase_options.dart';
-import 'package:notification_app/pages/login_page.dart';
 import 'package:notification_app/pages/test_page.dart';
 import 'package:notification_app/services/FirebaseConfig.dart';
 
@@ -62,7 +61,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/":(context) =>  const LoginPage(email: "", password: "",)
+        "/":(context) =>  TestPage()//const LoginPage(email: "", password: "",)
       },
     );
   }

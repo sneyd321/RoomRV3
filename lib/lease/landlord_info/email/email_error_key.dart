@@ -1,0 +1,1 @@
+enum EmailErrorKey { emailName }

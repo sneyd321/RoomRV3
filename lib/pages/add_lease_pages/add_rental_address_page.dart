@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/widgets/Forms/Form/RentalAddressForm.dart';
+import 'package:notification_app/lease/rental_address/form/rental_address_form.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
-import '../../widgets/buttons/CallToActionButton.dart';
-import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class AddRentalAddressPage extends StatefulWidget {
   final Lease lease;
@@ -21,67 +19,14 @@ class AddRentalAddressPage extends StatefulWidget {
 }
 
 class _AddRentalAddressPageState extends State<AddRentalAddressPage> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final ScrollController scrollController = ScrollController();
-
-  void onNext(BuildContext context) {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-      widget.onNext(context);
-    }
-     else {
-       scrollController.animateTo(
-                        (scrollController.position.maxScrollExtent / 6) * 4 ,
-                        duration: const Duration(seconds: 2),
-                        curve: Curves.fastOutSlowIn,
-                      );
-    }
-  }
-
-  void onBack(BuildContext context) {
-    widget.onBack(context);
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-            child: ListView(
-              controller: scrollController,
-          physics: const BouncingScrollPhysics(),
-          children: [RentalAddressForm(
-            rentalAddress: widget.lease.rentalAddress,
-            formKey: formKey,
-          ),
-      ])),
-        Row(
-          children: [
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                child: SecondaryActionButton(
-                  text: "Back",
-                  onClick: () {
-                    onBack(context);
-                  },
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(8),
-                child: CallToActionButton(
-                  text: "Next",
-                  onClick: () {
-                    onNext(context);
-                  },
-                ),
-              ),
-            ),
-          ],
-        )
-      ],
+    return RentalAddressForm(
+      lease: widget.lease,
+      onUpdate: (RentalAddress rentalAddress) {
+        widget.onNext(context);
+      },
     );
   }
 }

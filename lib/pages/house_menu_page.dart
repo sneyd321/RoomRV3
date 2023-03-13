@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/cards/HouseMenuCard.dart';
+import 'package:notification_app/Navigation/navigation.dart';
+import 'package:notification_app/builders/notifications_limit.dart';
+import 'package:notification_app/buttons/TenantRow.dart';
 import 'package:notification_app/main.dart';
-import 'package:notification_app/services/FirebaseConfig.dart';
-import 'package:notification_app/widgets/buttons/TenantRow.dart';
-import 'package:notification_app/widgets/Cards/HouseMenuCard.dart';
-import 'package:notification_app/widgets/Forms/BottomSheetForm/AddNotificationForm.dart';
-import 'package:notification_app/widgets/Helper/BottomSheetHelper.dart';
-import 'package:notification_app/widgets/builders/notifications_limit.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../graphql/graphql_client.dart';
 import '../graphql/mutation_helper.dart';
-import '../widgets/Navigation/navigation.dart';
 
 class HouseMenuPage extends StatefulWidget {
   final House house;
@@ -65,7 +62,10 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
             alignment: Alignment.topRight,
             child: FloatingActionButton.extended(
               onPressed: () {
-                BottomSheetHelper(AddNotificationForm(
+                 /*
+                BottomSheetHelper(
+                 
+                  AddNotificationForm(
                     names: const ["24 Hours Notice"],
                     onSave: ((context, title, body) {
                       FirebaseConfiguration().setCustomNotification(
@@ -73,6 +73,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
                       setState(() {});
                       Navigator.pop(context);
                     }))).show(context);
+                    */
               },
               label: const Text("Compose Notification"),
               icon: const Icon(Icons.draw),
@@ -99,7 +100,7 @@ class _HouseMenuPageState extends State<HouseMenuPage> {
               )),
           GestureDetector(
             onTap: () {
-              Navigation().navigateToEditLeasePage(context, widget.house);
+              Navigation().navigateToEditLeasePage(context, widget.house.lease);
             },
             child: const ListTile(
               title: Text(

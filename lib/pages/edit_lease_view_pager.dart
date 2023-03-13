@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/buttons/CallToActionButton.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_additional_terms_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_landlord_info_page.dart';
 import 'package:notification_app/pages/edit_lease_pages/update_rent_deposit_page.dart';
@@ -16,11 +17,10 @@ import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../graphql/mutation_helper.dart';
 import '../graphql/graphql_client.dart';
-import '../widgets/buttons/CallToActionButton.dart';
 
 class EditLeaseStatePager extends StatefulWidget {
-  final House house;
-  const EditLeaseStatePager({Key? key, required this.house}) : super(key: key);
+  final Lease lease;
+  const EditLeaseStatePager({Key? key, required this.lease}) : super(key: key);
 
   @override
   State<EditLeaseStatePager> createState() => _EditLeaseStatePagerState();
@@ -76,15 +76,15 @@ class _EditLeaseStatePagerState extends State<EditLeaseStatePager> {
                       Expanded(
                         child: TabBarView(
                           children: [
-                            UpdateLandlordInfoPage(house: widget.house),
-                            UpdateRentalAddressPage(house: widget.house),
-                            UpdateRentPage(house: widget.house),
-                            UpdateTenancyTermsPage(house: widget.house),
-                            UpdateServicesPage(house: widget.house),
-                            UpdateUtilityPage(house: widget.house),
-                            UpdateRentDiscountPage(house: widget.house),
-                            UpdateRentDepositPage(house: widget.house),
-                            UpdateAdditionalTermsPage(house: widget.house),
+                            UpdateLandlordInfoPage(lease: widget.lease),
+                            UpdateRentalAddressPage(lease: widget.lease),
+                            UpdateRentPage(lease: widget.lease),
+                            UpdateTenancyTermsPage(lease: widget.lease),
+                            UpdateServicesPage(lease: widget.lease),
+                            UpdateUtilityPage(lease: widget.lease),
+                            UpdateRentDiscountPage(lease: widget.lease),
+                            UpdateRentDepositPage(lease: widget.lease),
+                            UpdateAdditionalTermsPage(lease: widget.lease),
                           ],
                         ),
                       ),
@@ -94,11 +94,13 @@ class _EditLeaseStatePagerState extends State<EditLeaseStatePager> {
                         child: CallToActionButton(
                             text: "Create New Revision",
                             onClick: () {
+                              /* Why can't lease be sent?
                               runMutation({
                                 "houseKey": widget.house.houseKey,
                                 "firebaseId": widget.house.firebaseId,
                                 "signature": ""
                               });
+                              */
                             }),
                       )
                     ]));

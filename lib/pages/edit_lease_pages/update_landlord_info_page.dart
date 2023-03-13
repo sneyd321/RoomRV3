@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:notification_app/widgets/Forms/Form/LandlordInfoForm.dart';
+import 'package:notification_app/lease/landlord_info/form/landlord_info_form.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
-
 import '../../graphql/mutation_helper.dart';
-import '../../widgets/buttons/SecondaryActionButton.dart';
 
 class UpdateLandlordInfoPage extends StatefulWidget {
-  final House house;
+  final Lease lease;
   const UpdateLandlordInfoPage({
     Key? key,
-    required this.house,
+    required this.lease,
   }) : super(key: key);
 
   @override
@@ -17,41 +15,29 @@ class UpdateLandlordInfoPage extends StatefulWidget {
 }
 
 class _UpdateLandlordInfoPageState extends State<UpdateLandlordInfoPage> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return MutationHelper(
-        builder: ((runMutation) {
-          return Column(
-            children: [
-              Expanded(
-                child:
-                    ListView(physics: const BouncingScrollPhysics(), children: [
-                  LandlordInfoForm(
-                    landlordInfo: widget.house.lease.landlordInfo,
-                    formKey: formKey,
-                  ),
-                ]),
-              ),
-              Container(
-                 margin: const EdgeInsets.all(8),
-                width: MediaQuery.of(context).size.width,
-                child: SecondaryActionButton(text: "Update Landlord Info", onClick: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    runMutation({
-                      "houseId": widget.house.houseId,
-                      "landlordInfo": widget.house.lease.landlordInfo.toJson()
-                    });
-                  }
-                }),
-              )
-            ],
-          );
-        }),
-        mutationName: 'updateLandlordInfo',
-        onComplete: (json) {},
+      builder: ((runMutation) {
+        return LandlordInfoForm(
+          lease: widget.lease,
+          onUpdate: (LandlordInfo landlordInfo) {
+            widget.lease.updateLandlordInfo(landlordInfo);
+            runMutation({
+              "houseId": widget.lease.houseId,
+              "landlordInfo": widget.lease.landlordInfo.toLandlordInfoInput()
+            });
+          },
+        );
+      }),
+      mutationName: 'updateLandlordInfo',
+      onComplete: (json) {
+        const snackBar = SnackBar(
+          content: Text('Update Successful'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      },
     );
   }
 }

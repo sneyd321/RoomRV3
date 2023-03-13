@@ -1,14 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:notification_app/maintenance_ticket/comment_form.dart';
+import 'package:notification_app/builders/comment_stream_builder.dart';
 import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../graphql/graphql_client.dart';
 import '../graphql/query_helper.dart';
 import '../services/FirebaseConfig.dart';
 
-import '../widgets/Forms/Form/comment_form.dart';
-import '../widgets/builders/comment_stream_builder.dart';
 
 class CommentsPage extends StatefulWidget {
   final int maintenanceTicketId;

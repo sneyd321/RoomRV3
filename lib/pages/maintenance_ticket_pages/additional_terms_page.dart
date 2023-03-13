@@ -6,8 +6,6 @@ import 'package:roomr_business_logic/roomr_business_logic.dart';
 
 import '../../graphql/query_helper.dart';
 import '../../graphql/graphql_client.dart';
-import '../../widgets/Cards/AdditionalTermCardReadOnly.dart';
-import '../../widgets/Listviews/CardSliverListView.dart';
 
 class AdditionalTermsPage extends StatefulWidget {
   final String houseKey;
@@ -40,17 +38,7 @@ class _AdditionalTermsPageState extends State<AdditionalTermsPage> {
                     },
                     onComplete: (json) {
                       House house = House.fromJson(json);
-                      return CardSliverListView(
-                          items: house.lease.additionalTerms,
-                          builder: (context, index) {
-                            AdditionalTerm additionalTerm =
-                                house.lease.additionalTerms[index];
-                            return AdditionalTermCardReadOnly(
-                                landlord: widget.landlord,
-                                firebaseId: widget.firebaseId,
-                                additionalTerm: additionalTerm);
-                          },
-                          controller: ScrollController());
+                      return Text("data");
                     }))));
   }
 }
